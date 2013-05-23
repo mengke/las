@@ -1,0 +1,1 @@
+LAS is the abbreviation of the Log Analyzer System. It's a Java-based logs analyzing platform.
