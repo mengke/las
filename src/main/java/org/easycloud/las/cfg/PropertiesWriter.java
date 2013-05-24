@@ -19,7 +19,7 @@ import static org.easycloud.las.util.Assert.assertArgNotNull;
  */
 public class PropertiesWriter {
 
-	private static Logger logger = LoggerFactory.getLogger(PropertiesWriter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesWriter.class);
 
 	private String propertiesFileName;
 
@@ -44,7 +44,9 @@ public class PropertiesWriter {
 			return persistFile.exists() ? persistFile.canWrite() : persistFile
 							.getParentFile().canWrite();
 		} catch (FileNotFoundException e) {
-			logger.warn("PropertiesWriter isWritable can't find the specified file: " + propertiesFileName);
+			if (LOGGER.isWarnEnabled()) {
+				LOGGER.warn("PropertiesWriter isWritable: can't find the specified file: " + propertiesFileName);
+			}
 			return false;
 		}
 	}
@@ -59,7 +61,9 @@ public class PropertiesWriter {
 			File propertiesFile = getPersistFile();
 			propOutput = new FileOutputStream(propertiesFile);
 			props.store(propOutput, null);
-			logger.info("PropertiesWriter persist Wrote properties to " + propertiesFileName);
+			if (LOGGER.isWarnEnabled()) {
+				LOGGER.info("PropertiesWriter persist: Wrote properties to " + propertiesFileName);
+			}
 		} catch (Exception e) {
 			throw new PropertiesPersistException();
 		} finally {

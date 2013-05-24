@@ -7,7 +7,7 @@
 	<!-- Console -->
 	<appender name="LOG-CONSOLE" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
-		<param name="Threshold" value="INFO" />
+		<param name="Threshold" value="DEBUG" />
 		<param name="encoding" value="UTF-8" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%m %n" />
@@ -16,9 +16,9 @@
 
     <!-- File -->
 	<appender name="LOG-SYSTEM" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" 			value="koala-server.log" />
+		<param name="File" 			value="las-agent.log" />
 		<param name="Append" 		value="true" />
-		<param name="Threshold" 	value="ERROR" />
+		<param name="Threshold" 	value="INFO" />
 		<param name="encoding" value="UTF-8" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{ISO8601} %-5p [%C{1}] %c %m %n" />
@@ -26,7 +26,7 @@
 	</appender>
 
 	<root>
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="LOG-CONSOLE" />
 		<appender-ref ref="LOG-SYSTEM" />
 	</root>

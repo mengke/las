@@ -9,8 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static org.easycloud.las.agent.Constants.LOG_AGENT_NAME;
-import static org.easycloud.las.agent.Constants.LOG_PUSH_PERIOD;
+import static org.easycloud.las.agent.Constants.*;
 import static org.easycloud.las.util.Assert.assertStateHasLength;
 
 /**
@@ -23,6 +22,7 @@ public class LoggingAgent {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAgent.class);
 
 	private static final long DEFAULT_LOG_PUSH_PERIOD = 60;
+	private static final long DEFAULT_LOG_CLEAR_PERIOD = 1;
 
 	private static LoggingAgent instance = new LoggingAgent();
 
@@ -36,7 +36,7 @@ public class LoggingAgent {
 		assertStateHasLength(agentName, "No agent name defined. Please check "
 						+ LOG_AGENT_NAME + " setting in " + Constants.LOG_AGENT_PROPS);
 
-		workerExecutor = Executors.newSingleThreadScheduledExecutor(
+		workerExecutor = Executors.newScheduledThreadPool(2,
 						new ThreadFactoryBuilder().setNameFormat("Log-BackgroundWorker-" + agentName)
 										.build());
 	}
@@ -47,11 +47,15 @@ public class LoggingAgent {
 
 	public void startUp() {
 		if (LOGGER.isInfoEnabled()) {
-			LOGGER.info(agentName + " is ready to start ...");
+			LOGGER.info("LoggingAgent: " + agentName + " is ready to start ...");
 		}
-		workerExecutor.scheduleAtFixedRate(new LogPushThread(agentConfiguration),
-						0L, agentConfiguration.getLong(LOG_PUSH_PERIOD, DEFAULT_LOG_PUSH_PERIOD), TimeUnit.MINUTES);
+		workerExecutor.scheduleAtFixedRate(new LogPushThread(agentConfiguration), 0L,
+						agentConfiguration.getLong(LOG_PUSH_PERIOD, DEFAULT_LOG_PUSH_PERIOD), TimeUnit.MINUTES);
 
+		if (agentConfiguration.getBoolean(LOG_CLEAR_ENABLED, true)) {
+			workerExecutor.scheduleAtFixedRate(new LogClearThread(agentConfiguration), 0L,
+							agentConfiguration.getLong(LOG_CLEAR_PERIOD, DEFAULT_LOG_CLEAR_PERIOD), TimeUnit.DAYS);
+		}
 	}
 
 	public void shutDown() {

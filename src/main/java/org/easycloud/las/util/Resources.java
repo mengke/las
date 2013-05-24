@@ -85,14 +85,18 @@ public class Resources {
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 			throw new FileOperationsException("Failed to load " + fileName, e);
 		} finally {
 			if (fis != null) {
 				try {
 					fis.close();
 				} catch (Exception e) {
-					LOGGER.error(e.getMessage(), e);
+					if (LOGGER.isErrorEnabled()) {
+						LOGGER.error(e.getMessage(), e);
+					}
 				}
 			}
 		}
@@ -111,7 +115,9 @@ public class Resources {
 			try {
 				return loadResource(resource.getInputStream());
 			} catch (Exception ex) {
-				LOGGER.error(ex.getMessage(), ex);
+				if (LOGGER.isErrorEnabled()) {
+					LOGGER.error(ex.getMessage(), ex);
+				}
 				throw new FileOperationsException("Failed to load resource " + resource.getFilename(), ex);
 			}
 		}
@@ -141,7 +147,9 @@ public class Resources {
 			}
 			return sb.toString();
 		} catch (Exception ex) {
-			LOGGER.error(ex.getMessage(), ex);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(ex.getMessage(), ex);
+			}
 			throw new FileOperationsException("Failed to load resource", ex);
 		}
 	}

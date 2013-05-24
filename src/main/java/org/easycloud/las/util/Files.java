@@ -71,7 +71,9 @@ public class Files {
 			file = findFileOnSystemClasspath(shortFileName);
 		}
 		if (file == null) {
-			LOGGER.error("Failed to find file locally or on classpath. File name=" + shortFileName);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error("Failed to find file locally or on classpath. File name=" + shortFileName);
+			}
 			throw new FileNotFoundException(shortFileName);
 		}
 		return file;
@@ -95,7 +97,9 @@ public class Files {
 			}
 			rc = f;
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 			throw new FileOperationsException("failed directory create " + parentDir + "." + childDir, e);
 		}
 		return rc;
@@ -117,7 +121,9 @@ public class Files {
 			}
 			rc = f;
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 			throw new FileOperationsException("failed to create directory " + dir, e);
 		}
 		return rc;
@@ -133,7 +139,9 @@ public class Files {
 			File in = new File(rootDir);
 			FileUtils.cleanDirectory(in);
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 			throw new FileOperationsException(e);
 		}
 	}
@@ -163,12 +171,16 @@ public class Files {
 			}
 			for (File f : files) {
 				if (filter.accept(f) && f.exists()) {
-					LOGGER.debug("deleting file " + f.getAbsolutePath());
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("deleting file " + f.getAbsolutePath());
+					}
 					FileUtils.forceDelete(f);
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 			throw new FileOperationsException(e);
 		}
 
@@ -191,7 +203,9 @@ public class Files {
 			File out = new File(destDir);
 			FileUtils.copyDirectory(in, out, true);
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 			throw new FileOperationsException(e);
 		}
 	}
@@ -215,10 +229,14 @@ public class Files {
 			File f = new File(directory, fn);
 			if (f.exists()) {
 				if (!overwrite) {
-					LOGGER.debug("File " + f.getAbsolutePath()
-									+ " exists, overwrite disabled. File unchanged");
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("File " + f.getAbsolutePath()
+										+ " exists, overwrite disabled. File unchanged");
+					}
 				} else {
-					LOGGER.debug("File " + f.getAbsolutePath() + " exists, overwrite disabled. Deleting...");
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("File " + f.getAbsolutePath() + " exists, overwrite disabled. Deleting...");
+					}
 					f.delete();
 					writeXmlFile(f, doc);
 				}
@@ -274,10 +292,14 @@ public class Files {
 			f = new File(directory, fn);
 			if (f.exists()) {
 				if (!overwrite) {
-					LOGGER.debug("File " + f.getAbsolutePath()
-									+ " exists, overwrite disabled. File unchanged");
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("File " + f.getAbsolutePath()
+										+ " exists, overwrite disabled. File unchanged");
+					}
 				} else {
-					LOGGER.debug("File " + f.getAbsolutePath() + " exists, overwrite disabled. Deleting...");
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("File " + f.getAbsolutePath() + " exists, overwrite disabled. Deleting...");
+					}
 					f.delete();
 					writeToFile(f, content);
 				}
@@ -285,7 +307,9 @@ public class Files {
 				writeToFile(f, content);
 			}
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 		}
 		return f;
 	}
@@ -361,13 +385,17 @@ public class Files {
 				fos.close();
 			}
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 		} finally {
 			if (fos != null) {
 				try {
 					fos.close();
 				} catch (Exception e) {
-					LOGGER.error("unexpected error closing filestream", e);
+					if (LOGGER.isErrorEnabled()) {
+						LOGGER.error("unexpected error closing filestream", e);
+					}
 				}
 			}
 		}
@@ -395,12 +423,10 @@ public class Files {
 			File[] fileList = rootDir.listFiles();
 			if (fileList != null) {
 				for (File dirOrFile : fileList) {
-					if (dirOrFile.isFile()) {
-						if (filter.accept(dirOrFile)) {
-							files.add(dirOrFile);
-						}
+					if (filter.accept(dirOrFile)) {
+						files.add(dirOrFile);
 					} else {
-						if (recursive) {
+						if (recursive && dirOrFile.isDirectory()) {
 							getFiles(dirOrFile, filter, recursive, files);
 						}
 					}
@@ -419,13 +445,17 @@ public class Files {
 			fos.flush();
 			fos.close();
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 		} finally {
 			if (fos != null) {
 				try {
 					fos.close();
 				} catch (Exception e) {
-					LOGGER.error("unexpected error closing filestream", e);
+					if (LOGGER.isErrorEnabled()) {
+						LOGGER.error("unexpected error closing filestream", e);
+					}
 				}
 			}
 		}
@@ -445,7 +475,9 @@ public class Files {
 				try {
 					fos.close();
 				} catch (Exception e) {
-					LOGGER.error(e.getMessage(), e);
+					if (LOGGER.isErrorEnabled()) {
+						LOGGER.error(e.getMessage(), e);
+					}
 				}
 			}
 		}

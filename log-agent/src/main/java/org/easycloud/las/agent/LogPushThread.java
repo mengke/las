@@ -1,5 +1,6 @@
 package org.easycloud.las.agent;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.flume.EventDeliveryException;
 import org.easycloud.las.agent.cfg.AgentConfiguration;
@@ -16,8 +17,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import static org.easycloud.las.agent.AvroClient.DEFAULT_AVRO_PORT;
 import static org.easycloud.las.agent.Constants.*;
@@ -43,6 +43,11 @@ public class LogPushThread implements Runnable {
 
 	@Override
 	public void run() {
+		long start = System.currentTimeMillis();
+		if (LOGGER.isInfoEnabled()) {
+			LOGGER.info("LogPushThread: started at " + DEFAULT_TIME_FORMAT.format(start));
+		}
+
 		Configuration logPushCfg = new Configuration(LOG_PUSH_PROPS);
 		String lastPushed = logPushCfg.get(LAST_PUSHED);
 		Date lastPushedTime = parseDate(lastPushed, DEFAULT_TIME_FORMAT);
@@ -58,43 +63,67 @@ public class LogPushThread implements Runnable {
 		String hostName = agentConfiguration.get(Constants.AVRO_SOURCE_HOST);
 		int port = agentConfiguration.getInt(Constants.AVRO_SOURCE_PORT, DEFAULT_AVRO_PORT);
 
-		String latestPushed = null;
+		List<Date> loggingTimes = new ArrayList<Date>();
+		DateFormat df = new SimpleDateFormat(agentConfiguration.get(LOG_FILE_PATTERN));
 		for (File logFile : logs) {
 			String loggingTimeStr = parseLoggingTime(rootPath, postfix, logFile);
+			Date loggingTime = parseDate(loggingTimeStr, df);
 
-			latestPushed = pushLogFile(lastPushedTime, hostName, port, latestPushed, logFile, loggingTimeStr);
+			if (loggingTime != null) {
+				boolean hasPushed = pushLogFile(lastPushedTime, hostName, port, logFile, loggingTime);
+				if (hasPushed) {
+					loggingTimes.add(loggingTime);
+				}
+			} else {
+				if (LOGGER.isWarnEnabled()) {
+					LOGGER.warn("LogPushThread: Parsing the log file [" + logFile.getPath() + "] failed, and it's skipped.");
+				}
+			}
+
 		}
 
-		if (StringUtils.isNotBlank(latestPushed)) {
-			DateFormat df = new SimpleDateFormat(agentConfiguration.get(LOG_NAME_PATTERN));
-			Date latestPushedTime = parseDate(latestPushed, df);
-			if (latestPushedTime != null) {
-				PropertiesWriter propsWriter = new PropertiesWriter(logPushCfg);
-				propsWriter.persist(LAST_PUSHED, TimeUtil.DEFAULT_TIME_FORMAT.format(latestPushedTime));
+		if (CollectionUtils.isNotEmpty(loggingTimes)) {
+			Date latestPushedTime = Collections.max(loggingTimes);
+			PropertiesWriter propsWriter = new PropertiesWriter(logPushCfg);
+			propsWriter.persist(LAST_PUSHED, TimeUtil.DEFAULT_TIME_FORMAT.format(latestPushedTime));
+		} else {
+			if (LOGGER.isWarnEnabled()) {
+				LOGGER.warn("LogPushThread: no files was pushed.");
 			}
+		}
+
+		if (LOGGER.isInfoEnabled()) {
+			long end = System.currentTimeMillis();
+			LOGGER.info("LogPushThread: finished at " + DEFAULT_TIME_FORMAT.format(end) +
+							", elapsed: " + TimeUtil.elapsedTime(start, end));
 		}
 	}
 
-	private String pushLogFile(Date lastPushedTime, String hostName, int port, String latestPushed, File logFile, String loggingTimeStr) {
-		boolean needPush = isNeedPush(loggingTimeStr, lastPushedTime);
+	private boolean pushLogFile(Date lastPushedTime, String hostName, int port, File logFile,
+													 Date loggingTime) {
+		boolean needPush = isNeedPush(loggingTime, lastPushedTime);
 		if (needPush) {
-			if (TimeUtil.isAfter(loggingTimeStr, agentConfiguration.get(LOG_NAME_PATTERN), lastPushedTime)) {
-				latestPushed = loggingTimeStr;
-			}
 			AvroClient avroClient = new AvroClient(hostName, port, logFile);
 			try {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("LogPushThread: Pushing the log file [" + logFile.getPath() + "]");
+				}
 				avroClient.push();
 			} catch (EventDeliveryException e) {
 				if (LOGGER.isErrorEnabled()) {
-					LOGGER.error("LogPushThread Unable to deliver events to Flume. Exception follows.", e);
+					LOGGER.error("LogPushThread: Unable to deliver events to Flume. Exception follows.", e);
 				}
 			} catch (IOException e) {
 				if (LOGGER.isErrorEnabled()) {
-					LOGGER.error("LogPushThread Unable to send data to Flume. Exception follows.", e);
+					LOGGER.error("LogPushThread: Unable to send data to Flume. Exception follows.", e);
 				}
 			}
+		} else {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("LogPushThread: the log file [" + logFile.getPath() + "] is skipped.");
+			}
 		}
-		return latestPushed;
+		return needPush;
 	}
 
 	private Date parseDate(String timeStr, DateFormat df) {
@@ -102,11 +131,10 @@ public class LogPushThread implements Runnable {
 		try {
 			if (StringUtils.isNotBlank(timeStr)) {
 				time = df.parse(timeStr);
-
 			}
 		} catch (ParseException e) {
 			if (LOGGER.isWarnEnabled()) {
-				LOGGER.warn("LogPushThread parsing the logging time failed. Exception follows.", e);
+				LOGGER.warn("LogPushThread: parsing the logging time failed. Exception follows.", e);
 			}
 		}
 		return time;
@@ -134,14 +162,11 @@ public class LogPushThread implements Runnable {
 		return Files.findFiles(rootDir, filter, true);
 	}
 
-	private boolean isNeedPush(String loggingTime, Date lastPushedTime) {
-		boolean needPush = false;
-		boolean isAfter = TimeUtil.isAfter(loggingTime, agentConfiguration.get(LOG_NAME_PATTERN), lastPushedTime);
-		boolean isBeforeNow = TimeUtil.isBeforeNow(loggingTime, agentConfiguration.get(LOG_NAME_PATTERN),
+	private boolean isNeedPush(Date loggingTime, Date lastPushedTime) {
+		boolean isAfter = lastPushedTime == null || TimeUtil.isAfter(loggingTime, lastPushedTime);
+		boolean isBeforeNow = TimeUtil.isBeforeNow(loggingTime,
 						agentConfiguration.getInt(LOG_PUSH_BEFORE, DEFAULT_BEFORE_HOURS), Calendar.HOUR);
-		needPush = isAfter && isBeforeNow;
-
-		return needPush;
+		return isAfter && isBeforeNow;
 	}
 
 }
