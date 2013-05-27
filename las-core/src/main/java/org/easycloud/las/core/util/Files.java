@@ -4,7 +4,7 @@ package org.easycloud.las.core.util;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
-import org.easycloud.las.core.util.las.exception.FileOperationsException;
+import org.easycloud.las.core.exception.FileOperationsException;
 import org.jdom2.Document;
 import org.jdom2.output.XMLOutputter;
 import org.slf4j.Logger;

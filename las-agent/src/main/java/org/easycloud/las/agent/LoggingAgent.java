@@ -1,7 +1,7 @@
 package org.easycloud.las.agent;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import org.easycloud.las.core.util.las.agent.cfg.AgentConfiguration;
+import org.easycloud.las.agent.cfg.AgentConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,8 +9,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static org.easycloud.las.agent.Constants.*;
 import static org.easycloud.las.core.util.Assert.assertStateHasLength;
-import static org.easycloud.las.agent.cfg.Constants.*;
 
 /**
  * Created by IntelliJ IDEA.

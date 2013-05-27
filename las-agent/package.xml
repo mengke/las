@@ -8,8 +8,12 @@
     <includeBaseDirectory>true</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>src/main/resource</directory>
-            <outputDirectory>config</outputDirectory>
+            <directory>src/main/resources</directory>
+            <outputDirectory>conf</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>src/bin</directory>
+            <outputDirectory>bin</outputDirectory>
         </fileSet>
     </fileSets>
     <dependencySets>

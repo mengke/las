@@ -3,12 +3,12 @@ package org.easycloud.las.agent;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.flume.EventDeliveryException;
+import org.easycloud.las.agent.cfg.AgentConfiguration;
 import org.easycloud.las.core.cfg.Configuration;
 import org.easycloud.las.core.cfg.PropertiesWriter;
 import org.easycloud.las.core.util.FileNameFilter;
 import org.easycloud.las.core.util.Files;
 import org.easycloud.las.core.util.TimeUtil;
-import org.easycloud.las.core.util.las.agent.cfg.AgentConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,11 +19,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static org.easycloud.las.agent.AvroClient.DEFAULT_AVRO_PORT;
+import static org.easycloud.las.agent.Constants.*;
 import static org.easycloud.las.core.util.Assert.assertState;
 import static org.easycloud.las.core.util.Assert.assertStateHasLength;
 import static org.easycloud.las.core.util.TimeUtil.DEFAULT_TIME_FORMAT;
-import static org.easycloud.las.agent.cfg.AvroClient.DEFAULT_AVRO_PORT;
-import static org.easycloud.las.agent.cfg.Constants.*;
 
 /**
  * Created by IntelliJ IDEA.

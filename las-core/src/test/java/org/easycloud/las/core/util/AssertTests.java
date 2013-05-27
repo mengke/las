@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.easycloud.las.util.las.util.Assert.*;
-import static org.testng.Assert.*;
+import static org.easycloud.las.core.util.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertSame;
 
 /**
  * Created by IntelliJ IDEA.

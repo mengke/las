@@ -11,8 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.easycloud.las.core.util.las.util.Assert.assertArgHasLength;
-import static org.easycloud.las.core.util.las.util.Assert.assertArgNotNull;
+import static org.easycloud.las.core.util.Assert.assertArgHasLength;
+import static org.easycloud.las.core.util.Assert.assertArgNotNull;
 
 /**
  * Time utility class that gets the time and computes intervals

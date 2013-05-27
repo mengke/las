@@ -9,7 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>log-agent</module>
+        <module>las-agent</module>
+        <module>las-core</module>
     </modules>
 
     <properties>
@@ -20,47 +21,5 @@
         <spring.version>3.2.2.RELEASE</spring.version>
         <jdom.version>2.0.5</jdom.version>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.flume</groupId>
-            <artifactId>flume-ng-core</artifactId>
-            <version>${flume.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jdom</groupId>
-            <artifactId>jdom2</artifactId>
-            <version>${jdom.version}</version>
-        </dependency>
-    </dependencies>
 
 </project>

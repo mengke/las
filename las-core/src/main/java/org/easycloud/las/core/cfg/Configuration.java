@@ -1,14 +1,16 @@
 package org.easycloud.las.core.cfg;
 
-import org.easycloud.las.util.las.util.Resources;
-import org.easycloud.las.util.las.util.StringUtil;
+
+import org.easycloud.las.core.util.Resources;
+import org.easycloud.las.core.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
 
-import static org.easycloud.las.util.las.util.Assert.assertStateHasLength;
-import static org.easycloud.las.util.las.util.Assert.assertStateNotNull;
+import static org.easycloud.las.core.util.Assert.assertStateHasLength;
+import static org.easycloud.las.core.util.Assert.assertStateNotNull;
+
 
 /**
  * The root class for getting properties operations, it cant be use directly and need to be extended.

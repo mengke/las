@@ -1,7 +1,7 @@
 package org.easycloud.las.agent.cfg;
 
+import org.easycloud.las.agent.Constants;
 import org.easycloud.las.core.cfg.Configuration;
-import org.easycloud.las.core.util.las.agent.Constants;
 
 /**
  * Created by IntelliJ IDEA.

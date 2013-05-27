@@ -1,16 +1,17 @@
 package org.easycloud.las.core.cfg;
 
-import org.easycloud.las.util.las.exception.PropertiesPersistException;
-import org.easycloud.las.util.las.util.Files;
-import org.easycloud.las.util.las.util.Resources;
+
+import org.easycloud.las.core.exception.PropertiesPersistException;
+import org.easycloud.las.core.util.Files;
+import org.easycloud.las.core.util.Resources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Properties;
 
-import static org.easycloud.las.util.las.util.Assert.assertArgHasLength;
-import static org.easycloud.las.util.las.util.Assert.assertArgNotNull;
+import static org.easycloud.las.core.util.Assert.assertArgHasLength;
+import static org.easycloud.las.core.util.Assert.assertArgNotNull;
 
 /**
  * Created by IntelliJ IDEA.
