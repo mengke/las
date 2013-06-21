@@ -1,4 +1,4 @@
-package org.easycloud.las.analyzer.mapred.housevisit;
+package org.easycloud.las.analyzer.housevisit;
 
 import org.apache.hadoop.io.Text;
 
@@ -48,11 +48,11 @@ public class HouseVisitParser {
 				parseStatus = LOG_SKIPPED;
 				return;
 			}
-			Date visitTime = null;
+			Date visitTime;
 			try {
 				visitTime = LOG_VISIT_DTTM_FORMAT.parse(visitTimeStr);
 				long visitDttm = visitTime.getTime();
-				String userId = null;
+				String userId;
 				byte userType;
 				if (!LOG_PLACEHOLDER.equals(userCode)) {
 					userId = userCode;

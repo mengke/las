@@ -1,9 +1,13 @@
-package org.easycloud.las.analyzer.mapred.housevisit;
+package org.easycloud.las.analyzer.housevisit.mapred;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.MapDriver;
+import org.apache.hadoop.mrunit.MapReduceDriver;
 import org.apache.hadoop.mrunit.ReduceDriver;
+import org.easycloud.las.analyzer.housevisit.HouseVisitEntry;
+import org.easycloud.las.analyzer.housevisit.HouseVisitRecord;
+import org.easycloud.las.analyzer.housevisit.UserVisitsRecord;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,6 +31,8 @@ public class TestHouseVisiting {
 	private MapDriver<LongWritable, Text, Text, HouseVisitEntry> mapDriver;
 	private ReduceDriver<Text, HouseVisitEntry, Text, UserVisitsRecord> reduceDriver;
 
+    private MapReduceDriver<LongWritable, Text, Text, HouseVisitEntry, Text, UserVisitsRecord> mapReduceDriver;
+
 	@Before
 	public void setUp() {
 		HouseVisitingMapper mapper = new HouseVisitingMapper();
@@ -34,6 +40,8 @@ public class TestHouseVisiting {
 
 		HouseVisitingReducer reducer = new HouseVisitingReducer();
 		reduceDriver = ReduceDriver.newReduceDriver(reducer);
+
+        mapReduceDriver = MapReduceDriver.newMapReduceDriver(mapper, reducer);
 	}
 
 	@Test
@@ -74,27 +82,66 @@ public class TestHouseVisiting {
 	public void testReduce() throws IOException {
 		List<HouseVisitEntry> houseVisitEntryList = new ArrayList<HouseVisitEntry>();
 		Date date = new Date();
-		long dttm1 = date.getTime() - 10l;
+		long dttm1 = date.getTime() + 100l;
 		HouseVisitEntry entry1 = new HouseVisitEntry("622ce3116a90b41e939dc1f1517eee72", USER_TYPE_LOGIN, dttm1, "BJCP85578551", HOUSE_TYPE_RENT);
 		houseVisitEntryList.add(entry1);
-		long dttm2 = date.getTime() - 100l;
+		long dttm2 = date.getTime() + 10l;
 		HouseVisitEntry entry2 = new HouseVisitEntry("622ce3116a90b41e939dc1f1517eee72", USER_TYPE_LOGIN, dttm2, "BJCP85578552", HOUSE_TYPE_SELL);
 		houseVisitEntryList.add(entry2);
-		long dttm3 = date.getTime() - 1000l;
+		long dttm3 = date.getTime() + 1000l;
 		HouseVisitEntry entry3 = new HouseVisitEntry("622ce3116a90b41e939dc1f1517eee72", USER_TYPE_LOGIN, dttm3, "BJCP85578550", HOUSE_TYPE_SELL);
 		houseVisitEntryList.add(entry3);
 		reduceDriver.withInput(new Text("622ce3116a90b41e939dc1f1517eee72"), houseVisitEntryList);
 
-		UserVisitsRecord.HouseVisitRecord record3 = new UserVisitsRecord.HouseVisitRecord("BJCP85578550", HOUSE_TYPE_SELL, dttm3);
-		UserVisitsRecord.HouseVisitRecord record2 = new UserVisitsRecord.HouseVisitRecord("BJCP85578552", HOUSE_TYPE_SELL, dttm2);
-		UserVisitsRecord.HouseVisitRecord record1 = new UserVisitsRecord.HouseVisitRecord("BJCP85578551", HOUSE_TYPE_RENT, dttm1);
+        HouseVisitRecord record1 = new HouseVisitRecord("BJCP85578551", HOUSE_TYPE_RENT, dttm1);
+        HouseVisitRecord record2 = new HouseVisitRecord("BJCP85578552", HOUSE_TYPE_SELL, dttm2);
+		HouseVisitRecord record3 = new HouseVisitRecord("BJCP85578550", HOUSE_TYPE_SELL, dttm3);
 
-		UserVisitsRecord record = new UserVisitsRecord("622ce3116a90b41e939dc1f1517eee72", USER_TYPE_LOGIN, new UserVisitsRecord.HouseVisitRecord[] {record3, record2, record1});
+		UserVisitsRecord record = new UserVisitsRecord(USER_TYPE_LOGIN, new HouseVisitRecord[] {record3, record1, record2});
 
 		reduceDriver.withOutput(new Text("622ce3116a90b41e939dc1f1517eee72"), record);
 
 		reduceDriver.runTest();
 	}
+
+    @Test
+    public void testMapReduce() throws IOException, ParseException {
+        mapReduceDriver.withInput(new LongWritable(123), new Text("114.249.54.41   2013-06-04 03:00:33" +
+                "   7a601aadbb67c0a3739c14a59cd3d242" +
+                "   http://beijing.homelink.com.cn/ershoufang/d3b130/p2pg2/" +
+                "   http://beijing.homelink.com.cn/ershoufang/BJFT85558816.shtml" +
+                "   6e2b58d1ed29f167976f9c88c835951d   $   $"));
+
+        mapReduceDriver.withInput(new LongWritable(124), new Text("114.249.54.42   2013-06-04 03:00:41" +
+                "   21a5a5dcde0ee2805d781591e5cc2e79   http://beijing.homelink.com.cn/zufang/BJCP85062036.shtml" +
+                "   http://beijing.homelink.com.cn/zufang/BJCP85062036.shtml   $   $   $"));
+
+        mapReduceDriver.withInput(new LongWritable(125), new Text("124.202.190.3   2013-06-04 03:01:02" +
+                "   21a5a5dcde0ee2805d781591e5cc2e79   http://beijing.homelink.com.cn/ershoufang/pg2rs天下儒寓/" +
+                "   http://beijing.homelink.com.cn/ershoufang/pg3rs天下儒寓/   $   $   $"));
+
+        mapReduceDriver.withInput(new LongWritable(126), new Text("114.249.54.41   2013-06-04 03:01:10" +
+                "   7a601aadbb67c0a3739c14a59cd3d242   http://beijing.homelink.com.cn/zufang/d3b130/p2pg2/" +
+                "   http://beijing.homelink.com.cn/zufang/BJFT84662905.shtml   6e2b58d1ed29f167976f9c88c835951d   $   $"));
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date date1 = df.parse("2013-06-04 03:00:33");
+        HouseVisitRecord record1 = new HouseVisitRecord("BJFT85558816", HOUSE_TYPE_SELL, date1.getTime());
+        Date date2 = df.parse("2013-06-04 03:00:41");
+        HouseVisitRecord record2 = new HouseVisitRecord("BJCP85062036", HOUSE_TYPE_RENT, date2.getTime());
+        Date date3 = df.parse("2013-06-04 03:01:10");
+        HouseVisitRecord record3 = new HouseVisitRecord("BJFT84662905", HOUSE_TYPE_RENT, date3.getTime());
+
+        UserVisitsRecord userRecord1 = new UserVisitsRecord(USER_TYPE_LOGIN, new HouseVisitRecord[] {record3, record1});
+        UserVisitsRecord userRecord2 = new UserVisitsRecord(USER_TYPE_ANONYMOUS, new HouseVisitRecord[] {record2});
+
+        mapReduceDriver.addOutput(new Text("6e2b58d1ed29f167976f9c88c835951d"), userRecord1);
+        mapReduceDriver.addOutput(new Text("21a5a5dcde0ee2805d781591e5cc2e79"), userRecord2);
+
+        mapReduceDriver.runTest(false);
+
+    }
 
 
 

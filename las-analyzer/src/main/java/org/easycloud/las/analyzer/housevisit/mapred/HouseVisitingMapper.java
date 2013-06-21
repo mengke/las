@@ -1,4 +1,4 @@
-package org.easycloud.las.analyzer.mapred.housevisit;
+package org.easycloud.las.analyzer.housevisit.mapred;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -6,6 +6,8 @@ import org.apache.hadoop.mapred.MapReduceBase;
 import org.apache.hadoop.mapred.Mapper;
 import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapred.Reporter;
+import org.easycloud.las.analyzer.housevisit.HouseVisitEntry;
+import org.easycloud.las.analyzer.housevisit.HouseVisitParser;
 
 import java.io.IOException;
 
