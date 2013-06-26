@@ -8,7 +8,6 @@ import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
 import org.easycloud.las.analyzer.housevisit.HouseVisitArrayWritable;
 import org.easycloud.las.analyzer.housevisit.HouseVisitEntry;
 import org.easycloud.las.analyzer.housevisit.HouseVisitRecord;
-import org.easycloud.las.analyzer.housevisit.UserVisitsRecord;
 import org.easycloud.las.analyzer.io.TextBytePair;
 import org.easycloud.las.analyzer.io.TextLongPair;
 import org.junit.Before;
@@ -23,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.easycloud.las.analyzer.Constants.*;
-import static org.easycloud.las.analyzer.Constants.USER_TYPE_LOGIN;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,6 +36,7 @@ public class TestHouseVisiting {
     private MapReduceDriver<LongWritable, Text, TextLongPair,
                 HouseVisitEntry, TextBytePair, HouseVisitArrayWritable> mapReduceDriver;
 
+    @SuppressWarnings("unchecked")
     @Before
     public void setUp() throws Exception {
         HouseVisitingMapper mapper = new HouseVisitingMapper();

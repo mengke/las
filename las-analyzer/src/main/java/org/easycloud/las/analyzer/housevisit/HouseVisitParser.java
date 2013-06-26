@@ -24,10 +24,12 @@ public class HouseVisitParser {
 
 	private int parseStatus;
 
-	public void parse(String record) {
+	public void parse(String record) throws Exception {
 		parseStatus = 0;
 		String[] recordEntries = record.split(LOG_DELIMITER);
-		assert recordEntries.length == LOG_ENTRIES_SIZE;
+        if (recordEntries.length != LOG_ENTRIES_SIZE) {
+            throw new IllegalStateException("The log record doesn't follow the rule. " + record);
+        }
 		String cookieId = recordEntries[2];
 		String userCode = recordEntries[5];
 		String visitUrl = recordEntries[4];
@@ -73,7 +75,7 @@ public class HouseVisitParser {
 		}
 	}
 
-	public void parse(Text record) {
+	public void parse(Text record) throws Exception {
 		parse(record.toString());
 	}
 
