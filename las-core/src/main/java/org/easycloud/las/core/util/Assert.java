@@ -23,7 +23,7 @@ import java.util.Map;
  *
  * It is recommended that this class be statically imported so
  * that only the method names are in the code itself. For example
- * import static org.easycloud.org.easycloud.org.easycloud.las.core.util.las.core.util.Assert.assertArgNotNull;
+ * import static org.easycloud.las.core.util.las.core.util.Assert.assertArgNotNull;
  *
  * Each method name gives a clue as to the type of exception that will be thrown
  * if the test is false.
