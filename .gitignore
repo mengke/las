@@ -5,10 +5,11 @@
 *.iml
 *.ipr
 *.iws
-target/*
+*/target/*
 out/*
 .settings/*
 build/*
 *.log
 *.log.*
+.DS_Store
 
