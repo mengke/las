@@ -3,6 +3,8 @@ package org.easycloud.las.analyzer.housevisit;
 import org.apache.hadoop.io.ArrayWritable;
 import org.apache.hadoop.io.Writable;
 
+import java.util.Arrays;
+
 /**
  * Created with IntelliJ IDEA.
  * User: ibntab
@@ -51,12 +53,6 @@ public class HouseVisitArrayWritable extends ArrayWritable {
     @Override
     public String toString() {
         HouseVisitRecord[] records = (HouseVisitRecord[]) this.toArray();
-        StringBuffer sb = new StringBuffer("[");
-        for (HouseVisitRecord record : records) {
-            sb.append("{").append(record.toString()).append("},");
-        }
-        sb.substring(0, sb.length() - 2);
-        sb.append("]");
-        return sb.toString();
+        return Arrays.toString(records);
     }
 }

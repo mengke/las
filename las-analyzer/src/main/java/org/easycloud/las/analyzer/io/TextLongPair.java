@@ -83,6 +83,6 @@ public class TextLongPair implements WritableComparable<TextLongPair> {
 
     @Override
     public String toString() {
-        return text + "\t" + longValue;
+        return text + "," + longValue;
     }
 }

@@ -83,6 +83,6 @@ public class TextBytePair implements WritableComparable<TextBytePair> {
 
     @Override
     public String toString() {
-        return text + "\t" + byteValue;
+        return text + "," + byteValue;
     }
 }

@@ -83,10 +83,6 @@ public class HouseVisitRecord implements Writable {
 
     @Override
     public String toString() {
-        return "HouseVisitRecord{" +
-                "houseCode=" + houseCode +
-                ", houseType=" + houseType +
-                ", visitDttm=" + visitDttm +
-                '}';
+        return houseCode + "|" + houseType + "|" + visitDttm;
     }
 }
