@@ -21,46 +21,47 @@ public class CombinedInputFormat extends CombineFileInputFormat<LongWritable, Te
     @SuppressWarnings("unchecked")
     @Override
     public RecordReader<LongWritable, Text> getRecordReader(InputSplit split, JobConf conf, Reporter reporter) throws IOException {
+        reporter.setStatus(split.toString());
         return new CombineFileRecordReader(conf, (CombineFileSplit) split, reporter, DefaultCombineFileRecordReader.class);
     }
 
     public static class DefaultCombineFileRecordReader implements RecordReader<LongWritable, Text> {
-        private final LineRecordReader linerecord;
+        private final LineRecordReader lineReader;
 
         public DefaultCombineFileRecordReader(CombineFileSplit split, Configuration conf, Reporter reporter, Integer index) throws IOException {
             FileSplit filesplit = new FileSplit(split.getPath(index), split.getOffset(index), split.getLength(index), split.getLocations());
-            linerecord = new LineRecordReader(conf, filesplit);
+            lineReader = new LineRecordReader(conf, filesplit);
         }
 
         @Override
         public void close() throws IOException {
-            linerecord.close();
+            lineReader.close();
 
         }
 
         @Override
         public LongWritable createKey() {
-            return linerecord.createKey();
+            return lineReader.createKey();
         }
 
         @Override
         public Text createValue() {
-            return linerecord.createValue();
+            return lineReader.createValue();
         }
 
         @Override
         public long getPos() throws IOException {
-            return linerecord.getPos();
+            return lineReader.getPos();
         }
 
         @Override
         public float getProgress() throws IOException {
-            return linerecord.getProgress();
+            return lineReader.getProgress();
         }
 
         @Override
         public boolean next(LongWritable key, Text value) throws IOException {
-            return linerecord.next(key, value);
+            return lineReader.next(key, value);
         }
 
     }
