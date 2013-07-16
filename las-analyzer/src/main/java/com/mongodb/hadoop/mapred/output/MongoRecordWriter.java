@@ -52,19 +52,19 @@ public class MongoRecordWriter<K, V> implements RecordWriter<K, V> {
     public void write(K key, V value) throws IOException {
         final DBObject o = new BasicDBObject();
 
-        if( value instanceof MongoUpdateWritable){
+        if (value instanceof MongoUpdateWritable) {
             //ignore the key - just use the update directly.
-            MongoUpdateWritable muw = (MongoUpdateWritable)value;
-            try{
+            MongoUpdateWritable muw = (MongoUpdateWritable) value;
+            try {
                 DBCollection dbCollection = getDbCollectionByRoundRobin();
                 dbCollection.update(new BasicDBObject(muw.getQuery()),
                         new BasicDBObject(muw.getModifiers()),
                         muw.isUpsert(),
                         muw.isMultiUpdate());
                 return;
-            } catch ( final MongoException e ) {
+            } catch (final MongoException e) {
                 e.printStackTrace();
-                throw new IOException( "can't write to mongo", e );
+                throw new IOException("can't write to mongo", e);
             }
         }
 

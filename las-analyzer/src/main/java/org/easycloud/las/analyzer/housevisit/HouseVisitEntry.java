@@ -18,27 +18,27 @@ import static org.easycloud.las.analyzer.util.CompareUtil.compare;
  */
 public class HouseVisitEntry implements WritableComparable<HouseVisitEntry> {
 
-	private Text userId;
-	private byte userType;
-	private long visitDttm;
-	private Text houseCode;
-	private byte houseType;
+    private Text userId;
+    private byte userType;
+    private long visitDttm;
+    private Text houseCode;
+    private byte houseType;
 
-	public HouseVisitEntry() {
-		set(new Text(), (byte) 0, 0l, new Text(), (byte) 0);
-	}
+    public HouseVisitEntry() {
+        set(new Text(), (byte) 0, 0l, new Text(), (byte) 0);
+    }
 
-	public HouseVisitEntry(String userId, byte userType, long visitDttm, String houseCode, byte houseType) {
-		set(new Text(userId), userType, visitDttm, new Text(houseCode), houseType);
-	}
+    public HouseVisitEntry(String userId, byte userType, long visitDttm, String houseCode, byte houseType) {
+        set(new Text(userId), userType, visitDttm, new Text(houseCode), houseType);
+    }
 
-	public void set(Text userId, byte userType, long visitDttm, Text houseCode, byte houseType) {
-		this.userId = userId;
-		this.userType = userType;
-		this.visitDttm = visitDttm;
-		this.houseCode = houseCode;
-		this.houseType = houseType;
-	}
+    public void set(Text userId, byte userType, long visitDttm, Text houseCode, byte houseType) {
+        this.userId = userId;
+        this.userType = userType;
+        this.visitDttm = visitDttm;
+        this.houseCode = houseCode;
+        this.houseType = houseType;
+    }
 
     public Text getUserId() {
         return userId;
@@ -61,43 +61,43 @@ public class HouseVisitEntry implements WritableComparable<HouseVisitEntry> {
     }
 
     @Override
-	public void write(DataOutput dataOutput) throws IOException {
-		userId.write(dataOutput);
+    public void write(DataOutput dataOutput) throws IOException {
+        userId.write(dataOutput);
         dataOutput.writeByte(userType);
         dataOutput.writeLong(visitDttm);
-		houseCode.write(dataOutput);
+        houseCode.write(dataOutput);
         dataOutput.writeByte(houseType);
-	}
+    }
 
-	@Override
-	public void readFields(DataInput dataInput) throws IOException {
-		userId.readFields(dataInput);
-		userType = dataInput.readByte();
-		visitDttm = dataInput.readLong();
-		houseCode.readFields(dataInput);
-		houseType = dataInput.readByte();
-	}
+    @Override
+    public void readFields(DataInput dataInput) throws IOException {
+        userId.readFields(dataInput);
+        userType = dataInput.readByte();
+        visitDttm = dataInput.readLong();
+        houseCode.readFields(dataInput);
+        houseType = dataInput.readByte();
+    }
 
-	@Override
-	public int compareTo(HouseVisitEntry o) {
-		int cmp = userId.compareTo(o.getUserId());
-		if (cmp != 0) {
-			return cmp;
-		}
-		cmp = compare(userType, o.userType);
-		if (cmp != 0) {
-			return cmp;
-		}
-		cmp = compare(visitDttm, o.visitDttm);
-		if (cmp != 0) {
-			return cmp;
-		}
-		cmp = houseCode.compareTo(o.getHouseCode());
-		if (cmp != 0) {
-			return cmp;
-		}
-		return compare(houseType, o.houseType);
-	}
+    @Override
+    public int compareTo(HouseVisitEntry o) {
+        int cmp = userId.compareTo(o.getUserId());
+        if (cmp != 0) {
+            return cmp;
+        }
+        cmp = compare(userType, o.userType);
+        if (cmp != 0) {
+            return cmp;
+        }
+        cmp = compare(visitDttm, o.visitDttm);
+        if (cmp != 0) {
+            return cmp;
+        }
+        cmp = houseCode.compareTo(o.getHouseCode());
+        if (cmp != 0) {
+            return cmp;
+        }
+        return compare(houseType, o.houseType);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -124,9 +124,9 @@ public class HouseVisitEntry implements WritableComparable<HouseVisitEntry> {
     }
 
     @Override
-	public String toString() {
-		return "{userId:" + userId + ", userType:" + userType +
-						", houseCode:" + houseCode + ", houseType:" + houseType + ", visitDttm:" + new Date(visitDttm) + "}";
-	}
+    public String toString() {
+        return "{userId:" + userId + ", userType:" + userType +
+                ", houseCode:" + houseCode + ", houseType:" + houseType + ", visitDttm:" + new Date(visitDttm) + "}";
+    }
 
 }

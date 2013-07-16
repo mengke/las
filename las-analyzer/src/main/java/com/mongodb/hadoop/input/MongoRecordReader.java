@@ -20,9 +20,12 @@ package com.mongodb.hadoop.input;
 
 import com.mongodb.DBCursor;
 import com.mongodb.MongoException;
-import org.apache.commons.logging.*;
-import org.apache.hadoop.mapreduce.*;
-import org.bson.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.mapreduce.InputSplit;
+import org.apache.hadoop.mapreduce.RecordReader;
+import org.apache.hadoop.mapreduce.TaskAttemptContext;
+import org.bson.BSONObject;
 
 // Hadoop
 // Commons

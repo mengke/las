@@ -17,48 +17,50 @@
 package com.mongodb.hadoop.output;
 
 import com.mongodb.*;
-import com.mongodb.hadoop.*;
+import com.mongodb.hadoop.MongoConfig;
+import com.mongodb.hadoop.MongoOutput;
 import com.mongodb.hadoop.io.BSONWritable;
 import com.mongodb.hadoop.io.MongoUpdateWritable;
-import org.apache.hadoop.mapreduce.*;
-import org.bson.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.mapreduce.RecordWriter;
+import org.apache.hadoop.mapreduce.TaskAttemptContext;
+import org.bson.BSONObject;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.logging.*;
-
 
 public class MongoRecordWriter<K, V> extends RecordWriter<K, V> {
 
-    private static final Log log = LogFactory.getLog( MongoRecordWriter.class );
+    private static final Log log = LogFactory.getLog(MongoRecordWriter.class);
     private final String[] updateKeys;
     private final boolean multiUpdate;
     private int roundRobinCounter = 0;
 
-    public MongoRecordWriter( DBCollection c, TaskAttemptContext ctx ){
+    public MongoRecordWriter(DBCollection c, TaskAttemptContext ctx) {
         this(c, ctx, null);
     }
 
-    public MongoRecordWriter( DBCollection c, TaskAttemptContext ctx, String[] updateKeys) {
+    public MongoRecordWriter(DBCollection c, TaskAttemptContext ctx, String[] updateKeys) {
         this(c, ctx, updateKeys, false);
     }
 
-    public MongoRecordWriter( DBCollection c, TaskAttemptContext ctx, String[] updateKeys, boolean multi) {
+    public MongoRecordWriter(DBCollection c, TaskAttemptContext ctx, String[] updateKeys, boolean multi) {
         this(Arrays.asList(c), ctx, updateKeys, multi);
     }
 
-    public MongoRecordWriter( List<DBCollection> c, TaskAttemptContext ctx ){
+    public MongoRecordWriter(List<DBCollection> c, TaskAttemptContext ctx) {
         this(c, ctx, null);
     }
 
-    public MongoRecordWriter( List<DBCollection> c, TaskAttemptContext ctx, String[] updateKeys) {
+    public MongoRecordWriter(List<DBCollection> c, TaskAttemptContext ctx, String[] updateKeys) {
         this(c, ctx, updateKeys, false);
     }
 
-    public MongoRecordWriter( List<DBCollection> c, TaskAttemptContext ctx, String[] updateKeys, boolean multi) {
+    public MongoRecordWriter(List<DBCollection> c, TaskAttemptContext ctx, String[] updateKeys, boolean multi) {
         _collections = new ArrayList<DBCollection>(c);
         _context = ctx;
         this.updateKeys = updateKeys;
@@ -67,61 +69,61 @@ public class MongoRecordWriter<K, V> extends RecordWriter<K, V> {
 
         //authenticate if necessary - but don't auth twice on same DB
         MongoConfig config = new MongoConfig(ctx.getConfiguration());
-        if(config.getAuthURI() != null){
+        if (config.getAuthURI() != null) {
             MongoURI authURI = config.getAuthURI();
-            if(authURI.getUsername() != null &&
-                authURI.getPassword() != null ){
+            if (authURI.getUsername() != null &&
+                    authURI.getPassword() != null) {
                 // need to verify that it is not already one of the collections we are writing to.
                 DBCollection _collection = _collections.get(0);
                 DB targetAuthDB = _collection.getDB().getSisterDB(authURI.getDatabase());
-                if(!(targetAuthDB.getName().equals(_collection.getDB().getName()))){
+                if (!(targetAuthDB.getName().equals(_collection.getDB().getName()))) {
                     targetAuthDB.authenticate(authURI.getUsername(), authURI.getPassword());
                 }
             }
         }
     }
 
-    public void close( TaskAttemptContext context ){
+    public void close(TaskAttemptContext context) {
         for (DBCollection collection : _collections) {
             collection.getDB().getLastError();
         }
     }
 
-    public void write( K key, V value ) throws IOException{
+    public void write(K key, V value) throws IOException {
         final DBObject o = new BasicDBObject();
 
-        if( value instanceof MongoUpdateWritable ){
+        if (value instanceof MongoUpdateWritable) {
             //ignore the key - just use the update directly.
-            MongoUpdateWritable muw = (MongoUpdateWritable)value;
-            try{
+            MongoUpdateWritable muw = (MongoUpdateWritable) value;
+            try {
                 DBCollection dbCollection = getDbCollectionByRoundRobin();
                 dbCollection.update(new BasicDBObject(muw.getQuery()),
-                                    new BasicDBObject(muw.getModifiers()),
-                                    muw.isUpsert(),
-                                    muw.isMultiUpdate());
+                        new BasicDBObject(muw.getModifiers()),
+                        muw.isUpsert(),
+                        muw.isMultiUpdate());
                 return;
-            } catch ( final MongoException e ) {
+            } catch (final MongoException e) {
                 e.printStackTrace();
-                throw new IOException( "can't write to mongo", e );
+                throw new IOException("can't write to mongo", e);
             }
         }
 
-        if ( key instanceof BSONWritable ){
-            o.put("_id", ((BSONWritable)key).getDoc());
-        } else if ( key instanceof BSONObject ){
-            o.put( "_id", key );
+        if (key instanceof BSONWritable) {
+            o.put("_id", ((BSONWritable) key).getDoc());
+        } else if (key instanceof BSONObject) {
+            o.put("_id", key);
         } else {
-            o.put( "_id", BSONWritable.toBSON(key) );
+            o.put("_id", BSONWritable.toBSON(key));
         }
 
-        if (value instanceof BSONWritable ){
-            o.putAll( ((BSONWritable)value).getDoc() );
-        } else if ( value instanceof MongoOutput ){
-            ( (MongoOutput) value ).appendAsValue( o );
-        } else if ( value instanceof BSONObject ){
-            o.putAll( (BSONObject) value );
-        } else{
-            o.put( "value", BSONWritable.toBSON( value ) );
+        if (value instanceof BSONWritable) {
+            o.putAll(((BSONWritable) value).getDoc());
+        } else if (value instanceof MongoOutput) {
+            ((MongoOutput) value).appendAsValue(o);
+        } else if (value instanceof BSONObject) {
+            o.putAll((BSONObject) value);
+        } else {
+            o.put("value", BSONWritable.toBSON(value));
         }
 
         try {
@@ -143,10 +145,9 @@ public class MongoRecordWriter<K, V> extends RecordWriter<K, V> {
                 DBObject set = new BasicDBObject().append("$set", o);
                 dbCollection.update(query, set, true, multiUpdate);
             }
-        }
-        catch ( final MongoException e ) {
+        } catch (final MongoException e) {
             e.printStackTrace();
-            throw new IOException( "can't write to mongo", e );
+            throw new IOException("can't write to mongo", e);
         }
     }
 
@@ -161,7 +162,7 @@ public class MongoRecordWriter<K, V> extends RecordWriter<K, V> {
         dbCollection.ensureIndex(index, options);
     }
 
-    public TaskAttemptContext getContext(){
+    public TaskAttemptContext getContext() {
         return _context;
     }
 

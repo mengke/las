@@ -52,103 +52,103 @@ import static org.easycloud.las.core.util.TimeUtil.DEFAULT_TIME_PATTERN;
  */
 public class AvroClient {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AvroClient.class);
-	static final int DEFAULT_AVRO_PORT = 41414;
-	static final String DEFAULT_LOG_DELIMITER = "   ";
+    private static final Logger LOGGER = LoggerFactory.getLogger(AvroClient.class);
+    static final int DEFAULT_AVRO_PORT = 41414;
+    static final String DEFAULT_LOG_DELIMITER = "   ";
 
-	private static final int BATCH_SIZE = 5;
+    private static final int BATCH_SIZE = 5;
 
-	private String hostname;
-	private int port;
-	private File logFile;
+    private String hostname;
+    private int port;
+    private File logFile;
 
-	private int sent;
+    private int sent;
 
-	public AvroClient(String hostname, int port, File logFile) {
-		this.hostname = hostname;
-		this.port = port;
-		this.logFile = logFile;
-	}
+    public AvroClient(String hostname, int port, File logFile) {
+        this.hostname = hostname;
+        this.port = port;
+        this.logFile = logFile;
+    }
 
-	public void push() throws EventDeliveryException, IOException {
+    public void push() throws EventDeliveryException, IOException {
 
-		RpcClient rpcClient = RpcClientFactory.getDefaultInstance(hostname, port, BATCH_SIZE);
+        RpcClient rpcClient = RpcClientFactory.getDefaultInstance(hostname, port, BATCH_SIZE);
 
-		AgentConfiguration configuration = AgentConfiguration.getInstance();
-		String logDelimiter = configuration.get(LOG_PROPERTY_DELIMITER, DEFAULT_LOG_DELIMITER);
-		String timestampPattern = configuration.get(LOG_TIMESTAMP_PATTERN, DEFAULT_TIME_PATTERN);
-		DateFormat df = new SimpleDateFormat(timestampPattern);
+        AgentConfiguration configuration = AgentConfiguration.getInstance();
+        String logDelimiter = configuration.get(LOG_PROPERTY_DELIMITER, DEFAULT_LOG_DELIMITER);
+        String timestampPattern = configuration.get(LOG_TIMESTAMP_PATTERN, DEFAULT_TIME_PATTERN);
+        DateFormat df = new SimpleDateFormat(timestampPattern);
 
-		LineReader reader = null;
-		try {
-			reader = new BufferedLineReader(new FileReader(logFile));
-			long lastCheck = TimeUtil.now();
-			long sentBytes = 0;
+        LineReader reader = null;
+        try {
+            reader = new BufferedLineReader(new FileReader(logFile));
+            long lastCheck = TimeUtil.now();
+            long sentBytes = 0;
 
-			int batchSize = rpcClient.getBatchSize();
-			List<String> lines;
-			while (!(lines = reader.readLines(batchSize)).isEmpty()) {
-				List<Event> eventBuffer = Lists.newArrayList();
-				for (String line : lines) {
-					Event event = EventBuilder.withBody(line, Charsets.UTF_8);
+            int batchSize = rpcClient.getBatchSize();
+            List<String> lines;
+            while (!(lines = reader.readLines(batchSize)).isEmpty()) {
+                List<Event> eventBuffer = Lists.newArrayList();
+                for (String line : lines) {
+                    Event event = EventBuilder.withBody(line, Charsets.UTF_8);
 
-					if (addTimestamp(logDelimiter, timestampPattern, df, line, event)) continue;
+                    if (addTimestamp(logDelimiter, timestampPattern, df, line, event)) continue;
 
-					eventBuffer.add(event);
-					sentBytes += event.getBody().length;
-					sent++;
+                    eventBuffer.add(event);
+                    sentBytes += event.getBody().length;
+                    sent++;
 
-					long now = System.currentTimeMillis();
-					if (now >= lastCheck + 5000) {
-						if (LOGGER.isDebugEnabled()) {
-							LOGGER.debug("Packed {} bytes, {} events", sentBytes, sent);
-						}
-						lastCheck = now;
-					}
-				}
-				rpcClient.appendBatch(eventBuffer);
-			}
+                    long now = System.currentTimeMillis();
+                    if (now >= lastCheck + 5000) {
+                        if (LOGGER.isDebugEnabled()) {
+                            LOGGER.debug("Packed {} bytes, {} events", sentBytes, sent);
+                        }
+                        lastCheck = now;
+                    }
+                }
+                rpcClient.appendBatch(eventBuffer);
+            }
 
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("Finished");
-			}
-		} finally {
-			if (reader != null) {
-				if (LOGGER.isDebugEnabled()) {
-					LOGGER.debug("Closing reader");
-				}
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Finished");
+            }
+        } finally {
+            if (reader != null) {
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("Closing reader");
+                }
 
-				reader.close();
-			}
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("Closing RPC client");
-			}
+                reader.close();
+            }
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Closing RPC client");
+            }
 
-			rpcClient.close();
-		}
-	}
+            rpcClient.close();
+        }
+    }
 
-	private boolean addTimestamp(String logDelimiter, String timestampPattern, DateFormat df, String line, Event event) {
-		if (StringUtils.isNotBlank(line)) {
-			int firstDelimiter = line.indexOf(logDelimiter);
-			if (firstDelimiter < 0) {
-				LOGGER.warn("The log format isn't correct. " + line);
-				return true;
-			}
-			int startIndex = firstDelimiter + logDelimiter.length();
-			int endIndex = startIndex + timestampPattern.length();
-			String logTimeStr = line.substring(startIndex, endIndex);
-			try {
-				Date logTime = df.parse(logTimeStr);
-				Map<String, String> headers = new HashMap<String, String>();
-				headers.put("timestamp", String.valueOf(logTime.getTime()));
-				event.setHeaders(headers);
-			} catch (ParseException e) {
-				LOGGER.warn("The log format or the pattern of timestamp isn't correct. Please check the configuration and the log follows." + line);
-				return true;
-			}
-		}
-		return false;
-	}
+    private boolean addTimestamp(String logDelimiter, String timestampPattern, DateFormat df, String line, Event event) {
+        if (StringUtils.isNotBlank(line)) {
+            int firstDelimiter = line.indexOf(logDelimiter);
+            if (firstDelimiter < 0) {
+                LOGGER.warn("The log format isn't correct. " + line);
+                return true;
+            }
+            int startIndex = firstDelimiter + logDelimiter.length();
+            int endIndex = startIndex + timestampPattern.length();
+            String logTimeStr = line.substring(startIndex, endIndex);
+            try {
+                Date logTime = df.parse(logTimeStr);
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("timestamp", String.valueOf(logTime.getTime()));
+                event.setHeaders(headers);
+            } catch (ParseException e) {
+                LOGGER.warn("The log format or the pattern of timestamp isn't correct. Please check the configuration and the log follows." + line);
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

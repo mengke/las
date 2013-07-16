@@ -22,19 +22,19 @@ package org.easycloud.las.core.exception;
  */
 public class PropertiesPersistException extends RuntimeException {
 
-	public PropertiesPersistException() {
-	}
+    public PropertiesPersistException() {
+    }
 
-	public PropertiesPersistException(String message) {
-		super(message);
-	}
+    public PropertiesPersistException(String message) {
+        super(message);
+    }
 
-	public PropertiesPersistException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public PropertiesPersistException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public PropertiesPersistException(Throwable cause) {
-		super(cause);
-	}
+    public PropertiesPersistException(Throwable cause) {
+        super(cause);
+    }
 
 }

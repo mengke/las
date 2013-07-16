@@ -25,10 +25,10 @@ public class HouseVisitingMapper extends MapReduceBase implements Mapper<LongWri
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HouseVisitingMapper.class);
 
-	@Override
-	public void map(LongWritable longWritable, Text text, OutputCollector<TextLongPair, HouseVisitEntry> collector, Reporter reporter) throws IOException {
-		HouseVisitParser parser = new HouseVisitParser();
-		try {
+    @Override
+    public void map(LongWritable longWritable, Text text, OutputCollector<TextLongPair, HouseVisitEntry> collector, Reporter reporter) throws IOException {
+        HouseVisitParser parser = new HouseVisitParser();
+        try {
             parser.parse(text);
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("HouseVisitingMapper: the log record parsed. " + text);
@@ -43,5 +43,5 @@ public class HouseVisitingMapper extends MapReduceBase implements Mapper<LongWri
                 LOGGER.warn("An unknown error occurred when parsing the log record. The exception message follows.", e);
             }
         }
-	}
+    }
 }

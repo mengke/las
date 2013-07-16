@@ -8,7 +8,7 @@
 */target/*
 out/*
 .settings/*
-build/*
+*/build/*
 *.log
 *.log.*
 .DS_Store

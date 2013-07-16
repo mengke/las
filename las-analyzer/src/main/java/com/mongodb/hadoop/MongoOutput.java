@@ -18,7 +18,7 @@ package com.mongodb.hadoop;
 
 // Mongo
 
-import com.mongodb.*;
+import com.mongodb.DBObject;
 
 public interface MongoOutput {
 

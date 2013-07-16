@@ -16,74 +16,74 @@ import static org.easycloud.las.analyzer.Constants.*;
  */
 public class HouseVisitParser {
 
-	public static final Pattern PATTERN_HOUSE_VISIT = Pattern.compile("http://beijing\\.homelink\\.com\\.cn/(\\w+?)/(\\w{12}).shtml.*");
-	private static final String RENT_HOUSE = "zufang";
-	private static final String SELL_HOUSE = "ershoufang";
+    public static final Pattern PATTERN_HOUSE_VISIT = Pattern.compile("http://beijing\\.homelink\\.com\\.cn/(\\w+?)/(\\w{12}).shtml.*");
+    private static final String RENT_HOUSE = "zufang";
+    private static final String SELL_HOUSE = "ershoufang";
 
-	private HouseVisitEntry houseVisitEntry;
+    private HouseVisitEntry houseVisitEntry;
 
-	private int parseStatus;
+    private int parseStatus;
 
-	public void parse(String record) throws Exception {
-		parseStatus = 0;
-		String[] recordEntries = record.split(LOG_DELIMITER);
+    public void parse(String record) throws Exception {
+        parseStatus = 0;
+        String[] recordEntries = record.split(LOG_DELIMITER);
         if (recordEntries.length != LOG_ENTRIES_SIZE) {
             throw new IllegalStateException("The log record doesn't follow the rule. " + record);
         }
-		String cookieId = recordEntries[2];
-		String userCode = recordEntries[5];
-		String visitUrl = recordEntries[4];
-		String visitTimeStr = recordEntries[1];
+        String cookieId = recordEntries[2];
+        String userCode = recordEntries[5];
+        String visitUrl = recordEntries[4];
+        String visitTimeStr = recordEntries[1];
 
-		Matcher houseVisitMatcher = PATTERN_HOUSE_VISIT.matcher(visitUrl);
-		if (houseVisitMatcher.matches()) {
-			houseVisitEntry = new HouseVisitEntry();
-			String houseServiceType = houseVisitMatcher.group(1);
-			String houseCode = houseVisitMatcher.group(2);
-			byte houseType;
-			if (RENT_HOUSE.equals(houseServiceType)) {
-				houseType = HOUSE_TYPE_RENT;
-			} else if (SELL_HOUSE.equals(houseServiceType)) {
-				houseType = HOUSE_TYPE_SELL;
-			} else {
-				// skip
-				parseStatus = LOG_SKIPPED;
-				return;
-			}
-			Date visitTime;
-			try {
-				visitTime = LOG_VISIT_DTTM_FORMAT.parse(visitTimeStr);
-				long visitDttm = visitTime.getTime();
-				String userId;
-				byte userType;
-				if (!LOG_PLACEHOLDER.equals(userCode)) {
-					userId = userCode;
-					userType = USER_TYPE_LOGIN;
-				} else {
-					userId = cookieId;
-					userType = USER_TYPE_ANONYMOUS;
-				}
+        Matcher houseVisitMatcher = PATTERN_HOUSE_VISIT.matcher(visitUrl);
+        if (houseVisitMatcher.matches()) {
+            houseVisitEntry = new HouseVisitEntry();
+            String houseServiceType = houseVisitMatcher.group(1);
+            String houseCode = houseVisitMatcher.group(2);
+            byte houseType;
+            if (RENT_HOUSE.equals(houseServiceType)) {
+                houseType = HOUSE_TYPE_RENT;
+            } else if (SELL_HOUSE.equals(houseServiceType)) {
+                houseType = HOUSE_TYPE_SELL;
+            } else {
+                // skip
+                parseStatus = LOG_SKIPPED;
+                return;
+            }
+            Date visitTime;
+            try {
+                visitTime = LOG_VISIT_DTTM_FORMAT.parse(visitTimeStr);
+                long visitDttm = visitTime.getTime();
+                String userId;
+                byte userType;
+                if (!LOG_PLACEHOLDER.equals(userCode)) {
+                    userId = userCode;
+                    userType = USER_TYPE_LOGIN;
+                } else {
+                    userId = cookieId;
+                    userType = USER_TYPE_ANONYMOUS;
+                }
 
-				houseVisitEntry = new HouseVisitEntry(userId, userType, visitDttm, houseCode, houseType);
-				parseStatus = LOG_PARSED;
-			} catch (ParseException e) {
-				parseStatus = LOG_FORMAT_ERROR;
-			}
+                houseVisitEntry = new HouseVisitEntry(userId, userType, visitDttm, houseCode, houseType);
+                parseStatus = LOG_PARSED;
+            } catch (ParseException e) {
+                parseStatus = LOG_FORMAT_ERROR;
+            }
 
-		} else {
-			parseStatus = LOG_SKIPPED;
-		}
-	}
+        } else {
+            parseStatus = LOG_SKIPPED;
+        }
+    }
 
-	public void parse(Text record) throws Exception {
-		parse(record.toString());
-	}
+    public void parse(Text record) throws Exception {
+        parse(record.toString());
+    }
 
-	public HouseVisitEntry getHouseVisitEntry() {
-		return houseVisitEntry;
-	}
+    public HouseVisitEntry getHouseVisitEntry() {
+        return houseVisitEntry;
+    }
 
-	public int getParseStatus() {
-		return parseStatus;
-	}
+    public int getParseStatus() {
+        return parseStatus;
+    }
 }

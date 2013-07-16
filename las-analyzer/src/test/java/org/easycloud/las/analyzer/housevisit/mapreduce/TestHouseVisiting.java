@@ -34,7 +34,7 @@ public class TestHouseVisiting {
     private MapDriver<LongWritable, Text, TextLongPair, HouseVisitEntry> mapDriver;
     private ReduceDriver<TextLongPair, HouseVisitEntry, TextBytePair, HouseVisitArrayWritable> reduceDriver;
     private MapReduceDriver<LongWritable, Text, TextLongPair,
-                HouseVisitEntry, TextBytePair, HouseVisitArrayWritable> mapReduceDriver;
+            HouseVisitEntry, TextBytePair, HouseVisitArrayWritable> mapReduceDriver;
 
     @SuppressWarnings("unchecked")
     @Before
@@ -79,7 +79,7 @@ public class TestHouseVisiting {
         HouseVisitRecord record1 = new HouseVisitRecord("BJCP85578551", HOUSE_TYPE_RENT, dttm1);
         HouseVisitRecord record2 = new HouseVisitRecord("BJCP85578552", HOUSE_TYPE_SELL, dttm2);
         HouseVisitRecord record3 = new HouseVisitRecord("BJCP85578550", HOUSE_TYPE_SELL, dttm3);
-        HouseVisitArrayWritable houseVisitArray = new HouseVisitArrayWritable(new HouseVisitRecord[] {record1, record2, record3});
+        HouseVisitArrayWritable houseVisitArray = new HouseVisitArrayWritable(new HouseVisitRecord[]{record1, record2, record3});
 
         reduceDriver.withOutput(new TextBytePair("622ce3116a90b41e939dc1f1517eee72", USER_TYPE_LOGIN), houseVisitArray);
         reduceDriver.runTest();
@@ -114,8 +114,8 @@ public class TestHouseVisiting {
         Date date3 = df.parse("2013-06-04 03:01:10");
         HouseVisitRecord record3 = new HouseVisitRecord("BJFT84662905", HOUSE_TYPE_RENT, date3.getTime());
 
-        HouseVisitArrayWritable houseVisitArray1 = new HouseVisitArrayWritable(new HouseVisitRecord[] {record3, record1});
-        HouseVisitArrayWritable houseVisitArray2 = new HouseVisitArrayWritable(new HouseVisitRecord[] {record2});
+        HouseVisitArrayWritable houseVisitArray1 = new HouseVisitArrayWritable(new HouseVisitRecord[]{record3, record1});
+        HouseVisitArrayWritable houseVisitArray2 = new HouseVisitArrayWritable(new HouseVisitRecord[]{record2});
 
         mapReduceDriver.addOutput(new TextBytePair("6e2b58d1ed29f167976f9c88c835951d", USER_TYPE_LOGIN), houseVisitArray1);
         mapReduceDriver.addOutput(new TextBytePair("21a5a5dcde0ee2805d781591e5cc2e79", USER_TYPE_ANONYMOUS), houseVisitArray2);

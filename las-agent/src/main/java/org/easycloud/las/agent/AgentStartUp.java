@@ -22,8 +22,8 @@ package org.easycloud.las.agent;
  */
 public class AgentStartUp {
 
-	public static void main(String[] args) {
-		LoggingAgent agent = LoggingAgent.getInstance();
-		agent.startUp();
-	}
+    public static void main(String[] args) {
+        LoggingAgent agent = LoggingAgent.getInstance();
+        agent.startUp();
+    }
 }

@@ -6,6 +6,8 @@ import org.apache.hadoop.mapred.*;
 import org.easycloud.las.analyzer.housevisit.HouseVisitArrayWritable;
 import org.easycloud.las.analyzer.housevisit.HouseVisitRecord;
 import org.easycloud.las.analyzer.io.TextBytePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,12 +21,14 @@ import java.util.List;
  */
 public class HouseVisitingInputFormat extends FileInputFormat<TextBytePair, HouseVisitArrayWritable> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(HouseVisitingInputFormat.class);
+
     @Override
     public RecordReader<TextBytePair, HouseVisitArrayWritable>
-                getRecordReader(InputSplit inputSplit,
-                               JobConf conf, Reporter reporter) throws IOException {
+    getRecordReader(InputSplit inputSplit,
+                    JobConf conf, Reporter reporter) throws IOException {
         reporter.setStatus(inputSplit.toString());
-        return new HouseVisitingRecordReader(conf, (FileSplit)inputSplit);
+        return new HouseVisitingRecordReader(conf, (FileSplit) inputSplit);
     }
 
 
@@ -49,7 +53,10 @@ public class HouseVisitingInputFormat extends FileInputFormat<TextBytePair, Hous
 
             // parse the lineValue which is in the format:
             // key1st,key2nd\t[h1|t1|v1, h2|t2|v2, h3|t3|v3]
-            String [] pieces = lineValue.toString().split("\t");
+            String[] pieces = lineValue.toString().split("\t");
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("HouseVisitingInputFormat processing the record :" + lineValue);
+            }
             if (pieces.length != 2) {
                 throw new IOException("Invalid record received : " + lineValue);
             }
@@ -61,14 +68,20 @@ public class HouseVisitingInputFormat extends FileInputFormat<TextBytePair, Hous
                 throw new IOException("Invalid record received : " + lineValue);
             }
             String keyFirstPart = keyPieces[0].trim();
+
             byte keySecondPart;
             try {
                 keySecondPart = Byte.parseByte(keyPieces[1].trim());
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("HouseVisitingInputFormat parse the byte value :" + keySecondPart);
+                }
             } catch (NumberFormatException nfe) {
                 throw new IOException("Error parsing byte value in record : " + keyPieces[1].trim());
             }
             key.set(new Text(keyFirstPart), keySecondPart);
-
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("HouseVisitingInputFormat : parsed the key is " + key);
+            }
             // try to parse array value from lineValue
             String valuePiece = pieces[1].trim();
             if (!valuePiece.startsWith("[") || !valuePiece.endsWith("]")) {

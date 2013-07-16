@@ -35,6 +35,9 @@ public class MongodbReducer extends MapReduceBase
                        OutputCollector<NullWritable, MongoUpdateWritable> collector,
                        Reporter reporter) throws IOException {
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("MongodbReducer : input key is" + key);
+        }
         BasicBSONObject query = new BasicBSONObject("_id", key.getText().toString());
         while (value.hasNext()) {
             HouseVisitArrayWritable houseVisitArray = value.next();

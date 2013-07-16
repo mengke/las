@@ -18,42 +18,45 @@ package com.mongodb.hadoop;
 
 // Mongo
 
-import com.mongodb.hadoop.output.*;
-import com.mongodb.hadoop.util.*;
-import org.apache.commons.logging.*;
+import com.mongodb.hadoop.output.MongoOutputCommiter;
+import com.mongodb.hadoop.output.MongoRecordWriter;
+import com.mongodb.hadoop.util.MongoConfigUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.mapreduce.*;
 
 // Commons
 // Hadoop
 
 public class MongoOutputFormat<K, V> extends OutputFormat<K, V> {
-    
+
     private final String[] updateKeys;
     private final boolean multiUpdate;
 
-    public void checkOutputSpecs( final JobContext context ){ }
+    public void checkOutputSpecs(final JobContext context) {
+    }
 
-    public OutputCommitter getOutputCommitter( final TaskAttemptContext context ){
+    public OutputCommitter getOutputCommitter(final TaskAttemptContext context) {
         return new MongoOutputCommiter();
     }
 
     /**
      * Get the record writer that points to the output collection.
      */
-    public RecordWriter<K, V> getRecordWriter( final TaskAttemptContext context ){
-        return new MongoRecordWriter( MongoConfigUtil.getOutputCollections( context.getConfiguration() ), context );
+    public RecordWriter<K, V> getRecordWriter(final TaskAttemptContext context) {
+        return new MongoRecordWriter(MongoConfigUtil.getOutputCollections(context.getConfiguration()), context);
     }
 
-    public MongoOutputFormat(){ 
+    public MongoOutputFormat() {
         multiUpdate = false;
         updateKeys = null;
     }
-    
+
     public MongoOutputFormat(String[] updateKeys, boolean multiUpdate) {
         this.updateKeys = updateKeys;
         this.multiUpdate = multiUpdate;
     }
 
-    private static final Log LOG = LogFactory.getLog( MongoOutputFormat.class );
+    private static final Log LOG = LogFactory.getLog(MongoOutputFormat.class);
 }
 

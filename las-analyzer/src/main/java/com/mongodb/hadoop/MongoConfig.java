@@ -18,16 +18,19 @@ package com.mongodb.hadoop;
 
 // Mongo
 
-import com.mongodb.*;
-import com.mongodb.hadoop.util.*;
-import org.apache.commons.logging.*;
-import org.apache.hadoop.conf.*;
-import org.apache.hadoop.io.*;
-import org.apache.hadoop.mapreduce.*;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.MongoURI;
+import com.mongodb.hadoop.util.MongoConfigUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.PathFilter;
+import org.apache.hadoop.io.RawComparator;
+import org.apache.hadoop.mapreduce.*;
 
-
-import java.io.*;
+import java.io.DataInput;
+import java.io.IOException;
 
 // Hadoop
 // Commons

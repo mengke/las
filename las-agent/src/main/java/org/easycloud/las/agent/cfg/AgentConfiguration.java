@@ -25,14 +25,14 @@ import org.easycloud.las.core.cfg.Configuration;
  */
 public class AgentConfiguration extends Configuration {
 
-	private static AgentConfiguration instance = new AgentConfiguration();
+    private static AgentConfiguration instance = new AgentConfiguration();
 
-	private AgentConfiguration() {
-		super(Constants.LOG_AGENT_PROPS);
-	}
+    private AgentConfiguration() {
+        super(Constants.LOG_AGENT_PROPS);
+    }
 
-	public static AgentConfiguration getInstance() {
-		return instance;
-	}
+    public static AgentConfiguration getInstance() {
+        return instance;
+    }
 
 }

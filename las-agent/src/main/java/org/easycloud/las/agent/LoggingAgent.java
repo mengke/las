@@ -34,49 +34,49 @@ import static org.easycloud.las.core.util.Assert.assertStateHasLength;
  */
 public class LoggingAgent {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAgent.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAgent.class);
 
-	private static final long DEFAULT_LOG_PUSH_PERIOD = 60;
-	private static final long DEFAULT_LOG_CLEAR_PERIOD = 1;
+    private static final long DEFAULT_LOG_PUSH_PERIOD = 60;
+    private static final long DEFAULT_LOG_CLEAR_PERIOD = 1;
 
-	private static LoggingAgent instance = new LoggingAgent();
+    private static LoggingAgent instance = new LoggingAgent();
 
-	private final ScheduledExecutorService workerExecutor;
-	private String agentName;
-	private AgentConfiguration agentConfiguration;
+    private final ScheduledExecutorService workerExecutor;
+    private String agentName;
+    private AgentConfiguration agentConfiguration;
 
-	private LoggingAgent() {
-		agentConfiguration = AgentConfiguration.getInstance();
-		agentName = agentConfiguration.get(LOG_AGENT_NAME);
-		assertStateHasLength(agentName, "No agent name defined. Please check "
-						+ LOG_AGENT_NAME + " setting in " + Constants.LOG_AGENT_PROPS);
+    private LoggingAgent() {
+        agentConfiguration = AgentConfiguration.getInstance();
+        agentName = agentConfiguration.get(LOG_AGENT_NAME);
+        assertStateHasLength(agentName, "No agent name defined. Please check "
+                + LOG_AGENT_NAME + " setting in " + Constants.LOG_AGENT_PROPS);
 
-		workerExecutor = Executors.newScheduledThreadPool(2,
-						new ThreadFactoryBuilder().setNameFormat("Log-BackgroundWorker-" + agentName)
-										.build());
-	}
+        workerExecutor = Executors.newScheduledThreadPool(2,
+                new ThreadFactoryBuilder().setNameFormat("Log-BackgroundWorker-" + agentName)
+                        .build());
+    }
 
-	public static LoggingAgent getInstance() {
-		return instance;
-	}
+    public static LoggingAgent getInstance() {
+        return instance;
+    }
 
-	public void startUp() {
-		if (LOGGER.isInfoEnabled()) {
-			LOGGER.info("LoggingAgent: " + agentName + " is ready to start ...");
-		}
-		workerExecutor.scheduleAtFixedRate(new LogPushThread(agentConfiguration), 0L,
-						agentConfiguration.getLong(LOG_PUSH_PERIOD, DEFAULT_LOG_PUSH_PERIOD), TimeUnit.MINUTES);
+    public void startUp() {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("LoggingAgent: " + agentName + " is ready to start ...");
+        }
+        workerExecutor.scheduleAtFixedRate(new LogPushThread(agentConfiguration), 0L,
+                agentConfiguration.getLong(LOG_PUSH_PERIOD, DEFAULT_LOG_PUSH_PERIOD), TimeUnit.MINUTES);
 
-		if (agentConfiguration.getBoolean(LOG_CLEAR_ENABLED, true)) {
-			workerExecutor.scheduleAtFixedRate(new LogClearThread(agentConfiguration), 0L,
-							agentConfiguration.getLong(LOG_CLEAR_PERIOD, DEFAULT_LOG_CLEAR_PERIOD), TimeUnit.DAYS);
-		}
-	}
+        if (agentConfiguration.getBoolean(LOG_CLEAR_ENABLED, true)) {
+            workerExecutor.scheduleAtFixedRate(new LogClearThread(agentConfiguration), 0L,
+                    agentConfiguration.getLong(LOG_CLEAR_PERIOD, DEFAULT_LOG_CLEAR_PERIOD), TimeUnit.DAYS);
+        }
+    }
 
-	public void shutDown() {
-		if (LOGGER.isInfoEnabled()) {
-			LOGGER.info(agentName + " is stopping.");
-		}
-		workerExecutor.shutdown();
-	}
+    public void shutDown() {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info(agentName + " is stopping.");
+        }
+        workerExecutor.shutdown();
+    }
 }

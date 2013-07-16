@@ -1,6 +1,6 @@
 package org.easycloud.las.analyzer.housevisit;
 
-import org.apache.hadoop.io.*;
+import org.apache.hadoop.io.Writable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -13,41 +13,41 @@ import java.io.IOException;
  */
 public class UserVisitsRecord implements Writable {
 
-	private byte userType;
-	private HouseVisitArrayWritable houseVisitRecords;
+    private byte userType;
+    private HouseVisitArrayWritable houseVisitRecords;
 
-	public UserVisitsRecord() {
-		set((byte) 0, new HouseVisitArrayWritable());
-	}
+    public UserVisitsRecord() {
+        set((byte) 0, new HouseVisitArrayWritable());
+    }
 
-	public UserVisitsRecord(byte userType, HouseVisitRecord[] houseVisitRecords) {
-		set(userType, new HouseVisitArrayWritable(houseVisitRecords));
-	}
+    public UserVisitsRecord(byte userType, HouseVisitRecord[] houseVisitRecords) {
+        set(userType, new HouseVisitArrayWritable(houseVisitRecords));
+    }
 
-	public void set(byte userType, HouseVisitArrayWritable houseVisitRecords) {
-		this.userType = userType;
-		this.houseVisitRecords = houseVisitRecords;
-	}
+    public void set(byte userType, HouseVisitArrayWritable houseVisitRecords) {
+        this.userType = userType;
+        this.houseVisitRecords = houseVisitRecords;
+    }
 
-	public byte getUserType() {
-		return userType;
-	}
+    public byte getUserType() {
+        return userType;
+    }
 
-	public HouseVisitArrayWritable getHouseVisitRecords() {
-		return houseVisitRecords;
-	}
+    public HouseVisitArrayWritable getHouseVisitRecords() {
+        return houseVisitRecords;
+    }
 
-	@Override
-	public void write(DataOutput dataOutput) throws IOException {
-		dataOutput.writeByte(userType);
-		houseVisitRecords.write(dataOutput);
-	}
+    @Override
+    public void write(DataOutput dataOutput) throws IOException {
+        dataOutput.writeByte(userType);
+        houseVisitRecords.write(dataOutput);
+    }
 
-	@Override
-	public void readFields(DataInput dataInput) throws IOException {
-		userType = dataInput.readByte();
-		houseVisitRecords.readFields(dataInput);
-	}
+    @Override
+    public void readFields(DataInput dataInput) throws IOException {
+        userType = dataInput.readByte();
+        houseVisitRecords.readFields(dataInput);
+    }
 
     @Override
     public boolean equals(Object o) {

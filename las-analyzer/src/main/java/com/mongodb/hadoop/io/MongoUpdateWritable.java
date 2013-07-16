@@ -33,7 +33,7 @@ import java.io.IOException;
  * This is <em>not</em> reusable.
  */
 
-@SuppressWarnings( "deprecation" )
+@SuppressWarnings("deprecation")
 public class MongoUpdateWritable implements Writable {
 
     private BasicBSONObject query;
@@ -44,46 +44,46 @@ public class MongoUpdateWritable implements Writable {
     private BSONEncoder enc = new BasicBSONEncoder();
     private BasicOutputBuffer buf = new BasicOutputBuffer();
 
-    public MongoUpdateWritable(BasicBSONObject query, BasicBSONObject modifiers, boolean upsert, boolean multiUpdate){
+    public MongoUpdateWritable(BasicBSONObject query, BasicBSONObject modifiers, boolean upsert, boolean multiUpdate) {
         this.query = query;
         this.modifiers = modifiers;
         this.upsert = upsert;
         this.multiUpdate = multiUpdate;
     }
 
-    public MongoUpdateWritable(BasicBSONObject query, BasicBSONObject modifiers){
+    public MongoUpdateWritable(BasicBSONObject query, BasicBSONObject modifiers) {
         this(query, modifiers, true, false);
     }
-    public BasicBSONObject getQuery(){
+
+    public BasicBSONObject getQuery() {
         return this.query;
     }
 
-    public BasicBSONObject getModifiers(){
+    public BasicBSONObject getModifiers() {
         return this.modifiers;
     }
 
-    public boolean isUpsert(){
+    public boolean isUpsert() {
         return this.upsert;
     }
 
-    public boolean isMultiUpdate(){
+    public boolean isMultiUpdate() {
         return this.multiUpdate;
     }
 
     /**
-
-    /**
+     * /**
      * {@inheritDoc}
      *
      * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)
      */
-    public void write( DataOutput out ) throws IOException{
-        enc.set( buf );
-        enc.putObject( this.query );
+    public void write(DataOutput out) throws IOException {
+        enc.set(buf);
+        enc.putObject(this.query);
         enc.done();
-        buf.pipe( out );
-        enc.set( buf );
-        enc.putObject( this.modifiers );
+        buf.pipe(out);
+        enc.set(buf);
+        enc.putObject(this.modifiers);
         enc.done();
         out.writeBoolean(this.upsert);
         out.writeBoolean(this.multiUpdate);
@@ -95,33 +95,32 @@ public class MongoUpdateWritable implements Writable {
      *
      * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)
      */
-    public void readFields( DataInput in ) throws IOException{
+    public void readFields(DataInput in) throws IOException {
         BSONDecoder dec = new BasicBSONDecoder();
         BSONCallback cb = new BasicBSONCallback();
         // Read the BSON length from the start of the record
         byte[] l = new byte[4];
         try {
-            in.readFully( l );
-            int dataLen = Bits.readInt( l );
+            in.readFully(l);
+            int dataLen = Bits.readInt(l);
             byte[] data = new byte[dataLen + 4];
-            System.arraycopy( l, 0, data, 0, 4 );
-            in.readFully( data, 4, dataLen - 4 );
-            dec.decode( data, cb );
+            System.arraycopy(l, 0, data, 0, 4);
+            in.readFully(data, 4, dataLen - 4);
+            dec.decode(data, cb);
             this.query = (BasicBSONObject) cb.get();
-            in.readFully( l );
-            dataLen = Bits.readInt( l );
-            data = new byte[dataLen + 4]; 
-            System.arraycopy( l, 0, data, 0, 4 );
-            in.readFully( data, 4, dataLen - 4 );
-            dec.decode( data, cb );
+            in.readFully(l);
+            dataLen = Bits.readInt(l);
+            data = new byte[dataLen + 4];
+            System.arraycopy(l, 0, data, 0, 4);
+            in.readFully(data, 4, dataLen - 4);
+            dec.decode(data, cb);
             this.modifiers = (BasicBSONObject) cb.get();
             this.upsert = in.readBoolean();
             this.multiUpdate = in.readBoolean();
-        }
-        catch ( Exception e ) {
+        } catch (Exception e) {
             /* If we can't read another length it's not an error, just return quietly. */
             // TODO - Figure out how to gracefully mark this as an empty
-            log.info( "No Length Header available." + e );
+            log.info("No Length Header available." + e);
             this.query = new BasicDBObject();
             this.modifiers = new BasicDBObject();
         }
@@ -129,21 +128,21 @@ public class MongoUpdateWritable implements Writable {
     }
 
     @Override
-    public boolean equals( Object obj ){
-        if ( obj == null || getClass() != obj.getClass() )
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass())
             return false;
         final MongoUpdateWritable other = (MongoUpdateWritable) obj;
-        if(this.upsert != other.upsert || this.multiUpdate != other.multiUpdate){
+        if (this.upsert != other.upsert || this.multiUpdate != other.multiUpdate) {
             return false;
         }
-        if( !( this.query != other.query && ( this.query == null || !this.query.equals( other.query ) ) )){
+        if (!(this.query != other.query && (this.query == null || !this.query.equals(other.query)))) {
             return true;
         }
-        return !( this.modifiers != other.modifiers && ( this.modifiers == null || !this.modifiers.equals( other.modifiers ) ) );
+        return !(this.modifiers != other.modifiers && (this.modifiers == null || !this.modifiers.equals(other.modifiers)));
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         int hashCode = this.query.hashCode();
         hashCode ^= this.modifiers.hashCode();
         hashCode ^= (this.upsert ? 1 : 0) << 1;
@@ -154,6 +153,6 @@ public class MongoUpdateWritable implements Writable {
     protected BSONObject _doc;
 
 
-    private static final Log log = LogFactory.getLog( MongoUpdateWritable.class );
+    private static final Log log = LogFactory.getLog(MongoUpdateWritable.class);
 
 }

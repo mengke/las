@@ -1,0 +1,185 @@
+configure(allprojects) { project ->
+    group = "org.easycloud.las"
+    version = "1.0-SNAPSHOT"
+
+    ext {
+        flumeVersion = "1.3.1"
+        slf4jVersion = "1.7.5"
+        log4jVersion = "1.2.17"
+        mongodbDriverVersion = "2.11.2"
+        springVersion = "3.2.3.RELEASE"
+        springMongodbVersion = "1.2.1.RELEASE"
+        jdomVersion = "2.0.5"
+//        hadoopVersion = "2.0.0-mr1-cdh4.2.1"
+        hadoopVersion = "1.0.1"
+        commonsLang3Version = "3.1"
+        commonsIoVersion = "1.3.2"
+        niftyVersion = "0.7.0"
+        thriftVersion = "0.9.0"
+        testngVersion = "6.8.5"
+        mrunitVersion = "1.0.0"
+    }
+
+    apply plugin: "java"
+
+    compileJava {
+        sourceCompatibility=1.6
+        targetCompatibility=1.6
+    }
+
+    [compileJava, compileTestJava]*.options*.compilerArgs = [
+            "-Xlint:serial",
+            "-Xlint:varargs",
+            "-Xlint:cast",
+            "-Xlint:classfile",
+            "-Xlint:dep-ann",
+            "-Xlint:divzero",
+            "-Xlint:empty",
+            "-Xlint:finally",
+            "-Xlint:overrides",
+            "-Xlint:path",
+            "-Xlint:processing",
+            "-Xlint:static",
+            "-Xlint:try",
+            "-Xlint:-options",     // intentionally disabled
+            "-Xlint:-fallthrough", // intentionally disabled
+            "-Xlint:-rawtypes",    // TODO enable and fix warnings
+            "-Xlint:-deprecation"  // TODO enable and fix warnings
+    ]
+
+    sourceSets.test.resources.srcDirs = ["src/test/resources", "src/test/java"]
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+        compile("org.slf4j:slf4j-api:${slf4jVersion}")
+        compile("org.slf4j:slf4j-log4j12:${slf4jVersion}")
+        compile("log4j:log4j:${log4jVersion}")
+        testCompile("org.testng:testng:${testngVersion}")
+    }
+}
+
+configure(subprojects) { subproject ->
+
+    jar {
+        manifest.attributes["Created-By"] =
+            "${System.getProperty("java.version")} (${System.getProperty("java.specification.vendor")})"
+        manifest.attributes["Implementation-Title"] = subproject.name
+        manifest.attributes["Implementation-Version"] = subproject.version
+    }
+}
+
+project ("las-core") {
+    description = "Las Core"
+
+    dependencies {
+        compile("org.apache.commons:commons-lang3:${commonsLang3Version}")
+        compile("org.apache.commons:commons-io:${commonsIoVersion}")
+        compile("org.springframework:spring-core:${springVersion}")
+        compile("org.jdom:jdom2:${jdomVersion}")
+    }
+}
+
+project ("las-agent") {
+    description = "Las Agent"
+
+    dependencies {
+        compile(project(":las-core"))
+        compile("org.apache.flume:flume-ng-core:${flumeVersion}")
+    }
+
+    jar {
+        from sourceSets.main.resources
+        exclude('log4j.dtd')
+        exclude('log4j.xml')
+        exclude('*.properties')
+
+
+    }
+
+    task distZip (type: Zip, dependsOn: jar) {
+        group = "Distribution"
+        def baseDir = project.name + "-" + project.version
+        def artifacts = new HashSet()
+        project.configurations.runtime.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            artifacts << artifact.file
+        }
+
+        into ("${baseDir}/lib") {
+            from (artifacts)
+            from (project.libsDir)
+        }
+
+        into ("${baseDir}/conf") {
+            from (sourceSets.main.output.resourcesDir)
+        }
+
+        into ("${baseDir}/bin") {
+            from ("src/bin/start.sh")
+        }
+    }
+}
+
+project ("las-analyzer") {
+    description = "Las Analyzer"
+
+    dependencies {
+        compile("org.apache.hadoop:hadoop-client:${hadoopVersion}")
+        compile("org.mongodb:mongo-java-driver:${mongodbDriverVersion}")
+        testCompile("org.apache.mrunit:mrunit:${mrunitVersion}:hadoop1")
+    }
+}
+
+project ("las-server") {
+    description = "Las Server"
+
+    dependencies {
+        compile(project(":las-core"))
+        compile("com.facebook.nifty:nifty-core:${niftyVersion}")
+        compile("org.apache.thrift:libthrift:${thriftVersion}")
+        compile("org.springframework:spring-context:${springVersion}")
+        compile("org.springframework.data:spring-data-mongodb:${springMongodbVersion}")
+    }
+}
+
+project ("las-services") {
+    description = "Las Services"
+
+    dependencies {
+        compile(project(":las-server"))
+        testCompile("org.springframework:spring-test:${springVersion}")
+    }
+}
+
+configure (rootProject) {
+    description = "Log Analyzing System"
+
+    // don't publish the default jar for the root project
+    configurations.archives.artifacts.clear()
+
+    task wrapper(type: Wrapper) {
+        description = "Generates gradlew[.bat] scripts"
+        gradleVersion = "1.6"
+    }
+
+    task distZip(type: Zip) {
+        group = "Distribution"
+        baseName = "las"
+        classifier = "dist"
+
+        ext.baseDir = "";
+
+        from("${baseDir}") {
+            include "readme.txt"
+            include "license.txt"
+            include "notice.txt"
+            into "${baseDir}"
+            expand(copyright: new Date().format("yyyy"), version: project.version)
+        }
+    }
+
+
+}

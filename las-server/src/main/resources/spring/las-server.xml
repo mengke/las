@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:property-placeholder location="classpath:server-config.properties"/>
+
+    <bean id="lasServer" class="org.easycloud.las.server.LasServer" abstract="true">
+        <property name="serverPort" value="${server.port}"/>
+    </bean>
+
+    <bean id="niftyServer" class="org.easycloud.las.server.NiftyServer" parent="lasServer"/>
+
+    <bean id="bootServer" class="org.easycloud.las.server.LasServerFactory">
+        <property name="lasServers">
+            <list>
+                <ref local="niftyServer"/>
+            </list>
+        </property>
+        <property name="bootServerClass" value="org.easycloud.las.server.NiftyServer"/>
+        <property name="processors">
+            <map>
+                <entry key="house_visit" value-ref="houseVisitProcessor"/>
+            </map>
+        </property>
+    </bean>
+</beans>

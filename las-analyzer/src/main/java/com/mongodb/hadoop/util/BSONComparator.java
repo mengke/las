@@ -13,26 +13,26 @@ public class BSONComparator implements RawComparator<BSONObject> {
         instance = new BSONComparator();
     }
 
-    public static BSONComparator getInstance(){
+    public static BSONComparator getInstance() {
         return instance;
     }
-    
-    public int compare(BSONObject obj1, BSONObject obj2){
+
+    public int compare(BSONObject obj1, BSONObject obj2) {
         //TODO make this more efficient. 
         //Shouldn't need to serialize the whole doc to a string just to compare two BSONObjects.
-        return obj1.toString().compareTo( obj2.toString() );
+        return obj1.toString().compareTo(obj2.toString());
     }
 
     @Override
-    public int compare(byte[] b1, int s1, int l1, byte[] b2, int s2, int l2){
+    public int compare(byte[] b1, int s1, int l1, byte[] b2, int s2, int l2) {
         System.out.println("called compare!");
         LazyBSONDecoder dec = new LazyBSONDecoder();
         LazyBSONCallback cb = new LazyBSONCallback();
         dec.decode(b1, cb);
-        BSONObject a = (BSONObject)cb.get();
+        BSONObject a = (BSONObject) cb.get();
         cb.reset();
         dec.decode(b2, cb);
-        BSONObject b = (BSONObject)cb.get();
+        BSONObject b = (BSONObject) cb.get();
         System.out.println("about to call compare");
         return compare(a, b);
     }
