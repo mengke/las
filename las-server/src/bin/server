@@ -1,0 +1,45 @@
+#!/bin/bash
+
+################################
+# constants
+################################
+BOOTSTRAP_CLASS="org.easycloud.las.server.Bootstrap"
+
+# Check if JAVA_HOME is set
+# Use JAVA_HOME if set, otherwise look for java in PATH
+if [ -n "$JAVA_HOME" ]; then
+    JAVA="$JAVA_HOME/bin/java"
+else
+  echo "Error: JAVA_HOME is not set."
+  exit 1
+fi
+
+JAVA_HEAP_MAX=-Xmx1000m
+
+if [ "x$LAS_SERVER_HOME" = "x" ]; then
+    LAS_SERVER_HOME="`dirname "$0"`/.."
+fi
+
+# Allow alternate conf dir location.
+if [ "x$LAS_SERVER_CONF" = "x" ]; then
+    LAS_SERVER_CONF="$LAS_SERVER_HOME/conf"
+fi
+
+export LAS_SERVER_CONF=$LAS_SERVER_CONF
+
+CLASSPATH="${LAS_SERVER_CONF}"
+CLASSPATH=.:${CLASSPATH}:$JAVA_HOME/lib/tools.jar
+
+LAS_SERVER_LIB="$LAS_SERVER_HOME/lib"
+
+for f in ${LAS_SERVER_LIB}/*.jar; do
+CLASSPATH=${CLASSPATH}:$f;
+done
+
+echo ${CLASSPATH}
+
+EXEC_CALL="$JAVA $JAVA_HEAP_MAX -classpath $CLASSPATH"
+
+exec $EXEC_CALL $BOOTSTRAP_CLASS "$@"
+
+exit $?

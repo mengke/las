@@ -22,7 +22,7 @@
     <!-- Console -->
     <appender name="LOG-CONSOLE" class="org.apache.log4j.ConsoleAppender">
         <param name="Target" value="System.out"/>
-        <param name="Threshold" value="DEBUG"/>
+        <param name="Threshold" value="INFO"/>
         <param name="encoding" value="UTF-8"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%m %n"/>
@@ -41,7 +41,7 @@
     </appender>
 
     <root>
-        <level value="DEBUG"/>
+        <level value="INFO"/>
         <appender-ref ref="LOG-CONSOLE"/>
         <appender-ref ref="LOG-SYSTEM"/>
     </root>
