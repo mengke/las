@@ -48,8 +48,9 @@ configure(allprojects) { project ->
     sourceSets.test.resources.srcDirs = ["src/test/resources", "src/test/java"]
 
     repositories {
-        mavenCentral()
-        mavenLocal()
+        maven {
+            url "http://172.16.17.1:8081/artifactory/repo"
+        }
     }
 
     dependencies {
@@ -231,6 +232,10 @@ configure (rootProject) {
             from(project(":las-agent").distsDir)
             from(project(":las-server").distsDir)
             from(project(":las-analyzer").libsDir)
+        }
+
+        into ("${baseDir}/las-ui") {
+            from("las-ui")
         }
     }
 

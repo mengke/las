@@ -1,0 +1,6 @@
+.span3.bs-docs-sidebar
+    ul.nav.nav-list.bs-docs-sidenav(data-spy='affix')
+        - each val,key in modules
+            li: a(href='##{key}')
+                    i.icon-chevron-right
+                    | #{val}

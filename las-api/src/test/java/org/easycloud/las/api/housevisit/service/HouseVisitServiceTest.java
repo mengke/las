@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,18 +46,20 @@ public class HouseVisitServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testThrift() throws Exception {
-        TTransport transport = new TSocket("localhost", 8081);
+        TTransport transport = new TSocket("localhost", 9090);
         transport.open();
 
         TProtocol protocol = new TBinaryProtocol(transport);
         TProtocol compositeProtocol = new TCompositeProtocol(protocol, "house_visit");
         HouseVisit.Client client = new HouseVisit.Client(compositeProtocol);
 
-        List<HvRecord> records = client.getUserVisitRecord("0005918715913596cb4c9c9e5dc13dd6", (byte) 1);
-        for (HvRecord record : records) {
-            assertEquals(record.getHouseType(), (byte) 1);
-        }
+//        List<HvRecord> records = client.getUserVisitRecord("0005918715913596cb4c9c9e5dc13dd6", (byte) 1);
+//        for (HvRecord record : records) {
+//            assertEquals(record.getHouseType(), (byte) 1);
+//        }
 
+        List<UvsRecord> records = client.getUserVisitRecords(0, 15);
+        assertTrue(records.size() <= 15);
         transport.close();
     }
 }

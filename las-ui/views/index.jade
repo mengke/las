@@ -1,0 +1,61 @@
+extends layout
+
+block content
+    section#agents
+        .page-header
+            h1 Log Agent
+        .row-fluid
+            ul.thumbnails
+                li.span4
+                    .thumbnail
+                        .caption
+                            h3 agent1
+                            p Hosts/IP : 172.16.15.220
+                            p Status : 
+                                span.label.label-success Connected
+                            p Last Recv : 5s ago
+                            p Log Sent Status : 
+                                span.label.label-success Good
+                            p Last Sent : 1h ago
+                            p: .btn-group
+                                a.btn(href='#myModal', role='button', data-toggle='modal') Start
+                                a.btn.btn-danger(href='#myModal', role='button', data-toggle='modal') Stop
+                                a.btn(href='#myModal', role='button', data-toggle='modal') Restart
+                li.span4
+                    .thumbnail
+                        .caption
+                            h3 agent2
+                            p Hosts/IP : 172.16.15.201
+                            p Status : 
+                                span.label.label-success Connected
+                            p Last Recv : 6s ago
+                            p Log Sent Status : 
+                                span.label.label-success Good
+                            p Last Sent : 26m ago
+                            p: .btn-group
+                                a.btn(href='#myModal', role='button', data-toggle='modal') Start
+                                a.btn.btn-danger(href='#myModal', role='button', data-toggle='modal') Stop
+                                a.btn(href='#myModal', role='button', data-toggle='modal') Restart
+                li.span4
+                    .thumbnail
+                        .caption
+                            h3 agent3
+                            p Hosts/IP : 172.16.15.202
+                            p Status : 
+                                span.label.label-important Disconnected
+                            p Last Recv : 1h ago
+                            p Log Sent Status : 
+                                span.label.label-important Out of Service
+                            p Last Sent : 2h ago
+                            p: .btn-group
+                                a.btn(href='#myModal', role='button', data-toggle='modal') Start
+                                a.btn.btn-danger(href='#myModal', role='button', data-toggle='modal') Stop
+                                a.btn(href='#myModal', role='button', data-toggle='modal') Restart
+        #myModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+            .modal-header
+                button.close(data-dismiss='modal', aria-hidden='true') x
+                h3#myModalLabel 逗你玩儿
+            .modal-body
+                p 未实现...
+            .modal-footer
+                button.btn.btn-primary(data-dismiss='modal', aria-hidden='true') Close

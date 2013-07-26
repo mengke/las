@@ -1,0 +1,18 @@
+.navbar.navbar-inverse.navbar-fixed-top
+  .navbar-inner
+    .container
+      a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.brand(href='/') LAS
+      .nav-collapse.collapse
+        ul.nav
+            if (pageId == 'dashboard')
+                li.active: a(href='/') Dashboard
+            else
+                li: a(href='/') Dashboard
+            if (pageId == 'services')
+                li.active: a(href='/services') 服务
+            else
+                li: a(href='/services') 服务

@@ -1,0 +1,33 @@
+extends layout
+
+block content
+	.row
+		include sidebar.jade
+		.span9
+			section#housevisits
+				.page-header
+					h1 房源浏览记录
+				.inline
+					.btn-group.pull-left(data-toggle='buttons-radio')
+						#all_house_type.button.house_type.btn.active 全部
+						#sell_house_type.button.house_type.btn 二手房
+						#rent_house_type.button.house_type.btn 租房
+					.input-append
+						input.span2(id='user_code', type='text')
+						a#search_history.btn.btn-primary(href='#myModal', role='button', data-toggle='modal') 搜索
+					a#load_users.btn.btn-primary.pull-right(href='#', role='button') 载入房源浏览记录
+				#show_info.alert.alert-info.hide
+					strong 注意
+					|  下列结果只显示前15条
+				#housevisits_list.accordion
+			#myModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+					h3#myModalLabel 搜索结果
+				#visit_history.modal-body
+				.modal-footer
+					a.btn.btn-primary(href='#', data-dismiss='modal', aria-hidden='true') Close
+			section#houserecommands
+				.page-header
+					h1 基于房源相似度的推荐
+				.alert 未实现
