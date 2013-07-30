@@ -44,7 +44,7 @@ public class HouseVisitServiceTest extends AbstractTestNGSpringContextTests {
         }
     }
 
-    @Test
+    @Test(enabled = false)
     public void testThrift() throws Exception {
         TTransport transport = new TSocket("localhost", 9090);
         transport.open();

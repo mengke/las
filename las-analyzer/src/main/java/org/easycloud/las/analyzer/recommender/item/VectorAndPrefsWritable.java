@@ -69,6 +69,28 @@ public class VectorAndPrefsWritable implements Writable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VectorAndPrefsWritable that = (VectorAndPrefsWritable) o;
+
+        if (userIDs != null ? !userIDs.equals(that.userIDs) : that.userIDs != null) return false;
+        if (values != null ? !values.equals(that.values) : that.values != null) return false;
+        if (!vector.equals(that.vector)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = vector.hashCode();
+        result = 31 * result + (userIDs != null ? userIDs.hashCode() : 0);
+        result = 31 * result + (values != null ? values.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return vector + "\t" + userIDs + '\t' + values;
     }

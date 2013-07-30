@@ -21,7 +21,7 @@ import java.util.List;
  * Time: 上午8:54
  */
 public class ToVectorAndPrefReducer extends MapReduceBase implements
-        Reducer<Text,VectorOrPrefWritable,Text,VectorAndPrefsWritable> {
+        Reducer<Text, VectorOrPrefWritable, Text, VectorAndPrefsWritable> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ToVectorAndPrefReducer.class);
 

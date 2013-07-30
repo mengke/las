@@ -37,7 +37,7 @@ public class UserVectorToCooccurrenceMapper extends MapReduceBase
                 String itemId1 = entry.getKey();
                 Iterator<Map.Entry<String, Double>> iter2 = userVector.get().iterator();
                 while (iter2.hasNext()) {
-                    Map.Entry<String, Double> entry2 = iter.next();
+                    Map.Entry<String, Double> entry2 = iter2.next();
                     if (entry2.getValue() > 0.0) {
                         String itemId2 = entry2.getKey();
                         collector.collect(new Text(itemId1), new Text(itemId2));

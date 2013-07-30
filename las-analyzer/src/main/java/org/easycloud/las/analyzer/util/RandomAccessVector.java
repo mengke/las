@@ -47,7 +47,8 @@ public class RandomAccessVector<T> {
     }
 
     public double get(T key) {
-        return values.get(key);
+        Double result = values.get(key);
+        return result != null ? result : 0;
     }
 
     public void set(T key, double value) {
@@ -80,15 +81,12 @@ public class RandomAccessVector<T> {
     }
 
     public RandomAccessVector<T> plus(RandomAccessVector<T> x) {
-        if (size() != x.size()) {
-            throw new CardinalityException(size(), x.size());
-        }
 
         RandomAccessVector<T> result = like().assign(this);
 
         for (Map.Entry<T, Double> xEntry : x.values.entrySet()) {
             T key = xEntry.getKey();
-            result.set(key, this.get(key) * xEntry.getValue());
+            result.set(key, this.get(key) + xEntry.getValue());
         }
 
         return result;

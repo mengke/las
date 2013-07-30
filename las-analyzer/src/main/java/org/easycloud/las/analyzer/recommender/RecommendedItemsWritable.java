@@ -2,7 +2,6 @@ package org.easycloud.las.analyzer.recommender;
 
 import com.google.common.collect.Lists;
 import org.apache.hadoop.io.Writable;
-import org.easycloud.las.analyzer.recommender.RecommendedItem;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -54,6 +53,23 @@ public final class RecommendedItemsWritable implements Writable {
             RecommendedItem recommendedItem = new RecommendedItem(itemID, value);
             recommended.add(recommendedItem);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RecommendedItemsWritable that = (RecommendedItemsWritable) o;
+
+        if (recommended != null ? !recommended.equals(that.recommended) : that.recommended != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return recommended != null ? recommended.hashCode() : 0;
     }
 
     @Override
