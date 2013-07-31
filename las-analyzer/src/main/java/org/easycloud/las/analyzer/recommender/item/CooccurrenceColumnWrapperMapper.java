@@ -6,6 +6,7 @@ import org.apache.hadoop.mapred.Mapper;
 import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapred.Reporter;
 import org.easycloud.las.analyzer.recommender.VectorWritable;
+import org.easycloud.las.analyzer.util.RandomAccessVector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +29,9 @@ public class CooccurrenceColumnWrapperMapper extends MapReduceBase
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("CooccurrenceColumnWrapperMapper: processing the key [ " + key + "]");
         }
+        RandomAccessVector<String> vector = value.get();
+        /* remove self similarity */
+        vector.set(key.toString(), 0.0);
         collector.collect(key, new VectorOrPrefWritable(value.get()));
     }
 }

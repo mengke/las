@@ -2,7 +2,6 @@ package org.easycloud.las.analyzer.recommender.item;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.MapDriver;
-import org.apache.hadoop.mrunit.MapReduceDriver;
 import org.apache.hadoop.mrunit.ReduceDriver;
 import org.easycloud.las.analyzer.recommender.RecommendedItem;
 import org.easycloud.las.analyzer.recommender.RecommendedItemsWritable;
@@ -13,7 +12,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import static org.easycloud.las.analyzer.Constants.HOUSE_TYPE_RENT;
 import static org.easycloud.las.analyzer.Constants.HOUSE_TYPE_SELL;

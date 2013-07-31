@@ -39,9 +39,11 @@ public class UserVectorSplitterMapper extends MapReduceBase
             Map.Entry<String, Double> entry = it.next();
             String itemId = entry.getKey();
             double prefValue = entry.getValue();
-            outputKey.set(itemId);
-            collector.collect(outputKey,
-                    new VectorOrPrefWritable(userID, prefValue));
+            if (prefValue > 0.0) {
+                outputKey.set(itemId);
+                collector.collect(outputKey,
+                        new VectorOrPrefWritable(userID, prefValue));
+            }
         }
     }
 }

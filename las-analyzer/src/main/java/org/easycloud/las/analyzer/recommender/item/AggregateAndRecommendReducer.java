@@ -42,38 +42,9 @@ public class AggregateAndRecommendReducer extends MapReduceBase
             LOGGER.debug("AggregateAndRecommendReducer: processing the key [ " + userId + "]");
         }
 
-        RandomAccessVector<String> recommendationVector = null;
-        while (values.hasNext()) {
-            VectorWritable vectorWritable = values.next();
-            recommendationVector = recommendationVector == null ? vectorWritable
-                    .get() : recommendationVector.plus(vectorWritable.get());
-        }
-
-        Queue<RecommendedItem> topItems = new PriorityQueue<RecommendedItem>(
-                recommendationsPerUser + 1,
-                Collections.reverseOrder(ByValueRecommendedItemComparator
-                        .getInstance()));
-
-
-        Iterator<Map.Entry<String, Double>> recommendationVectorIterator = recommendationVector.iterator();
-        while (recommendationVectorIterator.hasNext()) {
-            Map.Entry<String, Double> entry = recommendationVectorIterator.next();
-            String itemId = entry.getKey();
-            double value = entry.getValue();
-            if (topItems.size() < recommendationsPerUser) {
-                topItems.add(new RecommendedItem(itemId, value));
-            } else if (value > topItems.peek().getPrefValue()) {
-                topItems.add(new RecommendedItem(itemId, value));
-                topItems.poll();
-            }
-        }
-
-
-        List<RecommendedItem> recommendations = new ArrayList<RecommendedItem>(
-                topItems.size());
-        recommendations.addAll(topItems);
-        Collections.sort(recommendations,
-                ByValueRecommendedItemComparator.getInstance());
+        List<RecommendedItem> recommendations = ItemRecommender.considerRecommendation(values, recommendationsPerUser);
         collector.collect(userId, new RecommendedItemsWritable(recommendations));
     }
+
+
 }

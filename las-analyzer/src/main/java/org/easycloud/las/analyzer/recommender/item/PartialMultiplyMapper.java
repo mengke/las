@@ -33,13 +33,16 @@ public class PartialMultiplyMapper extends MapReduceBase
         RandomAccessVector<String> cooccurrenceColumn = value.getVector();
         List<String> userIDs = value.getUserIDs();
         List<Double> prefValues = value.getValues();
+        VectorWritable outputValue = new VectorWritable();
 
         for (int i = 0; i < userIDs.size(); i++) {
             String userID = userIDs.get(i);
             double prefValue = prefValues.get(i);
-            RandomAccessVector<String> partialProduct = cooccurrenceColumn.times(prefValue);
-            collector.collect(new Text(userID),
-                    new VectorWritable(partialProduct));
+            if (prefValue > 0.0) {
+                RandomAccessVector<String> partialProduct = cooccurrenceColumn.times(prefValue);
+                outputValue.set(partialProduct);
+                collector.collect(new Text(userID), outputValue);
+            }
         }
     }
 }
