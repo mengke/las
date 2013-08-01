@@ -39,6 +39,7 @@
         <property name="processors">
             <map>
                 <entry key="house_visit" value-ref="houseVisitProcessor"/>
+                <entry key="item_recommendation" value-ref="itemBasedRecommendationProcessor"/>
             </map>
         </property>
     </bean>
