@@ -1,10 +1,10 @@
-each house in houses
-	table.table.table-striped
-		thead:tr
-			th 房源编号
-			th 房源类型
-			th 访问时间
-		tbody
+table.table.table-striped
+	thead:tr
+		th 房源编号
+		th 房源类型
+		th 访问时间
+	tbody
+		each house in houses
 			tr
 				td #{house.houseCode}
 				if house.houseType == 1
