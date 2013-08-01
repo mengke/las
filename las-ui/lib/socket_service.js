@@ -55,7 +55,6 @@ exports.listen = function(server) {
 		  		console.error(err);
 		  	} else {
 		  		var context = {"items" : response};
-		  		console.log(context);
 					var houses_history_search = jade.renderFile('./views/item_recommendations.jade', context, function (error, html) {
 						if (error) {
 		  				console.error(error);
