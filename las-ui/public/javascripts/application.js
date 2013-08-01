@@ -22,8 +22,13 @@ $( document ).ready(function() {
 		}
 		socket.emit('visit_history', $('#user_code').val(), house_type, function (data) {
 			$('#visit_history').html('');
-			console.log(data);
 			$('#visit_history').html(data);
+		});
+	});
+	$('#search_item_recommendations').click(function() {
+		socket.emit('item_recommendations', $('#user_code_item_rec').val(), function (data) {
+			$('#item_recommendations_list').html('');
+			$('#item_recommendations_list').html(data);
 		});
 	});
 });

@@ -6,7 +6,7 @@ var socketio = require('socket.io');
 var io;
 
 var house_visits = require('./house_visits');
-var ttypes = require("./gen-nodejs/housevisit_types");
+var item_recommendations = require('./item_recommendation');
 
 
 exports.listen = function(server) {
@@ -39,6 +39,24 @@ exports.listen = function(server) {
 		  	} else {
 		  		var context = {"houses" : response};
 					var houses_history_search = jade.renderFile('./views/house_visits_search.jade', context, function (error, html) {
+						if (error) {
+		  				console.error(error);
+		  			} else {
+		  				callback(html);
+		  			}
+		  		});
+		  	}
+		  });
+	    
+	  });
+	  
+	  socket.on('item_recommendations', function (userCode, callback) {
+		  item_recommendations.findItemBasedRecommendations(userCode, function(err, response) {
+		  	if (err) {
+		  		console.error(err);
+		  	} else {
+		  		var context = {"items" : response};
+					var houses_history_search = jade.renderFile('./views/item_recommendations.jade', context, function (error, html) {
 						if (error) {
 		  				console.error(error);
 		  			} else {
