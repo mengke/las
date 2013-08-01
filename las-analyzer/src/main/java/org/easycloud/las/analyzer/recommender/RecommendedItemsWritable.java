@@ -39,7 +39,7 @@ public final class RecommendedItemsWritable implements Writable {
         out.writeInt(recommended.size());
         for (RecommendedItem item : recommended) {
             out.writeUTF(item.getItemId());
-            out.writeDouble(item.getPrefValue());
+            out.writeInt(item.getPrefValue());
         }
     }
 
@@ -49,7 +49,7 @@ public final class RecommendedItemsWritable implements Writable {
         recommended = Lists.newArrayListWithCapacity(size);
         for (int i = 0; i < size; i++) {
             String itemID = in.readUTF();
-            double value = in.readDouble();
+            int value = in.readInt();
             RecommendedItem recommendedItem = new RecommendedItem(itemID, value);
             recommended.add(recommendedItem);
         }

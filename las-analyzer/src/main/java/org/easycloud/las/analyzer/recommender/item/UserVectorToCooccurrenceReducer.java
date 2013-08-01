@@ -34,7 +34,7 @@ public class UserVectorToCooccurrenceReducer extends MapReduceBase
         while (itemId2s.hasNext()) {
             String itemId2 = itemId2s.next().toString();
             cooccurrenceRow.set(itemId2,
-                    cooccurrenceRow.get(itemId2) + 1.0);
+                    cooccurrenceRow.get(itemId2) + 1);
         }
         collector.collect(itemId1, new VectorWritable(cooccurrenceRow));
     }

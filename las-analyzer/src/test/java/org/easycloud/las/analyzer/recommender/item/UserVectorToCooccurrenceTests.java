@@ -60,8 +60,8 @@ public class UserVectorToCooccurrenceTests {
         RandomAccessVector<String> userVector = new RandomAccessVector<String>(2);
         String house1 = houseCode1 + "/" + houseType1;
         String house3 = houseCode3 + "/" + houseType3;
-        userVector.set(house1, 1.0);
-        userVector.set(house3, 1.0);
+        userVector.set(house1, 1);
+        userVector.set(house3, 1);
         mapDriver.withInput(new Text(userCode1), new VectorWritable(userVector));
         mapDriver.addOutput(new Text(house1), new Text(house1));
         mapDriver.addOutput(new Text(house1), new Text(house3));
@@ -81,8 +81,8 @@ public class UserVectorToCooccurrenceTests {
         inputValue.add(new Text(house3));
         reduceDriver.withInput(new Text(house1), inputValue);
         RandomAccessVector<String> outputValue = new RandomAccessVector<String>(2);
-        outputValue.set(house1, 1.0);
-        outputValue.set(house3, 2.0);
+        outputValue.set(house1, 1);
+        outputValue.set(house3, 2);
         reduceDriver.withOutput(new Text(house1), new VectorWritable(outputValue));
 
         reduceDriver.runTest();
@@ -96,31 +96,31 @@ public class UserVectorToCooccurrenceTests {
         String house3 = houseCode3 + "/" + houseType3;
 
         RandomAccessVector<String> userVector1 = new RandomAccessVector<String>(3);
-        userVector1.set(house1, 1.0);
-        userVector1.set(house2, 1.0);
-        userVector1.set(house3, 1.0);
+        userVector1.set(house1, 1);
+        userVector1.set(house2, 1);
+        userVector1.set(house3, 1);
 
         RandomAccessVector<String> userVector2 = new RandomAccessVector<String>(1);
-        userVector2.set(house2, 1.0);
-        userVector2.set(house3, 1.0);
+        userVector2.set(house2, 1);
+        userVector2.set(house3, 1);
 
         mapReduceDriver.addInput(new Text(userCode1), new VectorWritable(userVector1));
         mapReduceDriver.addInput(new Text(userCode2), new VectorWritable(userVector2));
 
         RandomAccessVector<String> cooccurrenceRow1 = new RandomAccessVector<String>();
-        cooccurrenceRow1.set(house1, 1.0);
-        cooccurrenceRow1.set(house2, 1.0);
-        cooccurrenceRow1.set(house3, 1.0);
+        cooccurrenceRow1.set(house1, 1);
+        cooccurrenceRow1.set(house2, 1);
+        cooccurrenceRow1.set(house3, 1);
 
         RandomAccessVector<String> cooccurrenceRow2 = new RandomAccessVector<String>();
-        cooccurrenceRow2.set(house1, 1.0);
-        cooccurrenceRow2.set(house2, 2.0);
-        cooccurrenceRow2.set(house3, 2.0);
+        cooccurrenceRow2.set(house1, 1);
+        cooccurrenceRow2.set(house2, 2);
+        cooccurrenceRow2.set(house3, 2);
 
         RandomAccessVector<String> cooccurrenceRow3 = new RandomAccessVector<String>();
-        cooccurrenceRow3.set(house1, 1.0);
-        cooccurrenceRow3.set(house2, 2.0);
-        cooccurrenceRow3.set(house3, 2.0);
+        cooccurrenceRow3.set(house1, 1);
+        cooccurrenceRow3.set(house2, 2);
+        cooccurrenceRow3.set(house3, 2);
 
         mapReduceDriver.addOutput(new Text(house1), new VectorWritable(cooccurrenceRow1));
         mapReduceDriver.addOutput(new Text(house2), new VectorWritable(cooccurrenceRow2));

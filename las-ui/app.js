@@ -51,11 +51,7 @@ app.get('*', function(req, res) {
     throw new NotFound;
 });
 
-function NotFound(msg){
-    this.name = 'NotFound';
-    Error.call(this, msg);
-    Error.captureStackTrace(this, arguments.callee);
-}
+
 
 var server = http.createServer(app);
 

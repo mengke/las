@@ -60,16 +60,16 @@ public class AggregateAndRecommendTests {
         String house3 = houseCode3 + "/" + houseType3;
 
         RandomAccessVector<String> cooccurrenceColumn = new RandomAccessVector<String>();
-        cooccurrenceColumn.set(house1, 1.0);
-        cooccurrenceColumn.set(house2, 2.0);
-        cooccurrenceColumn.set(house3, 2.0);
+        cooccurrenceColumn.set(house1, 1);
+        cooccurrenceColumn.set(house2, 2);
+        cooccurrenceColumn.set(house3, 2);
         List<String> userCodes = new ArrayList<String>();
         userCodes.add(userCode1);
         userCodes.add(userCode2);
 
-        List<Double> prefValues = new ArrayList<Double>();
-        prefValues.add(1.0);
-        prefValues.add(1.0);
+        List<Integer> prefValues = new ArrayList<Integer>();
+        prefValues.add(1);
+        prefValues.add(1);
         VectorAndPrefsWritable inputValue = new VectorAndPrefsWritable(cooccurrenceColumn, userCodes, prefValues);
         mapDriver.withInput(new Text(house2), inputValue);
         mapDriver.addOutput(new Text(userCode1), new VectorWritable(cooccurrenceColumn));
@@ -86,15 +86,15 @@ public class AggregateAndRecommendTests {
         String house3 = houseCode3 + "/" + houseType3;
 
         RandomAccessVector<String> cooccurrenceColumn1 = new RandomAccessVector<String>();
-        cooccurrenceColumn1.set(house1, 1.0);
-        cooccurrenceColumn1.set(house2, 2.0);
-        cooccurrenceColumn1.set(house3, 2.0);
+        cooccurrenceColumn1.set(house1, 1);
+        cooccurrenceColumn1.set(house2, 2);
+        cooccurrenceColumn1.set(house3, 2);
         VectorWritable input1 = new VectorWritable(cooccurrenceColumn1);
 
         RandomAccessVector<String> cooccurrenceColumn2 = new RandomAccessVector<String>();
-        cooccurrenceColumn2.set(house1, 0.0);
-        cooccurrenceColumn2.set(house2, 1.0);
-        cooccurrenceColumn2.set(house3, 1.0);
+        cooccurrenceColumn2.set(house1, 0);
+        cooccurrenceColumn2.set(house2, 1);
+        cooccurrenceColumn2.set(house3, 1);
         VectorWritable input2 = new VectorWritable(cooccurrenceColumn2);
 
         List<VectorWritable> inputValues = new ArrayList<VectorWritable>(2);
@@ -102,9 +102,9 @@ public class AggregateAndRecommendTests {
         inputValues.add(input2);
 
         reduceDriver.withInput(new Text(userCode1), inputValues);
-        RecommendedItem item2 = new RecommendedItem(house2, 3.0);
-        RecommendedItem item3 = new RecommendedItem(house3, 3.0);
-        RecommendedItem item1 = new RecommendedItem(house1, 1.0);
+        RecommendedItem item2 = new RecommendedItem(house2, 3);
+        RecommendedItem item3 = new RecommendedItem(house3, 3);
+        RecommendedItem item1 = new RecommendedItem(house1, 1);
         List<RecommendedItem> outputValues = new ArrayList<RecommendedItem>(3);
         outputValues.add(item2);
         outputValues.add(item3);

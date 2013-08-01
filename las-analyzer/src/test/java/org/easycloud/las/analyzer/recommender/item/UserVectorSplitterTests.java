@@ -47,12 +47,12 @@ public class UserVectorSplitterTests {
         String house3 = houseCode3 + "/" + houseType3;
 
         RandomAccessVector<String> userVector1 = new RandomAccessVector<String>(2);
-        userVector1.set(house2, 1.0);
-        userVector1.set(house3, 1.0);
+        userVector1.set(house2, 1);
+        userVector1.set(house3, 1);
 
         mapDriver.withInput(new Text(userCode1), new VectorWritable(userVector1));
-        VectorOrPrefWritable outputValue2 = new VectorOrPrefWritable(userCode1, 1.0);
-        VectorOrPrefWritable outputValue3 = new VectorOrPrefWritable(userCode1, 1.0);
+        VectorOrPrefWritable outputValue2 = new VectorOrPrefWritable(userCode1, 1);
+        VectorOrPrefWritable outputValue3 = new VectorOrPrefWritable(userCode1, 1);
         mapDriver.addOutput(new Text(house2), outputValue2);
         mapDriver.addOutput(new Text(house3), outputValue3);
 

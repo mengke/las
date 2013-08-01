@@ -33,7 +33,7 @@ public class ToVectorAndPrefReducer extends MapReduceBase implements
         }
 
         List<String> userIds = Lists.newArrayList();
-        List<Double> prefValues = Lists.newArrayList();
+        List<Integer> prefValues = Lists.newArrayList();
         RandomAccessVector<String> similarityMatrixColumn = null;
 
         while (values.hasNext()) {

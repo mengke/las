@@ -2,7 +2,7 @@ $( document ).ready(function() {
 	var socket = io.connect();
 	
 	$('#load_users').click(function() {
-		socket.emit('users', function (data) {
+		socket.emit('list_users_visits', function (data) {
 			$('#show_info').removeClass('hide');
 			$('#housevisits_list').html("");
 			$('#housevisits_list').html(data);
@@ -20,7 +20,7 @@ $( document ).ready(function() {
 		} else {
 			house_type = 2;
 		}
-		socket.emit('visit_history', $('#user_code').val(), house_type, function (data) {
+		socket.emit('find_visits', $('#user_code').val(), house_type, function (data) {
 			$('#visit_history').html('');
 			$('#visit_history').html(data);
 		});

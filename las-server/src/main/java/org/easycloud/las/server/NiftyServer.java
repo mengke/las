@@ -19,6 +19,7 @@ import com.facebook.nifty.core.NettyServerTransport;
 import com.facebook.nifty.core.ThriftServerDef;
 import com.facebook.nifty.core.ThriftServerDefBuilder;
 import org.apache.thrift.TCompositeProcessor;
+import org.apache.thrift.TProcessor;
 import org.jboss.netty.channel.group.DefaultChannelGroup;
 import org.jboss.netty.util.HashedWheelTimer;
 
@@ -40,12 +41,12 @@ public class NiftyServer extends LasServer {
     }
 
     @Override
-    public void startServer(TCompositeProcessor compositeProcessor) {
+    public void startServer(TProcessor tProcessor) {
         // Build the server definition
         ThriftServerDef serverDef = new ThriftServerDefBuilder()
                 .listen(serverPort)
 
-                .withProcessor(compositeProcessor)
+                .withProcessor(tProcessor)
                 .build();
 
         // Create the server transport

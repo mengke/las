@@ -19,8 +19,8 @@ public class ByValueRecommendedItemComparator implements Comparator<RecommendedI
 
     @Override
     public int compare(RecommendedItem o1, RecommendedItem o2) {
-        double value1 = o1.getPrefValue();
-        double value2 = o2.getPrefValue();
+        int value1 = o1.getPrefValue();
+        int value2 = o2.getPrefValue();
         return value1 > value2 ? -1 : value1 < value2 ? 1 : 0;
     }
 }

@@ -4,7 +4,7 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-package org.easycloud.las.api.housevisit.thrift;
+package org.easycloud.las.api.services.thrift;
 
 import org.apache.thrift.scheme.IScheme;
 import org.apache.thrift.scheme.SchemeFactory;
@@ -20,41 +20,41 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.EnumMap;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.EnumSet;
 import java.util.Collections;
 import java.util.BitSet;
-
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document
-public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._Fields>, java.io.Serializable, Cloneable {
-  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("UvsRecord");
+public class UserRecommendations implements org.apache.thrift.TBase<UserRecommendations, UserRecommendations._Fields>, java.io.Serializable, Cloneable {
+  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("UserRecommendations");
 
   private static final org.apache.thrift.protocol.TField USER_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("userCode", org.apache.thrift.protocol.TType.STRING, (short)1);
-  private static final org.apache.thrift.protocol.TField USER_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("userType", org.apache.thrift.protocol.TType.BYTE, (short)2);
-  private static final org.apache.thrift.protocol.TField HV_RECORDS_FIELD_DESC = new org.apache.thrift.protocol.TField("hvRecords", org.apache.thrift.protocol.TType.LIST, (short)3);
+  private static final org.apache.thrift.protocol.TField RECOMMENDATIONS_FIELD_DESC = new org.apache.thrift.protocol.TField("recommendations", org.apache.thrift.protocol.TType.LIST, (short)2);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
-    schemes.put(StandardScheme.class, new UvsRecordStandardSchemeFactory());
-    schemes.put(TupleScheme.class, new UvsRecordTupleSchemeFactory());
+    schemes.put(StandardScheme.class, new UserRecommendationsStandardSchemeFactory());
+    schemes.put(TupleScheme.class, new UserRecommendationsTupleSchemeFactory());
   }
 
     @Id
   public String userCode; // required
-  public byte userType; // optional
     @DBRef
-    @Field("houseVisits")
-  public List<HvRecord> hvRecords; // optional
+  public List<Recommendation> recommendations; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
     USER_CODE((short)1, "userCode"),
-    USER_TYPE((short)2, "userType"),
-    HV_RECORDS((short)3, "hvRecords");
+    RECOMMENDATIONS((short)2, "recommendations");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -71,10 +71,8 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
       switch(fieldId) {
         case 1: // USER_CODE
           return USER_CODE;
-        case 2: // USER_TYPE
-          return USER_TYPE;
-        case 3: // HV_RECORDS
-          return HV_RECORDS;
+        case 2: // RECOMMENDATIONS
+          return RECOMMENDATIONS;
         default:
           return null;
       }
@@ -115,27 +113,23 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
   }
 
   // isset id assignments
-  private static final int __USERTYPE_ISSET_ID = 0;
-  private byte __isset_bitfield = 0;
-  private _Fields optionals[] = {_Fields.USER_TYPE,_Fields.HV_RECORDS};
+  private _Fields optionals[] = {_Fields.RECOMMENDATIONS};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
     tmpMap.put(_Fields.USER_CODE, new org.apache.thrift.meta_data.FieldMetaData("userCode", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-    tmpMap.put(_Fields.USER_TYPE, new org.apache.thrift.meta_data.FieldMetaData("userType", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BYTE)));
-    tmpMap.put(_Fields.HV_RECORDS, new org.apache.thrift.meta_data.FieldMetaData("hvRecords", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+    tmpMap.put(_Fields.RECOMMENDATIONS, new org.apache.thrift.meta_data.FieldMetaData("recommendations", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
-            new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, HvRecord.class))));
+            new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Recommendation.class))));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
-    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(UvsRecord.class, metaDataMap);
+    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(UserRecommendations.class, metaDataMap);
   }
 
-  public UvsRecord() {
+  public UserRecommendations() {
   }
 
-  public UvsRecord(
+  public UserRecommendations(
     String userCode)
   {
     this();
@@ -145,38 +139,34 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
   /**
    * Performs a deep copy on <i>other</i>.
    */
-  public UvsRecord(UvsRecord other) {
-    __isset_bitfield = other.__isset_bitfield;
+  public UserRecommendations(UserRecommendations other) {
     if (other.isSetUserCode()) {
       this.userCode = other.userCode;
     }
-    this.userType = other.userType;
-    if (other.isSetHvRecords()) {
-      List<HvRecord> __this__hvRecords = new ArrayList<HvRecord>();
-      for (HvRecord other_element : other.hvRecords) {
-        __this__hvRecords.add(new HvRecord(other_element));
+    if (other.isSetRecommendations()) {
+      List<Recommendation> __this__recommendations = new ArrayList<Recommendation>();
+      for (Recommendation other_element : other.recommendations) {
+        __this__recommendations.add(new Recommendation(other_element));
       }
-      this.hvRecords = __this__hvRecords;
+      this.recommendations = __this__recommendations;
     }
   }
 
-  public UvsRecord deepCopy() {
-    return new UvsRecord(this);
+  public UserRecommendations deepCopy() {
+    return new UserRecommendations(this);
   }
 
   @Override
   public void clear() {
     this.userCode = null;
-    setUserTypeIsSet(false);
-    this.userType = 0;
-    this.hvRecords = null;
+    this.recommendations = null;
   }
 
   public String getUserCode() {
     return this.userCode;
   }
 
-  public UvsRecord setUserCode(String userCode) {
+  public UserRecommendations setUserCode(String userCode) {
     this.userCode = userCode;
     return this;
   }
@@ -196,65 +186,42 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
     }
   }
 
-  public byte getUserType() {
-    return this.userType;
+  public int getRecommendationsSize() {
+    return (this.recommendations == null) ? 0 : this.recommendations.size();
   }
 
-  public UvsRecord setUserType(byte userType) {
-    this.userType = userType;
-    setUserTypeIsSet(true);
-    return this;
+  public java.util.Iterator<Recommendation> getRecommendationsIterator() {
+    return (this.recommendations == null) ? null : this.recommendations.iterator();
   }
 
-  public void unsetUserType() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __USERTYPE_ISSET_ID);
-  }
-
-  /** Returns true if field userType is set (has been assigned a value) and false otherwise */
-  public boolean isSetUserType() {
-    return EncodingUtils.testBit(__isset_bitfield, __USERTYPE_ISSET_ID);
-  }
-
-  public void setUserTypeIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __USERTYPE_ISSET_ID, value);
-  }
-
-  public int getHvRecordsSize() {
-    return (this.hvRecords == null) ? 0 : this.hvRecords.size();
-  }
-
-  public java.util.Iterator<HvRecord> getHvRecordsIterator() {
-    return (this.hvRecords == null) ? null : this.hvRecords.iterator();
-  }
-
-  public void addToHvRecords(HvRecord elem) {
-    if (this.hvRecords == null) {
-      this.hvRecords = new ArrayList<HvRecord>();
+  public void addToRecommendations(Recommendation elem) {
+    if (this.recommendations == null) {
+      this.recommendations = new ArrayList<Recommendation>();
     }
-    this.hvRecords.add(elem);
+    this.recommendations.add(elem);
   }
 
-  public List<HvRecord> getHvRecords() {
-    return this.hvRecords;
+  public List<Recommendation> getRecommendations() {
+    return this.recommendations;
   }
 
-  public UvsRecord setHvRecords(List<HvRecord> hvRecords) {
-    this.hvRecords = hvRecords;
+  public UserRecommendations setRecommendations(List<Recommendation> recommendations) {
+    this.recommendations = recommendations;
     return this;
   }
 
-  public void unsetHvRecords() {
-    this.hvRecords = null;
+  public void unsetRecommendations() {
+    this.recommendations = null;
   }
 
-  /** Returns true if field hvRecords is set (has been assigned a value) and false otherwise */
-  public boolean isSetHvRecords() {
-    return this.hvRecords != null;
+  /** Returns true if field recommendations is set (has been assigned a value) and false otherwise */
+  public boolean isSetRecommendations() {
+    return this.recommendations != null;
   }
 
-  public void setHvRecordsIsSet(boolean value) {
+  public void setRecommendationsIsSet(boolean value) {
     if (!value) {
-      this.hvRecords = null;
+      this.recommendations = null;
     }
   }
 
@@ -268,19 +235,11 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
       }
       break;
 
-    case USER_TYPE:
+    case RECOMMENDATIONS:
       if (value == null) {
-        unsetUserType();
+        unsetRecommendations();
       } else {
-        setUserType((Byte)value);
-      }
-      break;
-
-    case HV_RECORDS:
-      if (value == null) {
-        unsetHvRecords();
-      } else {
-        setHvRecords((List<HvRecord>)value);
+        setRecommendations((List<Recommendation>)value);
       }
       break;
 
@@ -292,11 +251,8 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
     case USER_CODE:
       return getUserCode();
 
-    case USER_TYPE:
-      return Byte.valueOf(getUserType());
-
-    case HV_RECORDS:
-      return getHvRecords();
+    case RECOMMENDATIONS:
+      return getRecommendations();
 
     }
     throw new IllegalStateException();
@@ -311,10 +267,8 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
     switch (field) {
     case USER_CODE:
       return isSetUserCode();
-    case USER_TYPE:
-      return isSetUserType();
-    case HV_RECORDS:
-      return isSetHvRecords();
+    case RECOMMENDATIONS:
+      return isSetRecommendations();
     }
     throw new IllegalStateException();
   }
@@ -323,12 +277,12 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
   public boolean equals(Object that) {
     if (that == null)
       return false;
-    if (that instanceof UvsRecord)
-      return this.equals((UvsRecord)that);
+    if (that instanceof UserRecommendations)
+      return this.equals((UserRecommendations)that);
     return false;
   }
 
-  public boolean equals(UvsRecord that) {
+  public boolean equals(UserRecommendations that) {
     if (that == null)
       return false;
 
@@ -341,21 +295,12 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
         return false;
     }
 
-    boolean this_present_userType = true && this.isSetUserType();
-    boolean that_present_userType = true && that.isSetUserType();
-    if (this_present_userType || that_present_userType) {
-      if (!(this_present_userType && that_present_userType))
+    boolean this_present_recommendations = true && this.isSetRecommendations();
+    boolean that_present_recommendations = true && that.isSetRecommendations();
+    if (this_present_recommendations || that_present_recommendations) {
+      if (!(this_present_recommendations && that_present_recommendations))
         return false;
-      if (this.userType != that.userType)
-        return false;
-    }
-
-    boolean this_present_hvRecords = true && this.isSetHvRecords();
-    boolean that_present_hvRecords = true && that.isSetHvRecords();
-    if (this_present_hvRecords || that_present_hvRecords) {
-      if (!(this_present_hvRecords && that_present_hvRecords))
-        return false;
-      if (!this.hvRecords.equals(that.hvRecords))
+      if (!this.recommendations.equals(that.recommendations))
         return false;
     }
 
@@ -367,13 +312,13 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
     return 0;
   }
 
-  public int compareTo(UvsRecord other) {
+  public int compareTo(UserRecommendations other) {
     if (!getClass().equals(other.getClass())) {
       return getClass().getName().compareTo(other.getClass().getName());
     }
 
     int lastComparison = 0;
-    UvsRecord typedOther = (UvsRecord)other;
+    UserRecommendations typedOther = (UserRecommendations)other;
 
     lastComparison = Boolean.valueOf(isSetUserCode()).compareTo(typedOther.isSetUserCode());
     if (lastComparison != 0) {
@@ -385,22 +330,12 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
         return lastComparison;
       }
     }
-    lastComparison = Boolean.valueOf(isSetUserType()).compareTo(typedOther.isSetUserType());
+    lastComparison = Boolean.valueOf(isSetRecommendations()).compareTo(typedOther.isSetRecommendations());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetUserType()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.userType, typedOther.userType);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    lastComparison = Boolean.valueOf(isSetHvRecords()).compareTo(typedOther.isSetHvRecords());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetHvRecords()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.hvRecords, typedOther.hvRecords);
+    if (isSetRecommendations()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.recommendations, typedOther.recommendations);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -422,7 +357,7 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder("UvsRecord(");
+    StringBuilder sb = new StringBuilder("UserRecommendations(");
     boolean first = true;
 
     sb.append("userCode:");
@@ -432,19 +367,13 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
       sb.append(this.userCode);
     }
     first = false;
-    if (isSetUserType()) {
+    if (isSetRecommendations()) {
       if (!first) sb.append(", ");
-      sb.append("userType:");
-      sb.append(this.userType);
-      first = false;
-    }
-    if (isSetHvRecords()) {
-      if (!first) sb.append(", ");
-      sb.append("hvRecords:");
-      if (this.hvRecords == null) {
+      sb.append("recommendations:");
+      if (this.recommendations == null) {
         sb.append("null");
       } else {
-        sb.append(this.hvRecords);
+        sb.append(this.recommendations);
       }
       first = false;
     }
@@ -470,23 +399,21 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
 
   private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
     try {
-      // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-      __isset_bitfield = 0;
       read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
     } catch (TException te) {
       throw new java.io.IOException(te);
     }
   }
 
-  private static class UvsRecordStandardSchemeFactory implements SchemeFactory {
-    public UvsRecordStandardScheme getScheme() {
-      return new UvsRecordStandardScheme();
+  private static class UserRecommendationsStandardSchemeFactory implements SchemeFactory {
+    public UserRecommendationsStandardScheme getScheme() {
+      return new UserRecommendationsStandardScheme();
     }
   }
 
-  private static class UvsRecordStandardScheme extends StandardScheme<UvsRecord> {
+  private static class UserRecommendationsStandardScheme extends StandardScheme<UserRecommendations> {
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot, UvsRecord struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot, UserRecommendations struct) throws TException {
       org.apache.thrift.protocol.TField schemeField;
       iprot.readStructBegin();
       while (true)
@@ -504,29 +431,21 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 2: // USER_TYPE
-            if (schemeField.type == org.apache.thrift.protocol.TType.BYTE) {
-              struct.userType = iprot.readByte();
-              struct.setUserTypeIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-            }
-            break;
-          case 3: // HV_RECORDS
+          case 2: // RECOMMENDATIONS
             if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
               {
                 org.apache.thrift.protocol.TList _list0 = iprot.readListBegin();
-                struct.hvRecords = new ArrayList<HvRecord>(_list0.size);
+                struct.recommendations = new ArrayList<Recommendation>(_list0.size);
                 for (int _i1 = 0; _i1 < _list0.size; ++_i1)
                 {
-                  HvRecord _elem2; // required
-                  _elem2 = new HvRecord();
+                  Recommendation _elem2; // required
+                  _elem2 = new Recommendation();
                   _elem2.read(iprot);
-                  struct.hvRecords.add(_elem2);
+                  struct.recommendations.add(_elem2);
                 }
                 iprot.readListEnd();
               }
-              struct.setHvRecordsIsSet(true);
+              struct.setRecommendationsIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
@@ -542,7 +461,7 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
       struct.validate();
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, UvsRecord struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot, UserRecommendations struct) throws TException {
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
@@ -551,17 +470,12 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
         oprot.writeString(struct.userCode);
         oprot.writeFieldEnd();
       }
-      if (struct.isSetUserType()) {
-        oprot.writeFieldBegin(USER_TYPE_FIELD_DESC);
-        oprot.writeByte(struct.userType);
-        oprot.writeFieldEnd();
-      }
-      if (struct.hvRecords != null) {
-        if (struct.isSetHvRecords()) {
-          oprot.writeFieldBegin(HV_RECORDS_FIELD_DESC);
+      if (struct.recommendations != null) {
+        if (struct.isSetRecommendations()) {
+          oprot.writeFieldBegin(RECOMMENDATIONS_FIELD_DESC);
           {
-            oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.hvRecords.size()));
-            for (HvRecord _iter3 : struct.hvRecords)
+            oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.recommendations.size()));
+            for (Recommendation _iter3 : struct.recommendations)
             {
               _iter3.write(oprot);
             }
@@ -576,33 +490,27 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
 
   }
 
-  private static class UvsRecordTupleSchemeFactory implements SchemeFactory {
-    public UvsRecordTupleScheme getScheme() {
-      return new UvsRecordTupleScheme();
+  private static class UserRecommendationsTupleSchemeFactory implements SchemeFactory {
+    public UserRecommendationsTupleScheme getScheme() {
+      return new UserRecommendationsTupleScheme();
     }
   }
 
-  private static class UvsRecordTupleScheme extends TupleScheme<UvsRecord> {
+  private static class UserRecommendationsTupleScheme extends TupleScheme<UserRecommendations> {
 
     @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, UvsRecord struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol prot, UserRecommendations struct) throws TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       oprot.writeString(struct.userCode);
       BitSet optionals = new BitSet();
-      if (struct.isSetUserType()) {
+      if (struct.isSetRecommendations()) {
         optionals.set(0);
       }
-      if (struct.isSetHvRecords()) {
-        optionals.set(1);
-      }
-      oprot.writeBitSet(optionals, 2);
-      if (struct.isSetUserType()) {
-        oprot.writeByte(struct.userType);
-      }
-      if (struct.isSetHvRecords()) {
+      oprot.writeBitSet(optionals, 1);
+      if (struct.isSetRecommendations()) {
         {
-          oprot.writeI32(struct.hvRecords.size());
-          for (HvRecord _iter4 : struct.hvRecords)
+          oprot.writeI32(struct.recommendations.size());
+          for (Recommendation _iter4 : struct.recommendations)
           {
             _iter4.write(oprot);
           }
@@ -611,28 +519,24 @@ public class UvsRecord implements org.apache.thrift.TBase<UvsRecord, UvsRecord._
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, UvsRecord struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol prot, UserRecommendations struct) throws TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
       struct.userCode = iprot.readString();
       struct.setUserCodeIsSet(true);
-      BitSet incoming = iprot.readBitSet(2);
+      BitSet incoming = iprot.readBitSet(1);
       if (incoming.get(0)) {
-        struct.userType = iprot.readByte();
-        struct.setUserTypeIsSet(true);
-      }
-      if (incoming.get(1)) {
         {
           org.apache.thrift.protocol.TList _list5 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
-          struct.hvRecords = new ArrayList<HvRecord>(_list5.size);
+          struct.recommendations = new ArrayList<Recommendation>(_list5.size);
           for (int _i6 = 0; _i6 < _list5.size; ++_i6)
           {
-            HvRecord _elem7; // required
-            _elem7 = new HvRecord();
+            Recommendation _elem7; // required
+            _elem7 = new Recommendation();
             _elem7.read(iprot);
-            struct.hvRecords.add(_elem7);
+            struct.recommendations.add(_elem7);
           }
         }
-        struct.setHvRecordsIsSet(true);
+        struct.setRecommendationsIsSet(true);
       }
     }
   }

@@ -18,7 +18,7 @@ public class VectorOrPrefWritable implements Writable {
 
     private RandomAccessVector<String> vector;
     private String userID;
-    private double value;
+    private int value;
 
     public VectorOrPrefWritable() {
     }
@@ -27,7 +27,7 @@ public class VectorOrPrefWritable implements Writable {
         this.vector = vector;
     }
 
-    public VectorOrPrefWritable(String userID, double value) {
+    public VectorOrPrefWritable(String userID, int value) {
         this.userID = userID;
         this.value = value;
     }
@@ -40,17 +40,17 @@ public class VectorOrPrefWritable implements Writable {
         return userID;
     }
 
-    public double getValue() {
+    public int getValue() {
         return value;
     }
 
     void set(RandomAccessVector<String> vector) {
         this.vector = vector;
         this.userID = "";
-        this.value = Double.NaN;
+        this.value = 0;
     }
 
-    public void set(String userID, double value) {
+    public void set(String userID, int value) {
         this.vector = null;
         this.userID = userID;
         this.value = value;
@@ -61,7 +61,7 @@ public class VectorOrPrefWritable implements Writable {
         if (vector == null) {
             out.writeBoolean(false);
             out.writeUTF(userID);
-            out.writeDouble(value);
+            out.writeInt(value);
         } else {
             out.writeBoolean(true);
             VectorWritable vw = new VectorWritable(vector);
@@ -78,7 +78,7 @@ public class VectorOrPrefWritable implements Writable {
             set(writable.get());
         } else {
             String theUserID = in.readUTF();
-            double theValue = in.readDouble();
+            int theValue = in.readInt();
             set(theUserID, theValue);
         }
     }
@@ -95,7 +95,7 @@ public class VectorOrPrefWritable implements Writable {
         }
 
         if (that.getVector() == null && getVector() == null) {
-            if (Double.compare(that.value, value) != 0) return false;
+            if (that.value != value) return false;
             if (userID != null ? !userID.equals(that.userID) : that.userID != null) return false;
             return true;
         }

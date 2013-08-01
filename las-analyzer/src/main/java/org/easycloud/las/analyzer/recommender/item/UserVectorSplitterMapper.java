@@ -33,13 +33,13 @@ public class UserVectorSplitterMapper extends MapReduceBase
         }
         String userID = key.toString();
         RandomAccessVector<String> userVector = value.get();
-        Iterator<Map.Entry<String, Double>> it = userVector.iterator();
+        Iterator<Map.Entry<String, Integer>> it = userVector.iterator();
         Text outputKey = new Text();
         while (it.hasNext()) {
-            Map.Entry<String, Double> entry = it.next();
+            Map.Entry<String, Integer> entry = it.next();
             String itemId = entry.getKey();
-            double prefValue = entry.getValue();
-            if (prefValue > 0.0) {
+            int prefValue = entry.getValue();
+            if (prefValue > 0) {
                 outputKey.set(itemId);
                 collector.collect(outputKey,
                         new VectorOrPrefWritable(userID, prefValue));

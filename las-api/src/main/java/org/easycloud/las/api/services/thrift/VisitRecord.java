@@ -4,7 +4,7 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-package org.easycloud.las.api.housevisit.thrift;
+package org.easycloud.las.api.services.thrift;
 
 import org.apache.thrift.scheme.IScheme;
 import org.apache.thrift.scheme.SchemeFactory;
@@ -15,19 +15,26 @@ import org.apache.thrift.protocol.TTupleProtocol;
 import org.apache.thrift.protocol.TProtocolException;
 import org.apache.thrift.EncodingUtils;
 import org.apache.thrift.TException;
-
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.EnumMap;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.EnumSet;
 import java.util.Collections;
-
+import java.util.BitSet;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document
-public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fields>, java.io.Serializable, Cloneable {
-  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("HvRecord");
+public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRecord._Fields>, java.io.Serializable, Cloneable {
+  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("VisitRecord");
 
   private static final org.apache.thrift.protocol.TField HOUSE_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("houseCode", org.apache.thrift.protocol.TType.STRING, (short)1);
   private static final org.apache.thrift.protocol.TField HOUSE_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("houseType", org.apache.thrift.protocol.TType.BYTE, (short)2);
@@ -35,13 +42,15 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
-    schemes.put(StandardScheme.class, new HvRecordStandardSchemeFactory());
-    schemes.put(TupleScheme.class, new HvRecordTupleSchemeFactory());
+    schemes.put(StandardScheme.class, new VisitRecordStandardSchemeFactory());
+    schemes.put(TupleScheme.class, new VisitRecordTupleSchemeFactory());
   }
 
     @Field("hid")
   public String houseCode; // required
+
   public byte houseType; // required
+
   public long visitDttm; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
@@ -122,13 +131,13 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
     tmpMap.put(_Fields.VISIT_DTTM, new org.apache.thrift.meta_data.FieldMetaData("visitDttm", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
-    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(HvRecord.class, metaDataMap);
+    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(VisitRecord.class, metaDataMap);
   }
 
-  public HvRecord() {
+  public VisitRecord() {
   }
 
-  public HvRecord(
+  public VisitRecord(
     String houseCode,
     byte houseType,
     long visitDttm)
@@ -144,7 +153,7 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
   /**
    * Performs a deep copy on <i>other</i>.
    */
-  public HvRecord(HvRecord other) {
+  public VisitRecord(VisitRecord other) {
     __isset_bitfield = other.__isset_bitfield;
     if (other.isSetHouseCode()) {
       this.houseCode = other.houseCode;
@@ -153,8 +162,8 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
     this.visitDttm = other.visitDttm;
   }
 
-  public HvRecord deepCopy() {
-    return new HvRecord(this);
+  public VisitRecord deepCopy() {
+    return new VisitRecord(this);
   }
 
   @Override
@@ -170,7 +179,7 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
     return this.houseCode;
   }
 
-  public HvRecord setHouseCode(String houseCode) {
+  public VisitRecord setHouseCode(String houseCode) {
     this.houseCode = houseCode;
     return this;
   }
@@ -194,7 +203,7 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
     return this.houseType;
   }
 
-  public HvRecord setHouseType(byte houseType) {
+  public VisitRecord setHouseType(byte houseType) {
     this.houseType = houseType;
     setHouseTypeIsSet(true);
     return this;
@@ -217,7 +226,7 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
     return this.visitDttm;
   }
 
-  public HvRecord setVisitDttm(long visitDttm) {
+  public VisitRecord setVisitDttm(long visitDttm) {
     this.visitDttm = visitDttm;
     setVisitDttmIsSet(true);
     return this;
@@ -301,12 +310,12 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
   public boolean equals(Object that) {
     if (that == null)
       return false;
-    if (that instanceof HvRecord)
-      return this.equals((HvRecord)that);
+    if (that instanceof VisitRecord)
+      return this.equals((VisitRecord)that);
     return false;
   }
 
-  public boolean equals(HvRecord that) {
+  public boolean equals(VisitRecord that) {
     if (that == null)
       return false;
 
@@ -345,13 +354,13 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
     return 0;
   }
 
-  public int compareTo(HvRecord other) {
+  public int compareTo(VisitRecord other) {
     if (!getClass().equals(other.getClass())) {
       return getClass().getName().compareTo(other.getClass().getName());
     }
 
     int lastComparison = 0;
-    HvRecord typedOther = (HvRecord)other;
+    VisitRecord typedOther = (VisitRecord)other;
 
     lastComparison = Boolean.valueOf(isSetHouseCode()).compareTo(typedOther.isSetHouseCode());
     if (lastComparison != 0) {
@@ -400,7 +409,7 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder("HvRecord(");
+    StringBuilder sb = new StringBuilder("VisitRecord(");
     boolean first = true;
 
     sb.append("houseCode:");
@@ -450,15 +459,15 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
     }
   }
 
-  private static class HvRecordStandardSchemeFactory implements SchemeFactory {
-    public HvRecordStandardScheme getScheme() {
-      return new HvRecordStandardScheme();
+  private static class VisitRecordStandardSchemeFactory implements SchemeFactory {
+    public VisitRecordStandardScheme getScheme() {
+      return new VisitRecordStandardScheme();
     }
   }
 
-  private static class HvRecordStandardScheme extends StandardScheme<HvRecord> {
+  private static class VisitRecordStandardScheme extends StandardScheme<VisitRecord> {
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot, HvRecord struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot, VisitRecord struct) throws TException {
       org.apache.thrift.protocol.TField schemeField;
       iprot.readStructBegin();
       while (true)
@@ -509,7 +518,7 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
       struct.validate();
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, HvRecord struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot, VisitRecord struct) throws TException {
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
@@ -530,16 +539,16 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
 
   }
 
-  private static class HvRecordTupleSchemeFactory implements SchemeFactory {
-    public HvRecordTupleScheme getScheme() {
-      return new HvRecordTupleScheme();
+  private static class VisitRecordTupleSchemeFactory implements SchemeFactory {
+    public VisitRecordTupleScheme getScheme() {
+      return new VisitRecordTupleScheme();
     }
   }
 
-  private static class HvRecordTupleScheme extends TupleScheme<HvRecord> {
+  private static class VisitRecordTupleScheme extends TupleScheme<VisitRecord> {
 
     @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, HvRecord struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol prot, VisitRecord struct) throws TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       oprot.writeString(struct.houseCode);
       oprot.writeByte(struct.houseType);
@@ -547,7 +556,7 @@ public class HvRecord implements org.apache.thrift.TBase<HvRecord, HvRecord._Fie
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, HvRecord struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol prot, VisitRecord struct) throws TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
       struct.houseCode = iprot.readString();
       struct.setHouseCodeIsSet(true);

@@ -11,12 +11,12 @@ import java.io.Serializable;
 public class RecommendedItem implements Serializable {
 
     private String itemId;
-    private double prefValue;
+    private int prefValue;
 
     public RecommendedItem() {
     }
 
-    public RecommendedItem(String itemId, double prefValue) {
+    public RecommendedItem(String itemId, int prefValue) {
         this.itemId = itemId;
         this.prefValue = prefValue;
     }
@@ -29,11 +29,11 @@ public class RecommendedItem implements Serializable {
         this.itemId = itemId;
     }
 
-    public double getPrefValue() {
+    public int getPrefValue() {
         return prefValue;
     }
 
-    public void setPrefValue(double prefValue) {
+    public void setPrefValue(int prefValue) {
         this.prefValue = prefValue;
     }
 

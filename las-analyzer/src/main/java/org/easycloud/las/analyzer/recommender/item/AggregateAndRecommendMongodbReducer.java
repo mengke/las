@@ -48,7 +48,14 @@ public class AggregateAndRecommendMongodbReducer extends MapReduceBase
         BasicBSONObject query = new BasicBSONObject("_id", userId.toString());
         List<BasicBSONObject> recommendations = new ArrayList<BasicBSONObject>();
         for (RecommendedItem recommendedItem : recommendationItems) {
-            BasicBSONObject recommendation = new BasicBSONObject("itemId", recommendedItem.getItemId())
+            String itemId = recommendedItem.getItemId().trim();
+            String[] pieces = itemId.split("/");
+            if (pieces.length != 2) {
+                continue;
+            }
+            int itemType = Integer.parseInt(pieces[1]);
+            BasicBSONObject recommendation = new BasicBSONObject("itemId", pieces[0])
+                    .append("itemType", itemType)
                     .append("prefValue", recommendedItem.getPrefValue());
             recommendations.add(recommendation);
         }

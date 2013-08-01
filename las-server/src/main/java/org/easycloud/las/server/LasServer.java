@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.easycloud.las.core.util.Assert.assertStateNotEmpty;
+import static org.easycloud.las.core.util.Assert.assertStateNotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +35,7 @@ public abstract class LasServer {
 
     private static Logger LOGGER = LoggerFactory.getLogger(LasServer.class);
 
-    protected Map<String, TProcessor> processors = new HashMap<String, TProcessor>();
+    protected TProcessor processor;
 
     protected int serverPort;
 
@@ -42,31 +43,22 @@ public abstract class LasServer {
         this.serverPort = serverPort;
     }
 
-    public void setProcessors(Map<String, TProcessor> processors) {
-        this.processors = processors;
+    public void setProcessor(TProcessor processor) {
+        this.processor = processor;
     }
 
     public void start() {
-        assertStateNotEmpty(processors, "LasServer processors must be initialized. " +
+        assertStateNotNull(processor, "LasServer processor must be initialized. " +
                 "Please check the bean named bootServer in las-server.xml");
 
         if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("The count of processor is [" + processors.size() + "]");
-            for (Map.Entry<String, TProcessor> processor : processors.entrySet()) {
-                LOGGER.info(processor.getKey());
-            }
+            LOGGER.info(processor.getClass().getName());
         }
 
-        // Create the processor
-        TCompositeProcessor compositeProcessor = new TCompositeProcessor();
-
-        for (Map.Entry<String, TProcessor> processor : processors.entrySet()) {
-            compositeProcessor.registerProcessor(processor.getKey(), processor.getValue());
-        }
-        startServer(compositeProcessor);
+        startServer(processor);
     }
 
     public abstract String getServerType();
 
-    protected abstract void startServer(TCompositeProcessor compositeProcessor);
+    protected abstract void startServer(TProcessor processor);
 }

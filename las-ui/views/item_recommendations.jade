@@ -1,9 +1,14 @@
-each item in items
-	table.table.table-striped
-		thead:tr
-			th 房源编号
-			th 推荐值
-		tbody
+table.table.table-striped
+	thead:tr
+		th 房源编号
+		th 房源类型
+		th 推荐值
+	tbody
+		each item in items
 			tr
 				td #{item.itemId}
+				if item.itemType == 1
+					td 二手房
+				else
+					td 租房
 				td #{item.prefValue}

@@ -95,8 +95,8 @@ public class VisitHistoryToUserVectorTests {
         values.add(new Text(houseCode1 + "/" + houseType1));
         reduceDriver.addInput(new Text(userCode1), values);
         RandomAccessVector<String> userVector = new RandomAccessVector<String>(2);
-        userVector.set(houseCode3 + "/" + houseType3, 1.0);
-        userVector.set(houseCode1 + "/" + houseType1, 1.0);
+        userVector.set(houseCode3 + "/" + houseType3, 1);
+        userVector.set(houseCode1 + "/" + houseType1, 1);
         reduceDriver.addOutput(new Text(userCode1), new VectorWritable(userVector));
         reduceDriver.runTest();
     }
@@ -106,10 +106,10 @@ public class VisitHistoryToUserVectorTests {
         mapReduceDriver.withInput(user1, houseVisitArray1);
         mapReduceDriver.withInput(user2, houseVisitArray2);
         RandomAccessVector<String> userVector1 = new RandomAccessVector<String>(2);
-        userVector1.set(houseCode3 + "/" + houseType3, 1.0);
-        userVector1.set(houseCode1 + "/" + houseType1, 1.0);
+        userVector1.set(houseCode3 + "/" + houseType3, 1);
+        userVector1.set(houseCode1 + "/" + houseType1, 1);
         RandomAccessVector<String> userVector2 = new RandomAccessVector<String>(1);
-        userVector2.set(houseCode2 + "/" + houseType2, 1.0);
+        userVector2.set(houseCode2 + "/" + houseType2, 1);
         mapReduceDriver.withOutput(new Text(userCode1), new VectorWritable(userVector1));
         mapReduceDriver.withOutput(new Text(userCode2), new VectorWritable(userVector2));
 

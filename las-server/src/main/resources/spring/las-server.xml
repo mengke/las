@@ -36,11 +36,6 @@
             </list>
         </property>
         <property name="bootServerClass" value="org.easycloud.las.server.NiftyServer"/>
-        <property name="processors">
-            <map>
-                <entry key="house_visit" value-ref="houseVisitProcessor"/>
-                <entry key="item_recommendation" value-ref="itemBasedRecommendationProcessor"/>
-            </map>
-        </property>
+        <property name="processor" ref="lasService"/>
     </bean>
 </beans>

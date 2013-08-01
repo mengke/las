@@ -33,7 +33,7 @@ public class VisitHistoryToUserVectorReducer extends MapReduceBase implements Re
         RandomAccessVector<String> userVector = new RandomAccessVector<String>(100);
         while (itemIds.hasNext()) {
             Text itemId = itemIds.next();
-            userVector.set(itemId.toString(), 1.0f);
+            userVector.set(itemId.toString(), 1);
         }
         collector.collect(userId, new VectorWritable(userVector));
     }

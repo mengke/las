@@ -4,9 +4,11 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-package org.easycloud.las.api.housevisit.thrift;
+package org.easycloud.las.api.services.thrift;
 
 
+import java.util.Map;
+import java.util.HashMap;
 import org.apache.thrift.TEnum;
 
 public enum UserType implements TEnum {

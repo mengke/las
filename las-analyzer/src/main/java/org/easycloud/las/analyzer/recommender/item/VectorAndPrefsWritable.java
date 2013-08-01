@@ -20,12 +20,12 @@ public class VectorAndPrefsWritable implements Writable {
 
     private RandomAccessVector<String> vector;
     private List<String> userIDs;
-    private List<Double> values;
+    private List<Integer> values;
 
     public VectorAndPrefsWritable() {
     }
 
-    public VectorAndPrefsWritable(RandomAccessVector<String> vector, List<String> userIDs, List<Double> values) {
+    public VectorAndPrefsWritable(RandomAccessVector<String> vector, List<String> userIDs, List<Integer> values) {
         this.vector = vector;
         this.userIDs = userIDs;
         this.values = values;
@@ -39,7 +39,7 @@ public class VectorAndPrefsWritable implements Writable {
         return userIDs;
     }
 
-    public List<Double> getValues() {
+    public List<Integer> getValues() {
         return values;
     }
 
@@ -50,7 +50,7 @@ public class VectorAndPrefsWritable implements Writable {
         out.writeInt(userIDs.size());
         for (int i = 0; i < userIDs.size(); i++) {
             out.writeUTF(userIDs.get(i));
-            out.writeDouble(values.get(i));
+            out.writeInt(values.get(i));
         }
     }
 
@@ -64,7 +64,7 @@ public class VectorAndPrefsWritable implements Writable {
         values = Lists.newArrayListWithCapacity(size);
         for (int i = 0; i < size; i++) {
             userIDs.add(in.readUTF());
-            values.add(in.readDouble());
+            values.add(in.readInt());
         }
     }
 

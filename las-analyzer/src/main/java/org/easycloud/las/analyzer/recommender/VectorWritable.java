@@ -37,12 +37,12 @@ public class VectorWritable implements Writable {
     @Override
     public void write(DataOutput out) throws IOException {
         out.writeInt(vector.size());
-        Iterator<Map.Entry<String, Double>> iter = vector.iterator();
+        Iterator<Map.Entry<String, Integer>> iter = vector.iterator();
         while (iter.hasNext()) {
-            Map.Entry<String, Double> entry = iter.next();
-            if (entry.getValue() != 0.0) {
+            Map.Entry<String, Integer> entry = iter.next();
+            if (entry.getValue() != 0) {
                 out.writeUTF(entry.getKey());
-                out.writeDouble(entry.getValue());
+                out.writeInt(entry.getValue());
             }
         }
     }
@@ -53,7 +53,7 @@ public class VectorWritable implements Writable {
         RandomAccessVector<String> v = new RandomAccessVector<String>(size);
         for (int i = 0; i < size; i++) {
             String key = in.readUTF();
-            double value = in.readDouble();
+            int value = in.readInt();
             v.set(key, value);
         }
         vector = v;

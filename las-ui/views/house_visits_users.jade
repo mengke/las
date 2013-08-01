@@ -1,7 +1,12 @@
 each user, i in users
 	.accordion-group
 		.accordion-heading
-			a.accordion-toggle(data-toggle='collapse', data-parent='#housevisits_list', href='#user_' + i) User Code: #{user.userCode} (#{user.userType})
+			a.accordion-toggle(data-toggle='collapse', data-parent='#housevisits_list', href='#user_' + i)
+				| User Code: #{user.userCode} 
+				if user.userType == 1
+					| (匿名)
+				else
+					| (登录)
 		.accordion-body.collapse(id='user_' + i)		
 			.accordion-inner
 				table.table.table-striped
@@ -10,7 +15,7 @@ each user, i in users
 						th 房源类型
 						th 访问时间
 					tbody
-						each house in user.hvRecords
+						each house in user.visitRecords
 							tr
 								td #{house.houseCode}
 								if house.houseType == 1

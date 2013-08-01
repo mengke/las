@@ -45,9 +45,9 @@ public class CooccurrenceColumnWrapperTests {
         String house3 = houseCode3 + "/" + houseType3;
 
         RandomAccessVector<String> cooccurrenceRow = new RandomAccessVector<String>();
-        cooccurrenceRow.set(house1, 1.0);
-        cooccurrenceRow.set(house2, 2.0);
-        cooccurrenceRow.set(house3, 2.0);
+        cooccurrenceRow.set(house1, 1);
+        cooccurrenceRow.set(house2, 2);
+        cooccurrenceRow.set(house3, 2);
 
         mapDriver.withInput(new Text(house1), new VectorWritable(cooccurrenceRow));
 

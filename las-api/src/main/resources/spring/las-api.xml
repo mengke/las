@@ -12,7 +12,7 @@
 
     <context:property-placeholder location="classpath*:data-access.properties" ignore-unresolvable="true"/>
 
-    <context:component-scan base-package="org.easycloud.las.api"/>
+    <context:component-scan base-package="org.easycloud.las.api.services"/>
 
     <mongo:mongo host="${mongo.host}" port="${mongo.port}">
         <mongo:options connections-per-host="${mongo.connections.per.host}"
@@ -31,11 +31,8 @@
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
     </bean>
 
-    <bean id="houseVisitProcessor" class="org.easycloud.las.api.housevisit.thrift.HouseVisit$Processor">
-        <constructor-arg ref="houseVisitService"/>
+    <bean id="lasService" class="org.easycloud.las.api.services.thrift.LasService$Processor">
+        <constructor-arg ref="lasServiceImpl"/>
     </bean>
 
-    <bean id="itemBasedRecommendationProcessor" class="org.easycloud.las.api.recommender.thrift.ItemBasedRecommendation$Processor">
-        <constructor-arg ref="itemBasedRecommendationService"/>
-    </bean>
 </beans>

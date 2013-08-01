@@ -5,8 +5,7 @@ var util = require('util'),
 var socketio = require('socket.io');
 var io;
 
-var house_visits = require('./house_visits');
-var item_recommendations = require('./item_recommendation');
+var las_services = require('./las-services');
 
 
 exports.listen = function(server) {
@@ -14,8 +13,8 @@ exports.listen = function(server) {
 	io.set('log level', 1);
 	
 	io.sockets.on('connection', function (socket) {
-	  socket.on('users', function (callback) {
-		  house_visits.getUserVisitRecords(0, 15, function(err, response) {
+	  socket.on('list_users_visits', function (callback) {
+		  las_services.listUserVisitRecords(0, 15, function(err, response) {
 		  	if (err) {
 		  		console.error(err);
 		  	} else {
@@ -32,8 +31,8 @@ exports.listen = function(server) {
 		  });
 	  });
 	  
-	  socket.on('visit_history', function (userCode, houseType, callback) {
-		  house_visits.getUserVisitRecord(userCode, houseType, function(err, response) {
+	  socket.on('find_visits', function (userCode, houseType, callback) {
+		  las_services.findVisitRecords(userCode, houseType, function(err, response) {
 		  	if (err) {
 		  		console.error(err);
 		  	} else {
@@ -51,11 +50,12 @@ exports.listen = function(server) {
 	  });
 	  
 	  socket.on('item_recommendations', function (userCode, callback) {
-		  item_recommendations.findItemBasedRecommendations(userCode, function(err, response) {
+		  las_services.findItemBasedRecommendations(userCode, function(err, response) {
 		  	if (err) {
 		  		console.error(err);
 		  	} else {
 		  		var context = {"items" : response};
+		  		console.log(context);
 					var houses_history_search = jade.renderFile('./views/item_recommendations.jade', context, function (error, html) {
 						if (error) {
 		  				console.error(error);

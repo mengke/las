@@ -5,6 +5,16 @@
 //
 var Thrift = require('thrift').Thrift;
 var ttypes = module.exports = {};
+ttypes.UserType = {
+'ALL' : 0,
+'ANONYMOUS' : 1,
+'LOGIN' : 2
+};
+ttypes.HouseType = {
+'ALL' : 0,
+'SELL' : 1,
+'RENT' : 2
+};
 Recommendation = module.exports.Recommendation = function(args) {
   this.itemId = null;
   this.prefValue = null;
@@ -150,6 +160,193 @@ UserRecommendations.prototype.write = function(output) {
       {
         iter7 = this.recommendations[iter7];
         iter7.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+VisitRecord = module.exports.VisitRecord = function(args) {
+  this.houseCode = null;
+  this.houseType = null;
+  this.visitDttm = null;
+  if (args) {
+    if (args.houseCode !== undefined) {
+      this.houseCode = args.houseCode;
+    }
+    if (args.houseType !== undefined) {
+      this.houseType = args.houseType;
+    }
+    if (args.visitDttm !== undefined) {
+      this.visitDttm = args.visitDttm;
+    }
+  }
+};
+VisitRecord.prototype = {};
+VisitRecord.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.houseCode = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.BYTE) {
+        this.houseType = input.readByte();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.I64) {
+        this.visitDttm = input.readI64();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+VisitRecord.prototype.write = function(output) {
+  output.writeStructBegin('VisitRecord');
+  if (this.houseCode !== null && this.houseCode !== undefined) {
+    output.writeFieldBegin('houseCode', Thrift.Type.STRING, 1);
+    output.writeString(this.houseCode);
+    output.writeFieldEnd();
+  }
+  if (this.houseType !== null && this.houseType !== undefined) {
+    output.writeFieldBegin('houseType', Thrift.Type.BYTE, 2);
+    output.writeByte(this.houseType);
+    output.writeFieldEnd();
+  }
+  if (this.visitDttm !== null && this.visitDttm !== undefined) {
+    output.writeFieldBegin('visitDttm', Thrift.Type.I64, 3);
+    output.writeI64(this.visitDttm);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+UserVisitRecord = module.exports.UserVisitRecord = function(args) {
+  this.userCode = null;
+  this.userType = null;
+  this.visitRecords = null;
+  if (args) {
+    if (args.userCode !== undefined) {
+      this.userCode = args.userCode;
+    }
+    if (args.userType !== undefined) {
+      this.userType = args.userType;
+    }
+    if (args.visitRecords !== undefined) {
+      this.visitRecords = args.visitRecords;
+    }
+  }
+};
+UserVisitRecord.prototype = {};
+UserVisitRecord.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.userCode = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.BYTE) {
+        this.userType = input.readByte();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.LIST) {
+        var _size8 = 0;
+        var _rtmp312;
+        this.visitRecords = [];
+        var _etype11 = 0;
+        _rtmp312 = input.readListBegin();
+        _etype11 = _rtmp312.etype;
+        _size8 = _rtmp312.size;
+        for (var _i13 = 0; _i13 < _size8; ++_i13)
+        {
+          var elem14 = null;
+          elem14 = new ttypes.VisitRecord();
+          elem14.read(input);
+          this.visitRecords.push(elem14);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+UserVisitRecord.prototype.write = function(output) {
+  output.writeStructBegin('UserVisitRecord');
+  if (this.userCode !== null && this.userCode !== undefined) {
+    output.writeFieldBegin('userCode', Thrift.Type.STRING, 1);
+    output.writeString(this.userCode);
+    output.writeFieldEnd();
+  }
+  if (this.userType !== null && this.userType !== undefined) {
+    output.writeFieldBegin('userType', Thrift.Type.BYTE, 2);
+    output.writeByte(this.userType);
+    output.writeFieldEnd();
+  }
+  if (this.visitRecords !== null && this.visitRecords !== undefined) {
+    output.writeFieldBegin('visitRecords', Thrift.Type.LIST, 3);
+    output.writeListBegin(Thrift.Type.STRUCT, this.visitRecords.length);
+    for (var iter15 in this.visitRecords)
+    {
+      if (this.visitRecords.hasOwnProperty(iter15))
+      {
+        iter15 = this.visitRecords[iter15];
+        iter15.write(output);
       }
     }
     output.writeListEnd();

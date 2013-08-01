@@ -29,11 +29,11 @@ public class ItemRecommender {
                         .getInstance()));
 
 
-        Iterator<Map.Entry<String, Double>> recommendationVectorIterator = recommendationVector.iterator();
+        Iterator<Map.Entry<String, Integer>> recommendationVectorIterator = recommendationVector.iterator();
         while (recommendationVectorIterator.hasNext()) {
-            Map.Entry<String, Double> entry = recommendationVectorIterator.next();
+            Map.Entry<String, Integer> entry = recommendationVectorIterator.next();
             String itemId = entry.getKey();
-            double value = entry.getValue();
+            int value = entry.getValue();
             if (topItems.size() < maxRecommendations) {
                 topItems.add(new RecommendedItem(itemId, value));
             } else if (value > topItems.peek().getPrefValue()) {

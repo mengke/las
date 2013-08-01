@@ -34,12 +34,12 @@ import static org.easycloud.las.core.util.Assert.assertStateNotNull;
 public class LasServerFactory implements FactoryBean<LasServer>, InitializingBean {
 
     private List<LasServer> lasServers;
-    private Map<String, TProcessor> processors;
+    private TProcessor processor;
     private Map<Class<? extends LasServer>, LasServer> lasServerMap;
     private Class bootServerClass;
 
-    public void setProcessors(Map<String, TProcessor> processors) {
-        this.processors = processors;
+    public void setProcessor(TProcessor processor) {
+        this.processor = processor;
     }
 
     public void setLasServers(List<LasServer> lasServers) {
@@ -55,7 +55,7 @@ public class LasServerFactory implements FactoryBean<LasServer>, InitializingBea
         LasServer bootServer = lasServerMap.get(bootServerClass);
         assertStateNotNull(bootServer,
                 "LasServerFactory getObject bootServer not found. Please check your bootServerClass config.");
-        bootServer.setProcessors(processors);
+        bootServer.setProcessor(processor);
         return bootServer;
     }
 
@@ -72,7 +72,7 @@ public class LasServerFactory implements FactoryBean<LasServer>, InitializingBea
     @Override
     public void afterPropertiesSet() throws Exception {
         assertStateNotNull(bootServerClass, "LasServerFactory bootServerClass must be set!");
-        assertStateNotEmpty(processors, "LasServerFactory processors must be set!");
+        assertStateNotNull(processor, "LasServerFactory processor must be set!");
         assertStateNotEmpty(lasServers, "LasServerFactory lasServers must be set!");
         lasServerMap = new HashMap<Class<? extends LasServer>, LasServer>();
         for (LasServer server : lasServers) {

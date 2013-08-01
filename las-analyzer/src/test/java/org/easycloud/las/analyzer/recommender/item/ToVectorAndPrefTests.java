@@ -53,14 +53,14 @@ public class ToVectorAndPrefTests {
         String house3 = houseCode3 + "/" + houseType3;
 
         RandomAccessVector<String> cooccurrenceRow = new RandomAccessVector<String>();
-        cooccurrenceRow.set(house1, 1.0);
-        cooccurrenceRow.set(house2, 2.0);
-        cooccurrenceRow.set(house3, 2.0);
+        cooccurrenceRow.set(house1, 1);
+        cooccurrenceRow.set(house2, 2);
+        cooccurrenceRow.set(house3, 2);
         VectorOrPrefWritable input1 = new VectorOrPrefWritable(cooccurrenceRow);
         inputValues.add(input1);
-        VectorOrPrefWritable input2 = new VectorOrPrefWritable(userCode1, 1.0);
+        VectorOrPrefWritable input2 = new VectorOrPrefWritable(userCode1, 1);
         inputValues.add(input2);
-        VectorOrPrefWritable input3 = new VectorOrPrefWritable(userCode2, 1.0);
+        VectorOrPrefWritable input3 = new VectorOrPrefWritable(userCode2, 1);
         inputValues.add(input3);
 
         reduceDriver.withInput(new Text(house2), inputValues);
@@ -69,9 +69,9 @@ public class ToVectorAndPrefTests {
         userCodes.add(userCode1);
         userCodes.add(userCode2);
 
-        List<Double> prefValues = new ArrayList<Double>();
-        prefValues.add(1.0);
-        prefValues.add(1.0);
+        List<Integer> prefValues = new ArrayList<Integer>();
+        prefValues.add(1);
+        prefValues.add(1);
         VectorAndPrefsWritable outputValue = new VectorAndPrefsWritable(cooccurrenceRow, userCodes, prefValues);
 
 

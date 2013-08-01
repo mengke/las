@@ -31,7 +31,7 @@ public class CooccurrenceColumnWrapperMapper extends MapReduceBase
         }
         RandomAccessVector<String> vector = value.get();
         /* remove self similarity */
-        vector.set(key.toString(), 0.0);
+        vector.set(key.toString(), 0);
         collector.collect(key, new VectorOrPrefWritable(value.get()));
     }
 }

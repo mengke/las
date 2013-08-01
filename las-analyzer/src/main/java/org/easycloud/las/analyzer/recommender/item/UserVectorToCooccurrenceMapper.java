@@ -30,15 +30,15 @@ public class UserVectorToCooccurrenceMapper extends MapReduceBase
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("UserVectorToCooccurrenceMapper: processing the key [ " + userId + "]");
         }
-        Iterator<Map.Entry<String, Double>> iter = userVector.get().iterator();
+        Iterator<Map.Entry<String, Integer>> iter = userVector.get().iterator();
         while (iter.hasNext()) {
-            Map.Entry<String, Double> entry = iter.next();
-            if (entry.getValue() > 0.0) {
+            Map.Entry<String, Integer> entry = iter.next();
+            if (entry.getValue() > 0) {
                 String itemId1 = entry.getKey();
-                Iterator<Map.Entry<String, Double>> iter2 = userVector.get().iterator();
+                Iterator<Map.Entry<String, Integer>> iter2 = userVector.get().iterator();
                 while (iter2.hasNext()) {
-                    Map.Entry<String, Double> entry2 = iter2.next();
-                    if (entry2.getValue() > 0.0) {
+                    Map.Entry<String, Integer> entry2 = iter2.next();
+                    if (entry2.getValue() > 0) {
                         String itemId2 = entry2.getKey();
                         collector.collect(new Text(itemId1), new Text(itemId2));
                     }
