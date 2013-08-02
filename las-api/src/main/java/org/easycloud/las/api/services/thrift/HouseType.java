@@ -7,42 +7,39 @@
 package org.easycloud.las.api.services.thrift;
 
 
-import java.util.Map;
-import java.util.HashMap;
-import org.apache.thrift.TEnum;
-
 public enum HouseType implements org.apache.thrift.TEnum {
-  ALL(0),
-  SELL(1),
-  RENT(2);
+    ALL(0),
+    SELL(1),
+    RENT(2);
 
-  private final int value;
+    private final int value;
 
-  private HouseType(int value) {
-    this.value = value;
-  }
-
-  /**
-   * Get the integer value of this enum value, as defined in the Thrift IDL.
-   */
-  public int getValue() {
-    return value;
-  }
-
-  /**
-   * Find a the enum type by its integer value, as defined in the Thrift IDL.
-   * @return null if the value is not found.
-   */
-  public static HouseType findByValue(int value) { 
-    switch (value) {
-      case 0:
-        return ALL;
-      case 1:
-        return SELL;
-      case 2:
-        return RENT;
-      default:
-        return null;
+    private HouseType(int value) {
+        this.value = value;
     }
-  }
+
+    /**
+     * Get the integer value of this enum value, as defined in the Thrift IDL.
+     */
+    public int getValue() {
+        return value;
+    }
+
+    /**
+     * Find a the enum type by its integer value, as defined in the Thrift IDL.
+     *
+     * @return null if the value is not found.
+     */
+    public static HouseType findByValue(int value) {
+        switch (value) {
+            case 0:
+                return ALL;
+            case 1:
+                return SELL;
+            case 2:
+                return RENT;
+            default:
+                return null;
+        }
+    }
 }

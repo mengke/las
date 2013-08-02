@@ -6,629 +6,628 @@
  */
 package org.easycloud.las.api.services.thrift;
 
+import org.apache.thrift.EncodingUtils;
+import org.apache.thrift.protocol.TTupleProtocol;
 import org.apache.thrift.scheme.IScheme;
 import org.apache.thrift.scheme.SchemeFactory;
 import org.apache.thrift.scheme.StandardScheme;
-
 import org.apache.thrift.scheme.TupleScheme;
-import org.apache.thrift.protocol.TTupleProtocol;
-import org.apache.thrift.protocol.TProtocolException;
-import org.apache.thrift.EncodingUtils;
-import org.apache.thrift.TException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.EnumMap;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.EnumSet;
-import java.util.Collections;
-import java.util.BitSet;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.*;
+
+@Document
 public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord, UserVisitRecord._Fields>, java.io.Serializable, Cloneable {
-  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("UserVisitRecord");
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("UserVisitRecord");
 
-  private static final org.apache.thrift.protocol.TField USER_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("userCode", org.apache.thrift.protocol.TType.STRING, (short)1);
-  private static final org.apache.thrift.protocol.TField USER_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("userType", org.apache.thrift.protocol.TType.BYTE, (short)2);
-  private static final org.apache.thrift.protocol.TField VISIT_RECORDS_FIELD_DESC = new org.apache.thrift.protocol.TField("visitRecords", org.apache.thrift.protocol.TType.LIST, (short)3);
+    private static final org.apache.thrift.protocol.TField USER_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("userCode", org.apache.thrift.protocol.TType.STRING, (short) 1);
+    private static final org.apache.thrift.protocol.TField USER_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("userType", org.apache.thrift.protocol.TType.BYTE, (short) 2);
+    private static final org.apache.thrift.protocol.TField VISIT_RECORDS_FIELD_DESC = new org.apache.thrift.protocol.TField("visitRecords", org.apache.thrift.protocol.TType.LIST, (short) 3);
 
-  private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-  static {
-    schemes.put(StandardScheme.class, new UserVisitRecordStandardSchemeFactory());
-    schemes.put(TupleScheme.class, new UserVisitRecordTupleSchemeFactory());
-  }
-
-  public String userCode; // required
-  public byte userType; // required
-  public List<VisitRecord> visitRecords; // optional
-
-  /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-  public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-    USER_CODE((short)1, "userCode"),
-    USER_TYPE((short)2, "userType"),
-    VISIT_RECORDS((short)3, "visitRecords");
-
-    private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
 
     static {
-      for (_Fields field : EnumSet.allOf(_Fields.class)) {
-        byName.put(field.getFieldName(), field);
-      }
+        schemes.put(StandardScheme.class, new UserVisitRecordStandardSchemeFactory());
+        schemes.put(TupleScheme.class, new UserVisitRecordTupleSchemeFactory());
     }
+
+    @Id
+    public String userCode; // required
+    public byte userType; // required
+    @DBRef
+    @Field("houseVisits")
+    public List<VisitRecord> visitRecords; // optional
 
     /**
-     * Find the _Fields constant that matches fieldId, or null if its not found.
+     * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
      */
-    public static _Fields findByThriftId(int fieldId) {
-      switch(fieldId) {
-        case 1: // USER_CODE
-          return USER_CODE;
-        case 2: // USER_TYPE
-          return USER_TYPE;
-        case 3: // VISIT_RECORDS
-          return VISIT_RECORDS;
-        default:
-          return null;
-      }
-    }
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+        USER_CODE((short) 1, "userCode"),
+        USER_TYPE((short) 2, "userType"),
+        VISIT_RECORDS((short) 3, "visitRecords");
 
-    /**
-     * Find the _Fields constant that matches fieldId, throwing an exception
-     * if it is not found.
-     */
-    public static _Fields findByThriftIdOrThrow(int fieldId) {
-      _Fields fields = findByThriftId(fieldId);
-      if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-      return fields;
-    }
+        private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
-    /**
-     * Find the _Fields constant that matches name, or null if its not found.
-     */
-    public static _Fields findByName(String name) {
-      return byName.get(name);
-    }
-
-    private final short _thriftId;
-    private final String _fieldName;
-
-    _Fields(short thriftId, String fieldName) {
-      _thriftId = thriftId;
-      _fieldName = fieldName;
-    }
-
-    public short getThriftFieldId() {
-      return _thriftId;
-    }
-
-    public String getFieldName() {
-      return _fieldName;
-    }
-  }
-
-  // isset id assignments
-  private static final int __USERTYPE_ISSET_ID = 0;
-  private byte __isset_bitfield = 0;
-  private _Fields optionals[] = {_Fields.VISIT_RECORDS};
-  public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-  static {
-    Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.USER_CODE, new org.apache.thrift.meta_data.FieldMetaData("userCode", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-    tmpMap.put(_Fields.USER_TYPE, new org.apache.thrift.meta_data.FieldMetaData("userType", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BYTE)));
-    tmpMap.put(_Fields.VISIT_RECORDS, new org.apache.thrift.meta_data.FieldMetaData("visitRecords", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
-        new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
-            new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, VisitRecord.class))));
-    metaDataMap = Collections.unmodifiableMap(tmpMap);
-    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(UserVisitRecord.class, metaDataMap);
-  }
-
-  public UserVisitRecord() {
-  }
-
-  public UserVisitRecord(
-    String userCode,
-    byte userType)
-  {
-    this();
-    this.userCode = userCode;
-    this.userType = userType;
-    setUserTypeIsSet(true);
-  }
-
-  /**
-   * Performs a deep copy on <i>other</i>.
-   */
-  public UserVisitRecord(UserVisitRecord other) {
-    __isset_bitfield = other.__isset_bitfield;
-    if (other.isSetUserCode()) {
-      this.userCode = other.userCode;
-    }
-    this.userType = other.userType;
-    if (other.isSetVisitRecords()) {
-      List<VisitRecord> __this__visitRecords = new ArrayList<VisitRecord>();
-      for (VisitRecord other_element : other.visitRecords) {
-        __this__visitRecords.add(new VisitRecord(other_element));
-      }
-      this.visitRecords = __this__visitRecords;
-    }
-  }
-
-  public UserVisitRecord deepCopy() {
-    return new UserVisitRecord(this);
-  }
-
-  @Override
-  public void clear() {
-    this.userCode = null;
-    setUserTypeIsSet(false);
-    this.userType = 0;
-    this.visitRecords = null;
-  }
-
-  public String getUserCode() {
-    return this.userCode;
-  }
-
-  public UserVisitRecord setUserCode(String userCode) {
-    this.userCode = userCode;
-    return this;
-  }
-
-  public void unsetUserCode() {
-    this.userCode = null;
-  }
-
-  /** Returns true if field userCode is set (has been assigned a value) and false otherwise */
-  public boolean isSetUserCode() {
-    return this.userCode != null;
-  }
-
-  public void setUserCodeIsSet(boolean value) {
-    if (!value) {
-      this.userCode = null;
-    }
-  }
-
-  public byte getUserType() {
-    return this.userType;
-  }
-
-  public UserVisitRecord setUserType(byte userType) {
-    this.userType = userType;
-    setUserTypeIsSet(true);
-    return this;
-  }
-
-  public void unsetUserType() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __USERTYPE_ISSET_ID);
-  }
-
-  /** Returns true if field userType is set (has been assigned a value) and false otherwise */
-  public boolean isSetUserType() {
-    return EncodingUtils.testBit(__isset_bitfield, __USERTYPE_ISSET_ID);
-  }
-
-  public void setUserTypeIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __USERTYPE_ISSET_ID, value);
-  }
-
-  public int getVisitRecordsSize() {
-    return (this.visitRecords == null) ? 0 : this.visitRecords.size();
-  }
-
-  public java.util.Iterator<VisitRecord> getVisitRecordsIterator() {
-    return (this.visitRecords == null) ? null : this.visitRecords.iterator();
-  }
-
-  public void addToVisitRecords(VisitRecord elem) {
-    if (this.visitRecords == null) {
-      this.visitRecords = new ArrayList<VisitRecord>();
-    }
-    this.visitRecords.add(elem);
-  }
-
-  public List<VisitRecord> getVisitRecords() {
-    return this.visitRecords;
-  }
-
-  public UserVisitRecord setVisitRecords(List<VisitRecord> visitRecords) {
-    this.visitRecords = visitRecords;
-    return this;
-  }
-
-  public void unsetVisitRecords() {
-    this.visitRecords = null;
-  }
-
-  /** Returns true if field visitRecords is set (has been assigned a value) and false otherwise */
-  public boolean isSetVisitRecords() {
-    return this.visitRecords != null;
-  }
-
-  public void setVisitRecordsIsSet(boolean value) {
-    if (!value) {
-      this.visitRecords = null;
-    }
-  }
-
-  public void setFieldValue(_Fields field, Object value) {
-    switch (field) {
-    case USER_CODE:
-      if (value == null) {
-        unsetUserCode();
-      } else {
-        setUserCode((String)value);
-      }
-      break;
-
-    case USER_TYPE:
-      if (value == null) {
-        unsetUserType();
-      } else {
-        setUserType((Byte)value);
-      }
-      break;
-
-    case VISIT_RECORDS:
-      if (value == null) {
-        unsetVisitRecords();
-      } else {
-        setVisitRecords((List<VisitRecord>)value);
-      }
-      break;
-
-    }
-  }
-
-  public Object getFieldValue(_Fields field) {
-    switch (field) {
-    case USER_CODE:
-      return getUserCode();
-
-    case USER_TYPE:
-      return Byte.valueOf(getUserType());
-
-    case VISIT_RECORDS:
-      return getVisitRecords();
-
-    }
-    throw new IllegalStateException();
-  }
-
-  /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-  public boolean isSet(_Fields field) {
-    if (field == null) {
-      throw new IllegalArgumentException();
-    }
-
-    switch (field) {
-    case USER_CODE:
-      return isSetUserCode();
-    case USER_TYPE:
-      return isSetUserType();
-    case VISIT_RECORDS:
-      return isSetVisitRecords();
-    }
-    throw new IllegalStateException();
-  }
-
-  @Override
-  public boolean equals(Object that) {
-    if (that == null)
-      return false;
-    if (that instanceof UserVisitRecord)
-      return this.equals((UserVisitRecord)that);
-    return false;
-  }
-
-  public boolean equals(UserVisitRecord that) {
-    if (that == null)
-      return false;
-
-    boolean this_present_userCode = true && this.isSetUserCode();
-    boolean that_present_userCode = true && that.isSetUserCode();
-    if (this_present_userCode || that_present_userCode) {
-      if (!(this_present_userCode && that_present_userCode))
-        return false;
-      if (!this.userCode.equals(that.userCode))
-        return false;
-    }
-
-    boolean this_present_userType = true;
-    boolean that_present_userType = true;
-    if (this_present_userType || that_present_userType) {
-      if (!(this_present_userType && that_present_userType))
-        return false;
-      if (this.userType != that.userType)
-        return false;
-    }
-
-    boolean this_present_visitRecords = true && this.isSetVisitRecords();
-    boolean that_present_visitRecords = true && that.isSetVisitRecords();
-    if (this_present_visitRecords || that_present_visitRecords) {
-      if (!(this_present_visitRecords && that_present_visitRecords))
-        return false;
-      if (!this.visitRecords.equals(that.visitRecords))
-        return false;
-    }
-
-    return true;
-  }
-
-  @Override
-  public int hashCode() {
-    return 0;
-  }
-
-  public int compareTo(UserVisitRecord other) {
-    if (!getClass().equals(other.getClass())) {
-      return getClass().getName().compareTo(other.getClass().getName());
-    }
-
-    int lastComparison = 0;
-    UserVisitRecord typedOther = (UserVisitRecord)other;
-
-    lastComparison = Boolean.valueOf(isSetUserCode()).compareTo(typedOther.isSetUserCode());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetUserCode()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.userCode, typedOther.userCode);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    lastComparison = Boolean.valueOf(isSetUserType()).compareTo(typedOther.isSetUserType());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetUserType()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.userType, typedOther.userType);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    lastComparison = Boolean.valueOf(isSetVisitRecords()).compareTo(typedOther.isSetVisitRecords());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetVisitRecords()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.visitRecords, typedOther.visitRecords);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    return 0;
-  }
-
-  public _Fields fieldForId(int fieldId) {
-    return _Fields.findByThriftId(fieldId);
-  }
-
-  public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-    schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
-  }
-
-  public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-    schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder("UserVisitRecord(");
-    boolean first = true;
-
-    sb.append("userCode:");
-    if (this.userCode == null) {
-      sb.append("null");
-    } else {
-      sb.append(this.userCode);
-    }
-    first = false;
-    if (!first) sb.append(", ");
-    sb.append("userType:");
-    sb.append(this.userType);
-    first = false;
-    if (isSetVisitRecords()) {
-      if (!first) sb.append(", ");
-      sb.append("visitRecords:");
-      if (this.visitRecords == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.visitRecords);
-      }
-      first = false;
-    }
-    sb.append(")");
-    return sb.toString();
-  }
-
-  public void validate() throws org.apache.thrift.TException {
-    // check for required fields
-    if (userCode == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
-    }
-    // alas, we cannot check 'userType' because it's a primitive and you chose the non-beans generator.
-    // check for sub-struct validity
-  }
-
-  private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-    try {
-      write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-    } catch (org.apache.thrift.TException te) {
-      throw new java.io.IOException(te);
-    }
-  }
-
-  private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-    try {
-      // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-      __isset_bitfield = 0;
-      read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-    } catch (org.apache.thrift.TException te) {
-      throw new java.io.IOException(te);
-    }
-  }
-
-  private static class UserVisitRecordStandardSchemeFactory implements SchemeFactory {
-    public UserVisitRecordStandardScheme getScheme() {
-      return new UserVisitRecordStandardScheme();
-    }
-  }
-
-  private static class UserVisitRecordStandardScheme extends StandardScheme<UserVisitRecord> {
-
-    public void read(org.apache.thrift.protocol.TProtocol iprot, UserVisitRecord struct) throws org.apache.thrift.TException {
-      org.apache.thrift.protocol.TField schemeField;
-      iprot.readStructBegin();
-      while (true)
-      {
-        schemeField = iprot.readFieldBegin();
-        if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-          break;
+        static {
+            for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                byName.put(field.getFieldName(), field);
+            }
         }
-        switch (schemeField.id) {
-          case 1: // USER_CODE
-            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.userCode = iprot.readString();
-              struct.setUserCodeIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+
+        /**
+         * Find the _Fields constant that matches fieldId, or null if its not found.
+         */
+        public static _Fields findByThriftId(int fieldId) {
+            switch (fieldId) {
+                case 1: // USER_CODE
+                    return USER_CODE;
+                case 2: // USER_TYPE
+                    return USER_TYPE;
+                case 3: // VISIT_RECORDS
+                    return VISIT_RECORDS;
+                default:
+                    return null;
             }
-            break;
-          case 2: // USER_TYPE
-            if (schemeField.type == org.apache.thrift.protocol.TType.BYTE) {
-              struct.userType = iprot.readByte();
-              struct.setUserTypeIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+        }
+
+        /**
+         * Find the _Fields constant that matches fieldId, throwing an exception
+         * if it is not found.
+         */
+        public static _Fields findByThriftIdOrThrow(int fieldId) {
+            _Fields fields = findByThriftId(fieldId);
+            if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+            return fields;
+        }
+
+        /**
+         * Find the _Fields constant that matches name, or null if its not found.
+         */
+        public static _Fields findByName(String name) {
+            return byName.get(name);
+        }
+
+        private final short _thriftId;
+        private final String _fieldName;
+
+        _Fields(short thriftId, String fieldName) {
+            _thriftId = thriftId;
+            _fieldName = fieldName;
+        }
+
+        public short getThriftFieldId() {
+            return _thriftId;
+        }
+
+        public String getFieldName() {
+            return _fieldName;
+        }
+    }
+
+    // isset id assignments
+    private static final int __USERTYPE_ISSET_ID = 0;
+    private byte __isset_bitfield = 0;
+    private _Fields optionals[] = {_Fields.VISIT_RECORDS};
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+
+    static {
+        Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+        tmpMap.put(_Fields.USER_CODE, new org.apache.thrift.meta_data.FieldMetaData("userCode", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+        tmpMap.put(_Fields.USER_TYPE, new org.apache.thrift.meta_data.FieldMetaData("userType", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BYTE)));
+        tmpMap.put(_Fields.VISIT_RECORDS, new org.apache.thrift.meta_data.FieldMetaData("visitRecords", org.apache.thrift.TFieldRequirementType.OPTIONAL,
+                new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST,
+                        new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, VisitRecord.class))));
+        metaDataMap = Collections.unmodifiableMap(tmpMap);
+        org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(UserVisitRecord.class, metaDataMap);
+    }
+
+    public UserVisitRecord() {
+    }
+
+    public UserVisitRecord(
+            String userCode,
+            byte userType) {
+        this();
+        this.userCode = userCode;
+        this.userType = userType;
+        setUserTypeIsSet(true);
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public UserVisitRecord(UserVisitRecord other) {
+        __isset_bitfield = other.__isset_bitfield;
+        if (other.isSetUserCode()) {
+            this.userCode = other.userCode;
+        }
+        this.userType = other.userType;
+        if (other.isSetVisitRecords()) {
+            List<VisitRecord> __this__visitRecords = new ArrayList<VisitRecord>();
+            for (VisitRecord other_element : other.visitRecords) {
+                __this__visitRecords.add(new VisitRecord(other_element));
             }
-            break;
-          case 3: // VISIT_RECORDS
-            if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
-              {
-                org.apache.thrift.protocol.TList _list8 = iprot.readListBegin();
-                struct.visitRecords = new ArrayList<VisitRecord>(_list8.size);
-                for (int _i9 = 0; _i9 < _list8.size; ++_i9)
-                {
-                  VisitRecord _elem10; // required
-                  _elem10 = new VisitRecord();
-                  _elem10.read(iprot);
-                  struct.visitRecords.add(_elem10);
+            this.visitRecords = __this__visitRecords;
+        }
+    }
+
+    public UserVisitRecord deepCopy() {
+        return new UserVisitRecord(this);
+    }
+
+    @Override
+    public void clear() {
+        this.userCode = null;
+        setUserTypeIsSet(false);
+        this.userType = 0;
+        this.visitRecords = null;
+    }
+
+    public String getUserCode() {
+        return this.userCode;
+    }
+
+    public UserVisitRecord setUserCode(String userCode) {
+        this.userCode = userCode;
+        return this;
+    }
+
+    public void unsetUserCode() {
+        this.userCode = null;
+    }
+
+    /**
+     * Returns true if field userCode is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSetUserCode() {
+        return this.userCode != null;
+    }
+
+    public void setUserCodeIsSet(boolean value) {
+        if (!value) {
+            this.userCode = null;
+        }
+    }
+
+    public byte getUserType() {
+        return this.userType;
+    }
+
+    public UserVisitRecord setUserType(byte userType) {
+        this.userType = userType;
+        setUserTypeIsSet(true);
+        return this;
+    }
+
+    public void unsetUserType() {
+        __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __USERTYPE_ISSET_ID);
+    }
+
+    /**
+     * Returns true if field userType is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSetUserType() {
+        return EncodingUtils.testBit(__isset_bitfield, __USERTYPE_ISSET_ID);
+    }
+
+    public void setUserTypeIsSet(boolean value) {
+        __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __USERTYPE_ISSET_ID, value);
+    }
+
+    public int getVisitRecordsSize() {
+        return (this.visitRecords == null) ? 0 : this.visitRecords.size();
+    }
+
+    public java.util.Iterator<VisitRecord> getVisitRecordsIterator() {
+        return (this.visitRecords == null) ? null : this.visitRecords.iterator();
+    }
+
+    public void addToVisitRecords(VisitRecord elem) {
+        if (this.visitRecords == null) {
+            this.visitRecords = new ArrayList<VisitRecord>();
+        }
+        this.visitRecords.add(elem);
+    }
+
+    public List<VisitRecord> getVisitRecords() {
+        return this.visitRecords;
+    }
+
+    public UserVisitRecord setVisitRecords(List<VisitRecord> visitRecords) {
+        this.visitRecords = visitRecords;
+        return this;
+    }
+
+    public void unsetVisitRecords() {
+        this.visitRecords = null;
+    }
+
+    /**
+     * Returns true if field visitRecords is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSetVisitRecords() {
+        return this.visitRecords != null;
+    }
+
+    public void setVisitRecordsIsSet(boolean value) {
+        if (!value) {
+            this.visitRecords = null;
+        }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+        switch (field) {
+            case USER_CODE:
+                if (value == null) {
+                    unsetUserCode();
+                } else {
+                    setUserCode((String) value);
                 }
-                iprot.readListEnd();
-              }
-              struct.setVisitRecordsIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-            }
-            break;
-          default:
-            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-        }
-        iprot.readFieldEnd();
-      }
-      iprot.readStructEnd();
+                break;
 
-      // check for required fields of primitive type, which can't be checked in the validate method
-      if (!struct.isSetUserType()) {
-        throw new org.apache.thrift.protocol.TProtocolException("Required field 'userType' was not found in serialized data! Struct: " + toString());
-      }
-      struct.validate();
+            case USER_TYPE:
+                if (value == null) {
+                    unsetUserType();
+                } else {
+                    setUserType((Byte) value);
+                }
+                break;
+
+            case VISIT_RECORDS:
+                if (value == null) {
+                    unsetVisitRecords();
+                } else {
+                    setVisitRecords((List<VisitRecord>) value);
+                }
+                break;
+
+        }
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, UserVisitRecord struct) throws org.apache.thrift.TException {
-      struct.validate();
+    public Object getFieldValue(_Fields field) {
+        switch (field) {
+            case USER_CODE:
+                return getUserCode();
 
-      oprot.writeStructBegin(STRUCT_DESC);
-      if (struct.userCode != null) {
-        oprot.writeFieldBegin(USER_CODE_FIELD_DESC);
-        oprot.writeString(struct.userCode);
-        oprot.writeFieldEnd();
-      }
-      oprot.writeFieldBegin(USER_TYPE_FIELD_DESC);
-      oprot.writeByte(struct.userType);
-      oprot.writeFieldEnd();
-      if (struct.visitRecords != null) {
-        if (struct.isSetVisitRecords()) {
-          oprot.writeFieldBegin(VISIT_RECORDS_FIELD_DESC);
-          {
-            oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.visitRecords.size()));
-            for (VisitRecord _iter11 : struct.visitRecords)
-            {
-              _iter11.write(oprot);
-            }
-            oprot.writeListEnd();
-          }
-          oprot.writeFieldEnd();
+            case USER_TYPE:
+                return Byte.valueOf(getUserType());
+
+            case VISIT_RECORDS:
+                return getVisitRecords();
+
         }
-      }
-      oprot.writeFieldStop();
-      oprot.writeStructEnd();
+        throw new IllegalStateException();
     }
 
-  }
-
-  private static class UserVisitRecordTupleSchemeFactory implements SchemeFactory {
-    public UserVisitRecordTupleScheme getScheme() {
-      return new UserVisitRecordTupleScheme();
-    }
-  }
-
-  private static class UserVisitRecordTupleScheme extends TupleScheme<UserVisitRecord> {
-
-    @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, UserVisitRecord struct) throws org.apache.thrift.TException {
-      TTupleProtocol oprot = (TTupleProtocol) prot;
-      oprot.writeString(struct.userCode);
-      oprot.writeByte(struct.userType);
-      BitSet optionals = new BitSet();
-      if (struct.isSetVisitRecords()) {
-        optionals.set(0);
-      }
-      oprot.writeBitSet(optionals, 1);
-      if (struct.isSetVisitRecords()) {
-        {
-          oprot.writeI32(struct.visitRecords.size());
-          for (VisitRecord _iter12 : struct.visitRecords)
-          {
-            _iter12.write(oprot);
-          }
+    /**
+     * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSet(_Fields field) {
+        if (field == null) {
+            throw new IllegalArgumentException();
         }
-      }
+
+        switch (field) {
+            case USER_CODE:
+                return isSetUserCode();
+            case USER_TYPE:
+                return isSetUserType();
+            case VISIT_RECORDS:
+                return isSetVisitRecords();
+        }
+        throw new IllegalStateException();
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, UserVisitRecord struct) throws org.apache.thrift.TException {
-      TTupleProtocol iprot = (TTupleProtocol) prot;
-      struct.userCode = iprot.readString();
-      struct.setUserCodeIsSet(true);
-      struct.userType = iprot.readByte();
-      struct.setUserTypeIsSet(true);
-      BitSet incoming = iprot.readBitSet(1);
-      if (incoming.get(0)) {
-        {
-          org.apache.thrift.protocol.TList _list13 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
-          struct.visitRecords = new ArrayList<VisitRecord>(_list13.size);
-          for (int _i14 = 0; _i14 < _list13.size; ++_i14)
-          {
-            VisitRecord _elem15; // required
-            _elem15 = new VisitRecord();
-            _elem15.read(iprot);
-            struct.visitRecords.add(_elem15);
-          }
-        }
-        struct.setVisitRecordsIsSet(true);
-      }
+    public boolean equals(Object that) {
+        if (that == null)
+            return false;
+        if (that instanceof UserVisitRecord)
+            return this.equals((UserVisitRecord) that);
+        return false;
     }
-  }
+
+    public boolean equals(UserVisitRecord that) {
+        if (that == null)
+            return false;
+
+        boolean this_present_userCode = true && this.isSetUserCode();
+        boolean that_present_userCode = true && that.isSetUserCode();
+        if (this_present_userCode || that_present_userCode) {
+            if (!(this_present_userCode && that_present_userCode))
+                return false;
+            if (!this.userCode.equals(that.userCode))
+                return false;
+        }
+
+        boolean this_present_userType = true;
+        boolean that_present_userType = true;
+        if (this_present_userType || that_present_userType) {
+            if (!(this_present_userType && that_present_userType))
+                return false;
+            if (this.userType != that.userType)
+                return false;
+        }
+
+        boolean this_present_visitRecords = true && this.isSetVisitRecords();
+        boolean that_present_visitRecords = true && that.isSetVisitRecords();
+        if (this_present_visitRecords || that_present_visitRecords) {
+            if (!(this_present_visitRecords && that_present_visitRecords))
+                return false;
+            if (!this.visitRecords.equals(that.visitRecords))
+                return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+
+    public int compareTo(UserVisitRecord other) {
+        if (!getClass().equals(other.getClass())) {
+            return getClass().getName().compareTo(other.getClass().getName());
+        }
+
+        int lastComparison = 0;
+        UserVisitRecord typedOther = (UserVisitRecord) other;
+
+        lastComparison = Boolean.valueOf(isSetUserCode()).compareTo(typedOther.isSetUserCode());
+        if (lastComparison != 0) {
+            return lastComparison;
+        }
+        if (isSetUserCode()) {
+            lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.userCode, typedOther.userCode);
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+        }
+        lastComparison = Boolean.valueOf(isSetUserType()).compareTo(typedOther.isSetUserType());
+        if (lastComparison != 0) {
+            return lastComparison;
+        }
+        if (isSetUserType()) {
+            lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.userType, typedOther.userType);
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+        }
+        lastComparison = Boolean.valueOf(isSetVisitRecords()).compareTo(typedOther.isSetVisitRecords());
+        if (lastComparison != 0) {
+            return lastComparison;
+        }
+        if (isSetVisitRecords()) {
+            lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.visitRecords, typedOther.visitRecords);
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+        }
+        return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+        return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+        schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+        schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("UserVisitRecord(");
+        boolean first = true;
+
+        sb.append("userCode:");
+        if (this.userCode == null) {
+            sb.append("null");
+        } else {
+            sb.append(this.userCode);
+        }
+        first = false;
+        if (!first) sb.append(", ");
+        sb.append("userType:");
+        sb.append(this.userType);
+        first = false;
+        if (isSetVisitRecords()) {
+            if (!first) sb.append(", ");
+            sb.append("visitRecords:");
+            if (this.visitRecords == null) {
+                sb.append("null");
+            } else {
+                sb.append(this.visitRecords);
+            }
+            first = false;
+        }
+        sb.append(")");
+        return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+        // check for required fields
+        if (userCode == null) {
+            throw new org.apache.thrift.protocol.TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
+        }
+        // alas, we cannot check 'userType' because it's a primitive and you chose the non-beans generator.
+        // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+        try {
+            write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+        } catch (org.apache.thrift.TException te) {
+            throw new java.io.IOException(te);
+        }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+        try {
+            // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+            __isset_bitfield = 0;
+            read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+        } catch (org.apache.thrift.TException te) {
+            throw new java.io.IOException(te);
+        }
+    }
+
+    private static class UserVisitRecordStandardSchemeFactory implements SchemeFactory {
+        public UserVisitRecordStandardScheme getScheme() {
+            return new UserVisitRecordStandardScheme();
+        }
+    }
+
+    private static class UserVisitRecordStandardScheme extends StandardScheme<UserVisitRecord> {
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot, UserVisitRecord struct) throws org.apache.thrift.TException {
+            org.apache.thrift.protocol.TField schemeField;
+            iprot.readStructBegin();
+            while (true) {
+                schemeField = iprot.readFieldBegin();
+                if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                    break;
+                }
+                switch (schemeField.id) {
+                    case 1: // USER_CODE
+                        if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                            struct.userCode = iprot.readString();
+                            struct.setUserCodeIsSet(true);
+                        } else {
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                        }
+                        break;
+                    case 2: // USER_TYPE
+                        if (schemeField.type == org.apache.thrift.protocol.TType.BYTE) {
+                            struct.userType = iprot.readByte();
+                            struct.setUserTypeIsSet(true);
+                        } else {
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                        }
+                        break;
+                    case 3: // VISIT_RECORDS
+                        if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
+                            {
+                                org.apache.thrift.protocol.TList _list8 = iprot.readListBegin();
+                                struct.visitRecords = new ArrayList<VisitRecord>(_list8.size);
+                                for (int _i9 = 0; _i9 < _list8.size; ++_i9) {
+                                    VisitRecord _elem10; // required
+                                    _elem10 = new VisitRecord();
+                                    _elem10.read(iprot);
+                                    struct.visitRecords.add(_elem10);
+                                }
+                                iprot.readListEnd();
+                            }
+                            struct.setVisitRecordsIsSet(true);
+                        } else {
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                        }
+                        break;
+                    default:
+                        org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                }
+                iprot.readFieldEnd();
+            }
+            iprot.readStructEnd();
+
+            // check for required fields of primitive type, which can't be checked in the validate method
+            if (!struct.isSetUserType()) {
+                throw new org.apache.thrift.protocol.TProtocolException("Required field 'userType' was not found in serialized data! Struct: " + toString());
+            }
+            struct.validate();
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot, UserVisitRecord struct) throws org.apache.thrift.TException {
+            struct.validate();
+
+            oprot.writeStructBegin(STRUCT_DESC);
+            if (struct.userCode != null) {
+                oprot.writeFieldBegin(USER_CODE_FIELD_DESC);
+                oprot.writeString(struct.userCode);
+                oprot.writeFieldEnd();
+            }
+            oprot.writeFieldBegin(USER_TYPE_FIELD_DESC);
+            oprot.writeByte(struct.userType);
+            oprot.writeFieldEnd();
+            if (struct.visitRecords != null) {
+                if (struct.isSetVisitRecords()) {
+                    oprot.writeFieldBegin(VISIT_RECORDS_FIELD_DESC);
+                    {
+                        oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.visitRecords.size()));
+                        for (VisitRecord _iter11 : struct.visitRecords) {
+                            _iter11.write(oprot);
+                        }
+                        oprot.writeListEnd();
+                    }
+                    oprot.writeFieldEnd();
+                }
+            }
+            oprot.writeFieldStop();
+            oprot.writeStructEnd();
+        }
+
+    }
+
+    private static class UserVisitRecordTupleSchemeFactory implements SchemeFactory {
+        public UserVisitRecordTupleScheme getScheme() {
+            return new UserVisitRecordTupleScheme();
+        }
+    }
+
+    private static class UserVisitRecordTupleScheme extends TupleScheme<UserVisitRecord> {
+
+        @Override
+        public void write(org.apache.thrift.protocol.TProtocol prot, UserVisitRecord struct) throws org.apache.thrift.TException {
+            TTupleProtocol oprot = (TTupleProtocol) prot;
+            oprot.writeString(struct.userCode);
+            oprot.writeByte(struct.userType);
+            BitSet optionals = new BitSet();
+            if (struct.isSetVisitRecords()) {
+                optionals.set(0);
+            }
+            oprot.writeBitSet(optionals, 1);
+            if (struct.isSetVisitRecords()) {
+                {
+                    oprot.writeI32(struct.visitRecords.size());
+                    for (VisitRecord _iter12 : struct.visitRecords) {
+                        _iter12.write(oprot);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void read(org.apache.thrift.protocol.TProtocol prot, UserVisitRecord struct) throws org.apache.thrift.TException {
+            TTupleProtocol iprot = (TTupleProtocol) prot;
+            struct.userCode = iprot.readString();
+            struct.setUserCodeIsSet(true);
+            struct.userType = iprot.readByte();
+            struct.setUserTypeIsSet(true);
+            BitSet incoming = iprot.readBitSet(1);
+            if (incoming.get(0)) {
+                {
+                    org.apache.thrift.protocol.TList _list13 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
+                    struct.visitRecords = new ArrayList<VisitRecord>(_list13.size);
+                    for (int _i14 = 0; _i14 < _list13.size; ++_i14) {
+                        VisitRecord _elem15; // required
+                        _elem15 = new VisitRecord();
+                        _elem15.read(iprot);
+                        struct.visitRecords.add(_elem15);
+                    }
+                }
+                struct.setVisitRecordsIsSet(true);
+            }
+        }
+    }
 
 }
 

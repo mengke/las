@@ -6,560 +6,557 @@
  */
 package org.easycloud.las.api.services.thrift;
 
+import org.apache.thrift.EncodingUtils;
+import org.apache.thrift.protocol.TTupleProtocol;
 import org.apache.thrift.scheme.IScheme;
 import org.apache.thrift.scheme.SchemeFactory;
 import org.apache.thrift.scheme.StandardScheme;
-
 import org.apache.thrift.scheme.TupleScheme;
-import org.apache.thrift.protocol.TTupleProtocol;
-import org.apache.thrift.protocol.TProtocolException;
-import org.apache.thrift.EncodingUtils;
-import org.apache.thrift.TException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.EnumMap;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.EnumSet;
-import java.util.Collections;
-import java.util.BitSet;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.*;
+
+@Document
 public class Recommendation implements org.apache.thrift.TBase<Recommendation, Recommendation._Fields>, java.io.Serializable, Cloneable {
-  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("Recommendation");
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("Recommendation");
 
-  private static final org.apache.thrift.protocol.TField ITEM_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("itemId", org.apache.thrift.protocol.TType.STRING, (short)1);
-  private static final org.apache.thrift.protocol.TField ITEM_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("itemType", org.apache.thrift.protocol.TType.BYTE, (short)2);
-  private static final org.apache.thrift.protocol.TField PREF_VALUE_FIELD_DESC = new org.apache.thrift.protocol.TField("prefValue", org.apache.thrift.protocol.TType.I32, (short)3);
+    private static final org.apache.thrift.protocol.TField ITEM_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("itemId", org.apache.thrift.protocol.TType.STRING, (short) 1);
+    private static final org.apache.thrift.protocol.TField ITEM_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("itemType", org.apache.thrift.protocol.TType.BYTE, (short) 2);
+    private static final org.apache.thrift.protocol.TField PREF_VALUE_FIELD_DESC = new org.apache.thrift.protocol.TField("prefValue", org.apache.thrift.protocol.TType.I32, (short) 3);
 
-  private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-  static {
-    schemes.put(StandardScheme.class, new RecommendationStandardSchemeFactory());
-    schemes.put(TupleScheme.class, new RecommendationTupleSchemeFactory());
-  }
-
-  public String itemId; // required
-  public byte itemType; // required
-  public int prefValue; // required
-
-  /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-  public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-    ITEM_ID((short)1, "itemId"),
-    ITEM_TYPE((short)2, "itemType"),
-    PREF_VALUE((short)3, "prefValue");
-
-    private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
 
     static {
-      for (_Fields field : EnumSet.allOf(_Fields.class)) {
-        byName.put(field.getFieldName(), field);
-      }
+        schemes.put(StandardScheme.class, new RecommendationStandardSchemeFactory());
+        schemes.put(TupleScheme.class, new RecommendationTupleSchemeFactory());
     }
+
+    public String itemId; // required
+    public byte itemType; // required
+    public int prefValue; // required
 
     /**
-     * Find the _Fields constant that matches fieldId, or null if its not found.
+     * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
      */
-    public static _Fields findByThriftId(int fieldId) {
-      switch(fieldId) {
-        case 1: // ITEM_ID
-          return ITEM_ID;
-        case 2: // ITEM_TYPE
-          return ITEM_TYPE;
-        case 3: // PREF_VALUE
-          return PREF_VALUE;
-        default:
-          return null;
-      }
-    }
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+        ITEM_ID((short) 1, "itemId"),
+        ITEM_TYPE((short) 2, "itemType"),
+        PREF_VALUE((short) 3, "prefValue");
 
-    /**
-     * Find the _Fields constant that matches fieldId, throwing an exception
-     * if it is not found.
-     */
-    public static _Fields findByThriftIdOrThrow(int fieldId) {
-      _Fields fields = findByThriftId(fieldId);
-      if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-      return fields;
-    }
+        private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
-    /**
-     * Find the _Fields constant that matches name, or null if its not found.
-     */
-    public static _Fields findByName(String name) {
-      return byName.get(name);
-    }
-
-    private final short _thriftId;
-    private final String _fieldName;
-
-    _Fields(short thriftId, String fieldName) {
-      _thriftId = thriftId;
-      _fieldName = fieldName;
-    }
-
-    public short getThriftFieldId() {
-      return _thriftId;
-    }
-
-    public String getFieldName() {
-      return _fieldName;
-    }
-  }
-
-  // isset id assignments
-  private static final int __ITEMTYPE_ISSET_ID = 0;
-  private static final int __PREFVALUE_ISSET_ID = 1;
-  private byte __isset_bitfield = 0;
-  public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-  static {
-    Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.ITEM_ID, new org.apache.thrift.meta_data.FieldMetaData("itemId", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-    tmpMap.put(_Fields.ITEM_TYPE, new org.apache.thrift.meta_data.FieldMetaData("itemType", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BYTE)));
-    tmpMap.put(_Fields.PREF_VALUE, new org.apache.thrift.meta_data.FieldMetaData("prefValue", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-    metaDataMap = Collections.unmodifiableMap(tmpMap);
-    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(Recommendation.class, metaDataMap);
-  }
-
-  public Recommendation() {
-  }
-
-  public Recommendation(
-    String itemId,
-    byte itemType,
-    int prefValue)
-  {
-    this();
-    this.itemId = itemId;
-    this.itemType = itemType;
-    setItemTypeIsSet(true);
-    this.prefValue = prefValue;
-    setPrefValueIsSet(true);
-  }
-
-  /**
-   * Performs a deep copy on <i>other</i>.
-   */
-  public Recommendation(Recommendation other) {
-    __isset_bitfield = other.__isset_bitfield;
-    if (other.isSetItemId()) {
-      this.itemId = other.itemId;
-    }
-    this.itemType = other.itemType;
-    this.prefValue = other.prefValue;
-  }
-
-  public Recommendation deepCopy() {
-    return new Recommendation(this);
-  }
-
-  @Override
-  public void clear() {
-    this.itemId = null;
-    setItemTypeIsSet(false);
-    this.itemType = 0;
-    setPrefValueIsSet(false);
-    this.prefValue = 0;
-  }
-
-  public String getItemId() {
-    return this.itemId;
-  }
-
-  public Recommendation setItemId(String itemId) {
-    this.itemId = itemId;
-    return this;
-  }
-
-  public void unsetItemId() {
-    this.itemId = null;
-  }
-
-  /** Returns true if field itemId is set (has been assigned a value) and false otherwise */
-  public boolean isSetItemId() {
-    return this.itemId != null;
-  }
-
-  public void setItemIdIsSet(boolean value) {
-    if (!value) {
-      this.itemId = null;
-    }
-  }
-
-  public byte getItemType() {
-    return this.itemType;
-  }
-
-  public Recommendation setItemType(byte itemType) {
-    this.itemType = itemType;
-    setItemTypeIsSet(true);
-    return this;
-  }
-
-  public void unsetItemType() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __ITEMTYPE_ISSET_ID);
-  }
-
-  /** Returns true if field itemType is set (has been assigned a value) and false otherwise */
-  public boolean isSetItemType() {
-    return EncodingUtils.testBit(__isset_bitfield, __ITEMTYPE_ISSET_ID);
-  }
-
-  public void setItemTypeIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __ITEMTYPE_ISSET_ID, value);
-  }
-
-  public int getPrefValue() {
-    return this.prefValue;
-  }
-
-  public Recommendation setPrefValue(int prefValue) {
-    this.prefValue = prefValue;
-    setPrefValueIsSet(true);
-    return this;
-  }
-
-  public void unsetPrefValue() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __PREFVALUE_ISSET_ID);
-  }
-
-  /** Returns true if field prefValue is set (has been assigned a value) and false otherwise */
-  public boolean isSetPrefValue() {
-    return EncodingUtils.testBit(__isset_bitfield, __PREFVALUE_ISSET_ID);
-  }
-
-  public void setPrefValueIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __PREFVALUE_ISSET_ID, value);
-  }
-
-  public void setFieldValue(_Fields field, Object value) {
-    switch (field) {
-    case ITEM_ID:
-      if (value == null) {
-        unsetItemId();
-      } else {
-        setItemId((String)value);
-      }
-      break;
-
-    case ITEM_TYPE:
-      if (value == null) {
-        unsetItemType();
-      } else {
-        setItemType((Byte)value);
-      }
-      break;
-
-    case PREF_VALUE:
-      if (value == null) {
-        unsetPrefValue();
-      } else {
-        setPrefValue((Integer)value);
-      }
-      break;
-
-    }
-  }
-
-  public Object getFieldValue(_Fields field) {
-    switch (field) {
-    case ITEM_ID:
-      return getItemId();
-
-    case ITEM_TYPE:
-      return Byte.valueOf(getItemType());
-
-    case PREF_VALUE:
-      return Integer.valueOf(getPrefValue());
-
-    }
-    throw new IllegalStateException();
-  }
-
-  /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-  public boolean isSet(_Fields field) {
-    if (field == null) {
-      throw new IllegalArgumentException();
-    }
-
-    switch (field) {
-    case ITEM_ID:
-      return isSetItemId();
-    case ITEM_TYPE:
-      return isSetItemType();
-    case PREF_VALUE:
-      return isSetPrefValue();
-    }
-    throw new IllegalStateException();
-  }
-
-  @Override
-  public boolean equals(Object that) {
-    if (that == null)
-      return false;
-    if (that instanceof Recommendation)
-      return this.equals((Recommendation)that);
-    return false;
-  }
-
-  public boolean equals(Recommendation that) {
-    if (that == null)
-      return false;
-
-    boolean this_present_itemId = true && this.isSetItemId();
-    boolean that_present_itemId = true && that.isSetItemId();
-    if (this_present_itemId || that_present_itemId) {
-      if (!(this_present_itemId && that_present_itemId))
-        return false;
-      if (!this.itemId.equals(that.itemId))
-        return false;
-    }
-
-    boolean this_present_itemType = true;
-    boolean that_present_itemType = true;
-    if (this_present_itemType || that_present_itemType) {
-      if (!(this_present_itemType && that_present_itemType))
-        return false;
-      if (this.itemType != that.itemType)
-        return false;
-    }
-
-    boolean this_present_prefValue = true;
-    boolean that_present_prefValue = true;
-    if (this_present_prefValue || that_present_prefValue) {
-      if (!(this_present_prefValue && that_present_prefValue))
-        return false;
-      if (this.prefValue != that.prefValue)
-        return false;
-    }
-
-    return true;
-  }
-
-  @Override
-  public int hashCode() {
-    return 0;
-  }
-
-  public int compareTo(Recommendation other) {
-    if (!getClass().equals(other.getClass())) {
-      return getClass().getName().compareTo(other.getClass().getName());
-    }
-
-    int lastComparison = 0;
-    Recommendation typedOther = (Recommendation)other;
-
-    lastComparison = Boolean.valueOf(isSetItemId()).compareTo(typedOther.isSetItemId());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetItemId()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.itemId, typedOther.itemId);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    lastComparison = Boolean.valueOf(isSetItemType()).compareTo(typedOther.isSetItemType());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetItemType()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.itemType, typedOther.itemType);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    lastComparison = Boolean.valueOf(isSetPrefValue()).compareTo(typedOther.isSetPrefValue());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetPrefValue()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.prefValue, typedOther.prefValue);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    return 0;
-  }
-
-  public _Fields fieldForId(int fieldId) {
-    return _Fields.findByThriftId(fieldId);
-  }
-
-  public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-    schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
-  }
-
-  public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-    schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder("Recommendation(");
-    boolean first = true;
-
-    sb.append("itemId:");
-    if (this.itemId == null) {
-      sb.append("null");
-    } else {
-      sb.append(this.itemId);
-    }
-    first = false;
-    if (!first) sb.append(", ");
-    sb.append("itemType:");
-    sb.append(this.itemType);
-    first = false;
-    if (!first) sb.append(", ");
-    sb.append("prefValue:");
-    sb.append(this.prefValue);
-    first = false;
-    sb.append(")");
-    return sb.toString();
-  }
-
-  public void validate() throws org.apache.thrift.TException {
-    // check for required fields
-    if (itemId == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'itemId' was not present! Struct: " + toString());
-    }
-    // alas, we cannot check 'itemType' because it's a primitive and you chose the non-beans generator.
-    // alas, we cannot check 'prefValue' because it's a primitive and you chose the non-beans generator.
-    // check for sub-struct validity
-  }
-
-  private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-    try {
-      write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-    } catch (org.apache.thrift.TException te) {
-      throw new java.io.IOException(te);
-    }
-  }
-
-  private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-    try {
-      // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-      __isset_bitfield = 0;
-      read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-    } catch (org.apache.thrift.TException te) {
-      throw new java.io.IOException(te);
-    }
-  }
-
-  private static class RecommendationStandardSchemeFactory implements SchemeFactory {
-    public RecommendationStandardScheme getScheme() {
-      return new RecommendationStandardScheme();
-    }
-  }
-
-  private static class RecommendationStandardScheme extends StandardScheme<Recommendation> {
-
-    public void read(org.apache.thrift.protocol.TProtocol iprot, Recommendation struct) throws org.apache.thrift.TException {
-      org.apache.thrift.protocol.TField schemeField;
-      iprot.readStructBegin();
-      while (true)
-      {
-        schemeField = iprot.readFieldBegin();
-        if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-          break;
+        static {
+            for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                byName.put(field.getFieldName(), field);
+            }
         }
-        switch (schemeField.id) {
-          case 1: // ITEM_ID
-            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.itemId = iprot.readString();
-              struct.setItemIdIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+
+        /**
+         * Find the _Fields constant that matches fieldId, or null if its not found.
+         */
+        public static _Fields findByThriftId(int fieldId) {
+            switch (fieldId) {
+                case 1: // ITEM_ID
+                    return ITEM_ID;
+                case 2: // ITEM_TYPE
+                    return ITEM_TYPE;
+                case 3: // PREF_VALUE
+                    return PREF_VALUE;
+                default:
+                    return null;
             }
-            break;
-          case 2: // ITEM_TYPE
-            if (schemeField.type == org.apache.thrift.protocol.TType.BYTE) {
-              struct.itemType = iprot.readByte();
-              struct.setItemTypeIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-            }
-            break;
-          case 3: // PREF_VALUE
-            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-              struct.prefValue = iprot.readI32();
-              struct.setPrefValueIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-            }
-            break;
-          default:
-            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
         }
-        iprot.readFieldEnd();
-      }
-      iprot.readStructEnd();
 
-      // check for required fields of primitive type, which can't be checked in the validate method
-      if (!struct.isSetItemType()) {
-        throw new org.apache.thrift.protocol.TProtocolException("Required field 'itemType' was not found in serialized data! Struct: " + toString());
-      }
-      if (!struct.isSetPrefValue()) {
-        throw new org.apache.thrift.protocol.TProtocolException("Required field 'prefValue' was not found in serialized data! Struct: " + toString());
-      }
-      struct.validate();
+        /**
+         * Find the _Fields constant that matches fieldId, throwing an exception
+         * if it is not found.
+         */
+        public static _Fields findByThriftIdOrThrow(int fieldId) {
+            _Fields fields = findByThriftId(fieldId);
+            if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+            return fields;
+        }
+
+        /**
+         * Find the _Fields constant that matches name, or null if its not found.
+         */
+        public static _Fields findByName(String name) {
+            return byName.get(name);
+        }
+
+        private final short _thriftId;
+        private final String _fieldName;
+
+        _Fields(short thriftId, String fieldName) {
+            _thriftId = thriftId;
+            _fieldName = fieldName;
+        }
+
+        public short getThriftFieldId() {
+            return _thriftId;
+        }
+
+        public String getFieldName() {
+            return _fieldName;
+        }
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, Recommendation struct) throws org.apache.thrift.TException {
-      struct.validate();
+    // isset id assignments
+    private static final int __ITEMTYPE_ISSET_ID = 0;
+    private static final int __PREFVALUE_ISSET_ID = 1;
+    private byte __isset_bitfield = 0;
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
 
-      oprot.writeStructBegin(STRUCT_DESC);
-      if (struct.itemId != null) {
-        oprot.writeFieldBegin(ITEM_ID_FIELD_DESC);
-        oprot.writeString(struct.itemId);
-        oprot.writeFieldEnd();
-      }
-      oprot.writeFieldBegin(ITEM_TYPE_FIELD_DESC);
-      oprot.writeByte(struct.itemType);
-      oprot.writeFieldEnd();
-      oprot.writeFieldBegin(PREF_VALUE_FIELD_DESC);
-      oprot.writeI32(struct.prefValue);
-      oprot.writeFieldEnd();
-      oprot.writeFieldStop();
-      oprot.writeStructEnd();
+    static {
+        Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+        tmpMap.put(_Fields.ITEM_ID, new org.apache.thrift.meta_data.FieldMetaData("itemId", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+        tmpMap.put(_Fields.ITEM_TYPE, new org.apache.thrift.meta_data.FieldMetaData("itemType", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BYTE)));
+        tmpMap.put(_Fields.PREF_VALUE, new org.apache.thrift.meta_data.FieldMetaData("prefValue", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+        metaDataMap = Collections.unmodifiableMap(tmpMap);
+        org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(Recommendation.class, metaDataMap);
     }
 
-  }
-
-  private static class RecommendationTupleSchemeFactory implements SchemeFactory {
-    public RecommendationTupleScheme getScheme() {
-      return new RecommendationTupleScheme();
+    public Recommendation() {
     }
-  }
 
-  private static class RecommendationTupleScheme extends TupleScheme<Recommendation> {
+    public Recommendation(
+            String itemId,
+            byte itemType,
+            int prefValue) {
+        this();
+        this.itemId = itemId;
+        this.itemType = itemType;
+        setItemTypeIsSet(true);
+        this.prefValue = prefValue;
+        setPrefValueIsSet(true);
+    }
 
-    @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, Recommendation struct) throws org.apache.thrift.TException {
-      TTupleProtocol oprot = (TTupleProtocol) prot;
-      oprot.writeString(struct.itemId);
-      oprot.writeByte(struct.itemType);
-      oprot.writeI32(struct.prefValue);
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public Recommendation(Recommendation other) {
+        __isset_bitfield = other.__isset_bitfield;
+        if (other.isSetItemId()) {
+            this.itemId = other.itemId;
+        }
+        this.itemType = other.itemType;
+        this.prefValue = other.prefValue;
+    }
+
+    public Recommendation deepCopy() {
+        return new Recommendation(this);
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, Recommendation struct) throws org.apache.thrift.TException {
-      TTupleProtocol iprot = (TTupleProtocol) prot;
-      struct.itemId = iprot.readString();
-      struct.setItemIdIsSet(true);
-      struct.itemType = iprot.readByte();
-      struct.setItemTypeIsSet(true);
-      struct.prefValue = iprot.readI32();
-      struct.setPrefValueIsSet(true);
+    public void clear() {
+        this.itemId = null;
+        setItemTypeIsSet(false);
+        this.itemType = 0;
+        setPrefValueIsSet(false);
+        this.prefValue = 0;
     }
-  }
+
+    public String getItemId() {
+        return this.itemId;
+    }
+
+    public Recommendation setItemId(String itemId) {
+        this.itemId = itemId;
+        return this;
+    }
+
+    public void unsetItemId() {
+        this.itemId = null;
+    }
+
+    /**
+     * Returns true if field itemId is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSetItemId() {
+        return this.itemId != null;
+    }
+
+    public void setItemIdIsSet(boolean value) {
+        if (!value) {
+            this.itemId = null;
+        }
+    }
+
+    public byte getItemType() {
+        return this.itemType;
+    }
+
+    public Recommendation setItemType(byte itemType) {
+        this.itemType = itemType;
+        setItemTypeIsSet(true);
+        return this;
+    }
+
+    public void unsetItemType() {
+        __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __ITEMTYPE_ISSET_ID);
+    }
+
+    /**
+     * Returns true if field itemType is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSetItemType() {
+        return EncodingUtils.testBit(__isset_bitfield, __ITEMTYPE_ISSET_ID);
+    }
+
+    public void setItemTypeIsSet(boolean value) {
+        __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __ITEMTYPE_ISSET_ID, value);
+    }
+
+    public int getPrefValue() {
+        return this.prefValue;
+    }
+
+    public Recommendation setPrefValue(int prefValue) {
+        this.prefValue = prefValue;
+        setPrefValueIsSet(true);
+        return this;
+    }
+
+    public void unsetPrefValue() {
+        __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __PREFVALUE_ISSET_ID);
+    }
+
+    /**
+     * Returns true if field prefValue is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSetPrefValue() {
+        return EncodingUtils.testBit(__isset_bitfield, __PREFVALUE_ISSET_ID);
+    }
+
+    public void setPrefValueIsSet(boolean value) {
+        __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __PREFVALUE_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+        switch (field) {
+            case ITEM_ID:
+                if (value == null) {
+                    unsetItemId();
+                } else {
+                    setItemId((String) value);
+                }
+                break;
+
+            case ITEM_TYPE:
+                if (value == null) {
+                    unsetItemType();
+                } else {
+                    setItemType((Byte) value);
+                }
+                break;
+
+            case PREF_VALUE:
+                if (value == null) {
+                    unsetPrefValue();
+                } else {
+                    setPrefValue((Integer) value);
+                }
+                break;
+
+        }
+    }
+
+    public Object getFieldValue(_Fields field) {
+        switch (field) {
+            case ITEM_ID:
+                return getItemId();
+
+            case ITEM_TYPE:
+                return Byte.valueOf(getItemType());
+
+            case PREF_VALUE:
+                return Integer.valueOf(getPrefValue());
+
+        }
+        throw new IllegalStateException();
+    }
+
+    /**
+     * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSet(_Fields field) {
+        if (field == null) {
+            throw new IllegalArgumentException();
+        }
+
+        switch (field) {
+            case ITEM_ID:
+                return isSetItemId();
+            case ITEM_TYPE:
+                return isSetItemType();
+            case PREF_VALUE:
+                return isSetPrefValue();
+        }
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (that == null)
+            return false;
+        if (that instanceof Recommendation)
+            return this.equals((Recommendation) that);
+        return false;
+    }
+
+    public boolean equals(Recommendation that) {
+        if (that == null)
+            return false;
+
+        boolean this_present_itemId = true && this.isSetItemId();
+        boolean that_present_itemId = true && that.isSetItemId();
+        if (this_present_itemId || that_present_itemId) {
+            if (!(this_present_itemId && that_present_itemId))
+                return false;
+            if (!this.itemId.equals(that.itemId))
+                return false;
+        }
+
+        boolean this_present_itemType = true;
+        boolean that_present_itemType = true;
+        if (this_present_itemType || that_present_itemType) {
+            if (!(this_present_itemType && that_present_itemType))
+                return false;
+            if (this.itemType != that.itemType)
+                return false;
+        }
+
+        boolean this_present_prefValue = true;
+        boolean that_present_prefValue = true;
+        if (this_present_prefValue || that_present_prefValue) {
+            if (!(this_present_prefValue && that_present_prefValue))
+                return false;
+            if (this.prefValue != that.prefValue)
+                return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+
+    public int compareTo(Recommendation other) {
+        if (!getClass().equals(other.getClass())) {
+            return getClass().getName().compareTo(other.getClass().getName());
+        }
+
+        int lastComparison = 0;
+        Recommendation typedOther = (Recommendation) other;
+
+        lastComparison = Boolean.valueOf(isSetItemId()).compareTo(typedOther.isSetItemId());
+        if (lastComparison != 0) {
+            return lastComparison;
+        }
+        if (isSetItemId()) {
+            lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.itemId, typedOther.itemId);
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+        }
+        lastComparison = Boolean.valueOf(isSetItemType()).compareTo(typedOther.isSetItemType());
+        if (lastComparison != 0) {
+            return lastComparison;
+        }
+        if (isSetItemType()) {
+            lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.itemType, typedOther.itemType);
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+        }
+        lastComparison = Boolean.valueOf(isSetPrefValue()).compareTo(typedOther.isSetPrefValue());
+        if (lastComparison != 0) {
+            return lastComparison;
+        }
+        if (isSetPrefValue()) {
+            lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.prefValue, typedOther.prefValue);
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+        }
+        return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+        return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+        schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+        schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Recommendation(");
+        boolean first = true;
+
+        sb.append("itemId:");
+        if (this.itemId == null) {
+            sb.append("null");
+        } else {
+            sb.append(this.itemId);
+        }
+        first = false;
+        if (!first) sb.append(", ");
+        sb.append("itemType:");
+        sb.append(this.itemType);
+        first = false;
+        if (!first) sb.append(", ");
+        sb.append("prefValue:");
+        sb.append(this.prefValue);
+        first = false;
+        sb.append(")");
+        return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+        // check for required fields
+        if (itemId == null) {
+            throw new org.apache.thrift.protocol.TProtocolException("Required field 'itemId' was not present! Struct: " + toString());
+        }
+        // alas, we cannot check 'itemType' because it's a primitive and you chose the non-beans generator.
+        // alas, we cannot check 'prefValue' because it's a primitive and you chose the non-beans generator.
+        // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+        try {
+            write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+        } catch (org.apache.thrift.TException te) {
+            throw new java.io.IOException(te);
+        }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+        try {
+            // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+            __isset_bitfield = 0;
+            read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+        } catch (org.apache.thrift.TException te) {
+            throw new java.io.IOException(te);
+        }
+    }
+
+    private static class RecommendationStandardSchemeFactory implements SchemeFactory {
+        public RecommendationStandardScheme getScheme() {
+            return new RecommendationStandardScheme();
+        }
+    }
+
+    private static class RecommendationStandardScheme extends StandardScheme<Recommendation> {
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot, Recommendation struct) throws org.apache.thrift.TException {
+            org.apache.thrift.protocol.TField schemeField;
+            iprot.readStructBegin();
+            while (true) {
+                schemeField = iprot.readFieldBegin();
+                if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                    break;
+                }
+                switch (schemeField.id) {
+                    case 1: // ITEM_ID
+                        if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                            struct.itemId = iprot.readString();
+                            struct.setItemIdIsSet(true);
+                        } else {
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                        }
+                        break;
+                    case 2: // ITEM_TYPE
+                        if (schemeField.type == org.apache.thrift.protocol.TType.BYTE) {
+                            struct.itemType = iprot.readByte();
+                            struct.setItemTypeIsSet(true);
+                        } else {
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                        }
+                        break;
+                    case 3: // PREF_VALUE
+                        if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                            struct.prefValue = iprot.readI32();
+                            struct.setPrefValueIsSet(true);
+                        } else {
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                        }
+                        break;
+                    default:
+                        org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                }
+                iprot.readFieldEnd();
+            }
+            iprot.readStructEnd();
+
+            // check for required fields of primitive type, which can't be checked in the validate method
+            if (!struct.isSetItemType()) {
+                throw new org.apache.thrift.protocol.TProtocolException("Required field 'itemType' was not found in serialized data! Struct: " + toString());
+            }
+            if (!struct.isSetPrefValue()) {
+                throw new org.apache.thrift.protocol.TProtocolException("Required field 'prefValue' was not found in serialized data! Struct: " + toString());
+            }
+            struct.validate();
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot, Recommendation struct) throws org.apache.thrift.TException {
+            struct.validate();
+
+            oprot.writeStructBegin(STRUCT_DESC);
+            if (struct.itemId != null) {
+                oprot.writeFieldBegin(ITEM_ID_FIELD_DESC);
+                oprot.writeString(struct.itemId);
+                oprot.writeFieldEnd();
+            }
+            oprot.writeFieldBegin(ITEM_TYPE_FIELD_DESC);
+            oprot.writeByte(struct.itemType);
+            oprot.writeFieldEnd();
+            oprot.writeFieldBegin(PREF_VALUE_FIELD_DESC);
+            oprot.writeI32(struct.prefValue);
+            oprot.writeFieldEnd();
+            oprot.writeFieldStop();
+            oprot.writeStructEnd();
+        }
+
+    }
+
+    private static class RecommendationTupleSchemeFactory implements SchemeFactory {
+        public RecommendationTupleScheme getScheme() {
+            return new RecommendationTupleScheme();
+        }
+    }
+
+    private static class RecommendationTupleScheme extends TupleScheme<Recommendation> {
+
+        @Override
+        public void write(org.apache.thrift.protocol.TProtocol prot, Recommendation struct) throws org.apache.thrift.TException {
+            TTupleProtocol oprot = (TTupleProtocol) prot;
+            oprot.writeString(struct.itemId);
+            oprot.writeByte(struct.itemType);
+            oprot.writeI32(struct.prefValue);
+        }
+
+        @Override
+        public void read(org.apache.thrift.protocol.TProtocol prot, Recommendation struct) throws org.apache.thrift.TException {
+            TTupleProtocol iprot = (TTupleProtocol) prot;
+            struct.itemId = iprot.readString();
+            struct.setItemIdIsSet(true);
+            struct.itemType = iprot.readByte();
+            struct.setItemTypeIsSet(true);
+            struct.prefValue = iprot.readI32();
+            struct.setPrefValueIsSet(true);
+        }
+    }
 
 }
 

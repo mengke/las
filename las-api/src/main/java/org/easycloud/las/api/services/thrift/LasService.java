@@ -6,3727 +6,3750 @@
  */
 package org.easycloud.las.api.services.thrift;
 
+import org.apache.thrift.EncodingUtils;
+import org.apache.thrift.protocol.TTupleProtocol;
 import org.apache.thrift.scheme.IScheme;
 import org.apache.thrift.scheme.SchemeFactory;
 import org.apache.thrift.scheme.StandardScheme;
-
 import org.apache.thrift.scheme.TupleScheme;
-import org.apache.thrift.protocol.TTupleProtocol;
-import org.apache.thrift.protocol.TProtocolException;
-import org.apache.thrift.EncodingUtils;
-import org.apache.thrift.TException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.EnumMap;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.EnumSet;
-import java.util.Collections;
-import java.util.BitSet;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.*;
+
 public class LasService {
 
-  public interface Iface {
+    public interface Iface {
 
-    public List<UserVisitRecord> listUserVisitRecords(int start, int limit) throws org.apache.thrift.TException;
+        public List<UserVisitRecord> listUserVisitRecords(int start, int limit) throws org.apache.thrift.TException;
 
-    public List<VisitRecord> findVisitRecords(String userCode, byte houseType) throws org.apache.thrift.TException;
+        public List<VisitRecord> findVisitRecords(String userCode, byte houseType) throws org.apache.thrift.TException;
 
-    public List<UserRecommendations> listItemBasedRecommendations(int start, int limit) throws org.apache.thrift.TException;
+        public List<UserRecommendations> listItemBasedRecommendations(int start, int limit) throws org.apache.thrift.TException;
 
-    public List<Recommendation> findItemBasedRecommendations(String userCode) throws org.apache.thrift.TException;
+        public List<Recommendation> findItemBasedRecommendations(String userCode) throws org.apache.thrift.TException;
 
-  }
-
-  public interface AsyncIface {
-
-    public void listUserVisitRecords(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.listUserVisitRecords_call> resultHandler) throws org.apache.thrift.TException;
-
-    public void findVisitRecords(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.findVisitRecords_call> resultHandler) throws org.apache.thrift.TException;
-
-    public void listItemBasedRecommendations(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.listItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException;
-
-    public void findItemBasedRecommendations(String userCode, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.findItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException;
-
-  }
-
-  public static class Client extends org.apache.thrift.TServiceClient implements Iface {
-    public static class Factory implements org.apache.thrift.TServiceClientFactory<Client> {
-      public Factory() {}
-      public Client getClient(org.apache.thrift.protocol.TProtocol prot) {
-        return new Client(prot);
-      }
-      public Client getClient(org.apache.thrift.protocol.TProtocol iprot, org.apache.thrift.protocol.TProtocol oprot) {
-        return new Client(iprot, oprot);
-      }
     }
 
-    public Client(org.apache.thrift.protocol.TProtocol prot)
-    {
-      super(prot, prot);
+    public interface AsyncIface {
+
+        public void listUserVisitRecords(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.listUserVisitRecords_call> resultHandler) throws org.apache.thrift.TException;
+
+        public void findVisitRecords(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.findVisitRecords_call> resultHandler) throws org.apache.thrift.TException;
+
+        public void listItemBasedRecommendations(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.listItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException;
+
+        public void findItemBasedRecommendations(String userCode, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.findItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException;
+
     }
 
-    public Client(org.apache.thrift.protocol.TProtocol iprot, org.apache.thrift.protocol.TProtocol oprot) {
-      super(iprot, oprot);
-    }
+    public static class Client extends org.apache.thrift.TServiceClient implements Iface {
+        public static class Factory implements org.apache.thrift.TServiceClientFactory<Client> {
+            public Factory() {
+            }
 
-    public List<UserVisitRecord> listUserVisitRecords(int start, int limit) throws org.apache.thrift.TException
-    {
-      send_listUserVisitRecords(start, limit);
-      return recv_listUserVisitRecords();
-    }
+            public Client getClient(org.apache.thrift.protocol.TProtocol prot) {
+                return new Client(prot);
+            }
 
-    public void send_listUserVisitRecords(int start, int limit) throws org.apache.thrift.TException
-    {
-      listUserVisitRecords_args args = new listUserVisitRecords_args();
-      args.setStart(start);
-      args.setLimit(limit);
-      sendBase("listUserVisitRecords", args);
-    }
-
-    public List<UserVisitRecord> recv_listUserVisitRecords() throws org.apache.thrift.TException
-    {
-      listUserVisitRecords_result result = new listUserVisitRecords_result();
-      receiveBase(result, "listUserVisitRecords");
-      if (result.isSetSuccess()) {
-        return result.success;
-      }
-      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listUserVisitRecords failed: unknown result");
-    }
-
-    public List<VisitRecord> findVisitRecords(String userCode, byte houseType) throws org.apache.thrift.TException
-    {
-      send_findVisitRecords(userCode, houseType);
-      return recv_findVisitRecords();
-    }
-
-    public void send_findVisitRecords(String userCode, byte houseType) throws org.apache.thrift.TException
-    {
-      findVisitRecords_args args = new findVisitRecords_args();
-      args.setUserCode(userCode);
-      args.setHouseType(houseType);
-      sendBase("findVisitRecords", args);
-    }
-
-    public List<VisitRecord> recv_findVisitRecords() throws org.apache.thrift.TException
-    {
-      findVisitRecords_result result = new findVisitRecords_result();
-      receiveBase(result, "findVisitRecords");
-      if (result.isSetSuccess()) {
-        return result.success;
-      }
-      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "findVisitRecords failed: unknown result");
-    }
-
-    public List<UserRecommendations> listItemBasedRecommendations(int start, int limit) throws org.apache.thrift.TException
-    {
-      send_listItemBasedRecommendations(start, limit);
-      return recv_listItemBasedRecommendations();
-    }
-
-    public void send_listItemBasedRecommendations(int start, int limit) throws org.apache.thrift.TException
-    {
-      listItemBasedRecommendations_args args = new listItemBasedRecommendations_args();
-      args.setStart(start);
-      args.setLimit(limit);
-      sendBase("listItemBasedRecommendations", args);
-    }
-
-    public List<UserRecommendations> recv_listItemBasedRecommendations() throws org.apache.thrift.TException
-    {
-      listItemBasedRecommendations_result result = new listItemBasedRecommendations_result();
-      receiveBase(result, "listItemBasedRecommendations");
-      if (result.isSetSuccess()) {
-        return result.success;
-      }
-      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listItemBasedRecommendations failed: unknown result");
-    }
-
-    public List<Recommendation> findItemBasedRecommendations(String userCode) throws org.apache.thrift.TException
-    {
-      send_findItemBasedRecommendations(userCode);
-      return recv_findItemBasedRecommendations();
-    }
-
-    public void send_findItemBasedRecommendations(String userCode) throws org.apache.thrift.TException
-    {
-      findItemBasedRecommendations_args args = new findItemBasedRecommendations_args();
-      args.setUserCode(userCode);
-      sendBase("findItemBasedRecommendations", args);
-    }
-
-    public List<Recommendation> recv_findItemBasedRecommendations() throws org.apache.thrift.TException
-    {
-      findItemBasedRecommendations_result result = new findItemBasedRecommendations_result();
-      receiveBase(result, "findItemBasedRecommendations");
-      if (result.isSetSuccess()) {
-        return result.success;
-      }
-      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "findItemBasedRecommendations failed: unknown result");
-    }
-
-  }
-  public static class AsyncClient extends org.apache.thrift.async.TAsyncClient implements AsyncIface {
-    public static class Factory implements org.apache.thrift.async.TAsyncClientFactory<AsyncClient> {
-      private org.apache.thrift.async.TAsyncClientManager clientManager;
-      private org.apache.thrift.protocol.TProtocolFactory protocolFactory;
-      public Factory(org.apache.thrift.async.TAsyncClientManager clientManager, org.apache.thrift.protocol.TProtocolFactory protocolFactory) {
-        this.clientManager = clientManager;
-        this.protocolFactory = protocolFactory;
-      }
-      public AsyncClient getAsyncClient(org.apache.thrift.transport.TNonblockingTransport transport) {
-        return new AsyncClient(protocolFactory, clientManager, transport);
-      }
-    }
-
-    public AsyncClient(org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.async.TAsyncClientManager clientManager, org.apache.thrift.transport.TNonblockingTransport transport) {
-      super(protocolFactory, clientManager, transport);
-    }
-
-    public void listUserVisitRecords(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listUserVisitRecords_call> resultHandler) throws org.apache.thrift.TException {
-      checkReady();
-      listUserVisitRecords_call method_call = new listUserVisitRecords_call(start, limit, resultHandler, this, ___protocolFactory, ___transport);
-      this.___currentMethod = method_call;
-      ___manager.call(method_call);
-    }
-
-    public static class listUserVisitRecords_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private int start;
-      private int limit;
-      public listUserVisitRecords_call(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listUserVisitRecords_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
-        super(client, protocolFactory, transport, resultHandler, false);
-        this.start = start;
-        this.limit = limit;
-      }
-
-      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
-        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listUserVisitRecords", org.apache.thrift.protocol.TMessageType.CALL, 0));
-        listUserVisitRecords_args args = new listUserVisitRecords_args();
-        args.setStart(start);
-        args.setLimit(limit);
-        args.write(prot);
-        prot.writeMessageEnd();
-      }
-
-      public List<UserVisitRecord> getResult() throws org.apache.thrift.TException {
-        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
-          throw new IllegalStateException("Method call not finished!");
+            public Client getClient(org.apache.thrift.protocol.TProtocol iprot, org.apache.thrift.protocol.TProtocol oprot) {
+                return new Client(iprot, oprot);
+            }
         }
-        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
-        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
-        return (new Client(prot)).recv_listUserVisitRecords();
-      }
-    }
 
-    public void findVisitRecords(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<findVisitRecords_call> resultHandler) throws org.apache.thrift.TException {
-      checkReady();
-      findVisitRecords_call method_call = new findVisitRecords_call(userCode, houseType, resultHandler, this, ___protocolFactory, ___transport);
-      this.___currentMethod = method_call;
-      ___manager.call(method_call);
-    }
-
-    public static class findVisitRecords_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private String userCode;
-      private byte houseType;
-      public findVisitRecords_call(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<findVisitRecords_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
-        super(client, protocolFactory, transport, resultHandler, false);
-        this.userCode = userCode;
-        this.houseType = houseType;
-      }
-
-      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
-        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("findVisitRecords", org.apache.thrift.protocol.TMessageType.CALL, 0));
-        findVisitRecords_args args = new findVisitRecords_args();
-        args.setUserCode(userCode);
-        args.setHouseType(houseType);
-        args.write(prot);
-        prot.writeMessageEnd();
-      }
-
-      public List<VisitRecord> getResult() throws org.apache.thrift.TException {
-        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
-          throw new IllegalStateException("Method call not finished!");
+        public Client(org.apache.thrift.protocol.TProtocol prot) {
+            super(prot, prot);
         }
-        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
-        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
-        return (new Client(prot)).recv_findVisitRecords();
-      }
-    }
 
-    public void listItemBasedRecommendations(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException {
-      checkReady();
-      listItemBasedRecommendations_call method_call = new listItemBasedRecommendations_call(start, limit, resultHandler, this, ___protocolFactory, ___transport);
-      this.___currentMethod = method_call;
-      ___manager.call(method_call);
-    }
-
-    public static class listItemBasedRecommendations_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private int start;
-      private int limit;
-      public listItemBasedRecommendations_call(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listItemBasedRecommendations_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
-        super(client, protocolFactory, transport, resultHandler, false);
-        this.start = start;
-        this.limit = limit;
-      }
-
-      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
-        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listItemBasedRecommendations", org.apache.thrift.protocol.TMessageType.CALL, 0));
-        listItemBasedRecommendations_args args = new listItemBasedRecommendations_args();
-        args.setStart(start);
-        args.setLimit(limit);
-        args.write(prot);
-        prot.writeMessageEnd();
-      }
-
-      public List<UserRecommendations> getResult() throws org.apache.thrift.TException {
-        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
-          throw new IllegalStateException("Method call not finished!");
+        public Client(org.apache.thrift.protocol.TProtocol iprot, org.apache.thrift.protocol.TProtocol oprot) {
+            super(iprot, oprot);
         }
-        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
-        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
-        return (new Client(prot)).recv_listItemBasedRecommendations();
-      }
-    }
 
-    public void findItemBasedRecommendations(String userCode, org.apache.thrift.async.AsyncMethodCallback<findItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException {
-      checkReady();
-      findItemBasedRecommendations_call method_call = new findItemBasedRecommendations_call(userCode, resultHandler, this, ___protocolFactory, ___transport);
-      this.___currentMethod = method_call;
-      ___manager.call(method_call);
-    }
-
-    public static class findItemBasedRecommendations_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private String userCode;
-      public findItemBasedRecommendations_call(String userCode, org.apache.thrift.async.AsyncMethodCallback<findItemBasedRecommendations_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
-        super(client, protocolFactory, transport, resultHandler, false);
-        this.userCode = userCode;
-      }
-
-      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
-        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("findItemBasedRecommendations", org.apache.thrift.protocol.TMessageType.CALL, 0));
-        findItemBasedRecommendations_args args = new findItemBasedRecommendations_args();
-        args.setUserCode(userCode);
-        args.write(prot);
-        prot.writeMessageEnd();
-      }
-
-      public List<Recommendation> getResult() throws org.apache.thrift.TException {
-        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
-          throw new IllegalStateException("Method call not finished!");
+        public List<UserVisitRecord> listUserVisitRecords(int start, int limit) throws org.apache.thrift.TException {
+            send_listUserVisitRecords(start, limit);
+            return recv_listUserVisitRecords();
         }
-        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
-        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
-        return (new Client(prot)).recv_findItemBasedRecommendations();
-      }
-    }
 
-  }
-
-  public static class Processor<I extends Iface> extends org.apache.thrift.TBaseProcessor<I> implements org.apache.thrift.TProcessor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Processor.class.getName());
-    public Processor(I iface) {
-      super(iface, getProcessMap(new HashMap<String, org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>>()));
-    }
-
-    protected Processor(I iface, Map<String,  org.apache.thrift.ProcessFunction<I, ? extends  org.apache.thrift.TBase>> processMap) {
-      super(iface, getProcessMap(processMap));
-    }
-
-    private static <I extends Iface> Map<String,  org.apache.thrift.ProcessFunction<I, ? extends  org.apache.thrift.TBase>> getProcessMap(Map<String,  org.apache.thrift.ProcessFunction<I, ? extends  org.apache.thrift.TBase>> processMap) {
-      processMap.put("listUserVisitRecords", new listUserVisitRecords());
-      processMap.put("findVisitRecords", new findVisitRecords());
-      processMap.put("listItemBasedRecommendations", new listItemBasedRecommendations());
-      processMap.put("findItemBasedRecommendations", new findItemBasedRecommendations());
-      return processMap;
-    }
-
-    public static class listUserVisitRecords<I extends Iface> extends org.apache.thrift.ProcessFunction<I, listUserVisitRecords_args> {
-      public listUserVisitRecords() {
-        super("listUserVisitRecords");
-      }
-
-      public listUserVisitRecords_args getEmptyArgsInstance() {
-        return new listUserVisitRecords_args();
-      }
-
-      protected boolean isOneway() {
-        return false;
-      }
-
-      public listUserVisitRecords_result getResult(I iface, listUserVisitRecords_args args) throws org.apache.thrift.TException {
-        listUserVisitRecords_result result = new listUserVisitRecords_result();
-        result.success = iface.listUserVisitRecords(args.start, args.limit);
-        return result;
-      }
-    }
-
-    public static class findVisitRecords<I extends Iface> extends org.apache.thrift.ProcessFunction<I, findVisitRecords_args> {
-      public findVisitRecords() {
-        super("findVisitRecords");
-      }
-
-      public findVisitRecords_args getEmptyArgsInstance() {
-        return new findVisitRecords_args();
-      }
-
-      protected boolean isOneway() {
-        return false;
-      }
-
-      public findVisitRecords_result getResult(I iface, findVisitRecords_args args) throws org.apache.thrift.TException {
-        findVisitRecords_result result = new findVisitRecords_result();
-        result.success = iface.findVisitRecords(args.userCode, args.houseType);
-        return result;
-      }
-    }
-
-    public static class listItemBasedRecommendations<I extends Iface> extends org.apache.thrift.ProcessFunction<I, listItemBasedRecommendations_args> {
-      public listItemBasedRecommendations() {
-        super("listItemBasedRecommendations");
-      }
-
-      public listItemBasedRecommendations_args getEmptyArgsInstance() {
-        return new listItemBasedRecommendations_args();
-      }
-
-      protected boolean isOneway() {
-        return false;
-      }
-
-      public listItemBasedRecommendations_result getResult(I iface, listItemBasedRecommendations_args args) throws org.apache.thrift.TException {
-        listItemBasedRecommendations_result result = new listItemBasedRecommendations_result();
-        result.success = iface.listItemBasedRecommendations(args.start, args.limit);
-        return result;
-      }
-    }
-
-    public static class findItemBasedRecommendations<I extends Iface> extends org.apache.thrift.ProcessFunction<I, findItemBasedRecommendations_args> {
-      public findItemBasedRecommendations() {
-        super("findItemBasedRecommendations");
-      }
-
-      public findItemBasedRecommendations_args getEmptyArgsInstance() {
-        return new findItemBasedRecommendations_args();
-      }
-
-      protected boolean isOneway() {
-        return false;
-      }
-
-      public findItemBasedRecommendations_result getResult(I iface, findItemBasedRecommendations_args args) throws org.apache.thrift.TException {
-        findItemBasedRecommendations_result result = new findItemBasedRecommendations_result();
-        result.success = iface.findItemBasedRecommendations(args.userCode);
-        return result;
-      }
-    }
-
-  }
-
-  public static class listUserVisitRecords_args implements org.apache.thrift.TBase<listUserVisitRecords_args, listUserVisitRecords_args._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listUserVisitRecords_args");
-
-    private static final org.apache.thrift.protocol.TField START_FIELD_DESC = new org.apache.thrift.protocol.TField("start", org.apache.thrift.protocol.TType.I32, (short)1);
-    private static final org.apache.thrift.protocol.TField LIMIT_FIELD_DESC = new org.apache.thrift.protocol.TField("limit", org.apache.thrift.protocol.TType.I32, (short)2);
-
-    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-    static {
-      schemes.put(StandardScheme.class, new listUserVisitRecords_argsStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new listUserVisitRecords_argsTupleSchemeFactory());
-    }
-
-    public int start; // required
-    public int limit; // required
-
-    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      START((short)1, "start"),
-      LIMIT((short)2, "limit");
-
-      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
-
-      static {
-        for (_Fields field : EnumSet.allOf(_Fields.class)) {
-          byName.put(field.getFieldName(), field);
+        public void send_listUserVisitRecords(int start, int limit) throws org.apache.thrift.TException {
+            listUserVisitRecords_args args = new listUserVisitRecords_args();
+            args.setStart(start);
+            args.setLimit(limit);
+            sendBase("listUserVisitRecords", args);
         }
-      }
 
-      /**
-       * Find the _Fields constant that matches fieldId, or null if its not found.
-       */
-      public static _Fields findByThriftId(int fieldId) {
-        switch(fieldId) {
-          case 1: // START
-            return START;
-          case 2: // LIMIT
-            return LIMIT;
-          default:
-            return null;
+        public List<UserVisitRecord> recv_listUserVisitRecords() throws org.apache.thrift.TException {
+            listUserVisitRecords_result result = new listUserVisitRecords_result();
+            receiveBase(result, "listUserVisitRecords");
+            if (result.isSetSuccess()) {
+                return result.success;
+            }
+            throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listUserVisitRecords failed: unknown result");
         }
-      }
 
-      /**
-       * Find the _Fields constant that matches fieldId, throwing an exception
-       * if it is not found.
-       */
-      public static _Fields findByThriftIdOrThrow(int fieldId) {
-        _Fields fields = findByThriftId(fieldId);
-        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-        return fields;
-      }
-
-      /**
-       * Find the _Fields constant that matches name, or null if its not found.
-       */
-      public static _Fields findByName(String name) {
-        return byName.get(name);
-      }
-
-      private final short _thriftId;
-      private final String _fieldName;
-
-      _Fields(short thriftId, String fieldName) {
-        _thriftId = thriftId;
-        _fieldName = fieldName;
-      }
-
-      public short getThriftFieldId() {
-        return _thriftId;
-      }
-
-      public String getFieldName() {
-        return _fieldName;
-      }
-    }
-
-    // isset id assignments
-    private static final int __START_ISSET_ID = 0;
-    private static final int __LIMIT_ISSET_ID = 1;
-    private byte __isset_bitfield = 0;
-    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-    static {
-      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.START, new org.apache.thrift.meta_data.FieldMetaData("start", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-      tmpMap.put(_Fields.LIMIT, new org.apache.thrift.meta_data.FieldMetaData("limit", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-      metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listUserVisitRecords_args.class, metaDataMap);
-    }
-
-    public listUserVisitRecords_args() {
-    }
-
-    public listUserVisitRecords_args(
-      int start,
-      int limit)
-    {
-      this();
-      this.start = start;
-      setStartIsSet(true);
-      this.limit = limit;
-      setLimitIsSet(true);
-    }
-
-    /**
-     * Performs a deep copy on <i>other</i>.
-     */
-    public listUserVisitRecords_args(listUserVisitRecords_args other) {
-      __isset_bitfield = other.__isset_bitfield;
-      this.start = other.start;
-      this.limit = other.limit;
-    }
-
-    public listUserVisitRecords_args deepCopy() {
-      return new listUserVisitRecords_args(this);
-    }
-
-    @Override
-    public void clear() {
-      setStartIsSet(false);
-      this.start = 0;
-      setLimitIsSet(false);
-      this.limit = 0;
-    }
-
-    public int getStart() {
-      return this.start;
-    }
-
-    public listUserVisitRecords_args setStart(int start) {
-      this.start = start;
-      setStartIsSet(true);
-      return this;
-    }
-
-    public void unsetStart() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __START_ISSET_ID);
-    }
-
-    /** Returns true if field start is set (has been assigned a value) and false otherwise */
-    public boolean isSetStart() {
-      return EncodingUtils.testBit(__isset_bitfield, __START_ISSET_ID);
-    }
-
-    public void setStartIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __START_ISSET_ID, value);
-    }
-
-    public int getLimit() {
-      return this.limit;
-    }
-
-    public listUserVisitRecords_args setLimit(int limit) {
-      this.limit = limit;
-      setLimitIsSet(true);
-      return this;
-    }
-
-    public void unsetLimit() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __LIMIT_ISSET_ID);
-    }
-
-    /** Returns true if field limit is set (has been assigned a value) and false otherwise */
-    public boolean isSetLimit() {
-      return EncodingUtils.testBit(__isset_bitfield, __LIMIT_ISSET_ID);
-    }
-
-    public void setLimitIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __LIMIT_ISSET_ID, value);
-    }
-
-    public void setFieldValue(_Fields field, Object value) {
-      switch (field) {
-      case START:
-        if (value == null) {
-          unsetStart();
-        } else {
-          setStart((Integer)value);
+        public List<VisitRecord> findVisitRecords(String userCode, byte houseType) throws org.apache.thrift.TException {
+            send_findVisitRecords(userCode, houseType);
+            return recv_findVisitRecords();
         }
-        break;
 
-      case LIMIT:
-        if (value == null) {
-          unsetLimit();
-        } else {
-          setLimit((Integer)value);
+        public void send_findVisitRecords(String userCode, byte houseType) throws org.apache.thrift.TException {
+            findVisitRecords_args args = new findVisitRecords_args();
+            args.setUserCode(userCode);
+            args.setHouseType(houseType);
+            sendBase("findVisitRecords", args);
         }
-        break;
 
-      }
-    }
-
-    public Object getFieldValue(_Fields field) {
-      switch (field) {
-      case START:
-        return Integer.valueOf(getStart());
-
-      case LIMIT:
-        return Integer.valueOf(getLimit());
-
-      }
-      throw new IllegalStateException();
-    }
-
-    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-    public boolean isSet(_Fields field) {
-      if (field == null) {
-        throw new IllegalArgumentException();
-      }
-
-      switch (field) {
-      case START:
-        return isSetStart();
-      case LIMIT:
-        return isSetLimit();
-      }
-      throw new IllegalStateException();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      if (that == null)
-        return false;
-      if (that instanceof listUserVisitRecords_args)
-        return this.equals((listUserVisitRecords_args)that);
-      return false;
-    }
-
-    public boolean equals(listUserVisitRecords_args that) {
-      if (that == null)
-        return false;
-
-      boolean this_present_start = true;
-      boolean that_present_start = true;
-      if (this_present_start || that_present_start) {
-        if (!(this_present_start && that_present_start))
-          return false;
-        if (this.start != that.start)
-          return false;
-      }
-
-      boolean this_present_limit = true;
-      boolean that_present_limit = true;
-      if (this_present_limit || that_present_limit) {
-        if (!(this_present_limit && that_present_limit))
-          return false;
-        if (this.limit != that.limit)
-          return false;
-      }
-
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      return 0;
-    }
-
-    public int compareTo(listUserVisitRecords_args other) {
-      if (!getClass().equals(other.getClass())) {
-        return getClass().getName().compareTo(other.getClass().getName());
-      }
-
-      int lastComparison = 0;
-      listUserVisitRecords_args typedOther = (listUserVisitRecords_args)other;
-
-      lastComparison = Boolean.valueOf(isSetStart()).compareTo(typedOther.isSetStart());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetStart()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.start, typedOther.start);
-        if (lastComparison != 0) {
-          return lastComparison;
+        public List<VisitRecord> recv_findVisitRecords() throws org.apache.thrift.TException {
+            findVisitRecords_result result = new findVisitRecords_result();
+            receiveBase(result, "findVisitRecords");
+            if (result.isSetSuccess()) {
+                return result.success;
+            }
+            throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "findVisitRecords failed: unknown result");
         }
-      }
-      lastComparison = Boolean.valueOf(isSetLimit()).compareTo(typedOther.isSetLimit());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetLimit()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.limit, typedOther.limit);
-        if (lastComparison != 0) {
-          return lastComparison;
+
+        public List<UserRecommendations> listItemBasedRecommendations(int start, int limit) throws org.apache.thrift.TException {
+            send_listItemBasedRecommendations(start, limit);
+            return recv_listItemBasedRecommendations();
         }
-      }
-      return 0;
+
+        public void send_listItemBasedRecommendations(int start, int limit) throws org.apache.thrift.TException {
+            listItemBasedRecommendations_args args = new listItemBasedRecommendations_args();
+            args.setStart(start);
+            args.setLimit(limit);
+            sendBase("listItemBasedRecommendations", args);
+        }
+
+        public List<UserRecommendations> recv_listItemBasedRecommendations() throws org.apache.thrift.TException {
+            listItemBasedRecommendations_result result = new listItemBasedRecommendations_result();
+            receiveBase(result, "listItemBasedRecommendations");
+            if (result.isSetSuccess()) {
+                return result.success;
+            }
+            throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listItemBasedRecommendations failed: unknown result");
+        }
+
+        public List<Recommendation> findItemBasedRecommendations(String userCode) throws org.apache.thrift.TException {
+            send_findItemBasedRecommendations(userCode);
+            return recv_findItemBasedRecommendations();
+        }
+
+        public void send_findItemBasedRecommendations(String userCode) throws org.apache.thrift.TException {
+            findItemBasedRecommendations_args args = new findItemBasedRecommendations_args();
+            args.setUserCode(userCode);
+            sendBase("findItemBasedRecommendations", args);
+        }
+
+        public List<Recommendation> recv_findItemBasedRecommendations() throws org.apache.thrift.TException {
+            findItemBasedRecommendations_result result = new findItemBasedRecommendations_result();
+            receiveBase(result, "findItemBasedRecommendations");
+            if (result.isSetSuccess()) {
+                return result.success;
+            }
+            throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "findItemBasedRecommendations failed: unknown result");
+        }
+
     }
 
-    public _Fields fieldForId(int fieldId) {
-      return _Fields.findByThriftId(fieldId);
+    public static class AsyncClient extends org.apache.thrift.async.TAsyncClient implements AsyncIface {
+        public static class Factory implements org.apache.thrift.async.TAsyncClientFactory<AsyncClient> {
+            private org.apache.thrift.async.TAsyncClientManager clientManager;
+            private org.apache.thrift.protocol.TProtocolFactory protocolFactory;
+
+            public Factory(org.apache.thrift.async.TAsyncClientManager clientManager, org.apache.thrift.protocol.TProtocolFactory protocolFactory) {
+                this.clientManager = clientManager;
+                this.protocolFactory = protocolFactory;
+            }
+
+            public AsyncClient getAsyncClient(org.apache.thrift.transport.TNonblockingTransport transport) {
+                return new AsyncClient(protocolFactory, clientManager, transport);
+            }
+        }
+
+        public AsyncClient(org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.async.TAsyncClientManager clientManager, org.apache.thrift.transport.TNonblockingTransport transport) {
+            super(protocolFactory, clientManager, transport);
+        }
+
+        public void listUserVisitRecords(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listUserVisitRecords_call> resultHandler) throws org.apache.thrift.TException {
+            checkReady();
+            listUserVisitRecords_call method_call = new listUserVisitRecords_call(start, limit, resultHandler, this, ___protocolFactory, ___transport);
+            this.___currentMethod = method_call;
+            ___manager.call(method_call);
+        }
+
+        public static class listUserVisitRecords_call extends org.apache.thrift.async.TAsyncMethodCall {
+            private int start;
+            private int limit;
+
+            public listUserVisitRecords_call(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listUserVisitRecords_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+                super(client, protocolFactory, transport, resultHandler, false);
+                this.start = start;
+                this.limit = limit;
+            }
+
+            public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+                prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listUserVisitRecords", org.apache.thrift.protocol.TMessageType.CALL, 0));
+                listUserVisitRecords_args args = new listUserVisitRecords_args();
+                args.setStart(start);
+                args.setLimit(limit);
+                args.write(prot);
+                prot.writeMessageEnd();
+            }
+
+            public List<UserVisitRecord> getResult() throws org.apache.thrift.TException {
+                if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+                    throw new IllegalStateException("Method call not finished!");
+                }
+                org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+                org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+                return (new Client(prot)).recv_listUserVisitRecords();
+            }
+        }
+
+        public void findVisitRecords(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<findVisitRecords_call> resultHandler) throws org.apache.thrift.TException {
+            checkReady();
+            findVisitRecords_call method_call = new findVisitRecords_call(userCode, houseType, resultHandler, this, ___protocolFactory, ___transport);
+            this.___currentMethod = method_call;
+            ___manager.call(method_call);
+        }
+
+        public static class findVisitRecords_call extends org.apache.thrift.async.TAsyncMethodCall {
+            private String userCode;
+            private byte houseType;
+
+            public findVisitRecords_call(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<findVisitRecords_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+                super(client, protocolFactory, transport, resultHandler, false);
+                this.userCode = userCode;
+                this.houseType = houseType;
+            }
+
+            public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+                prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("findVisitRecords", org.apache.thrift.protocol.TMessageType.CALL, 0));
+                findVisitRecords_args args = new findVisitRecords_args();
+                args.setUserCode(userCode);
+                args.setHouseType(houseType);
+                args.write(prot);
+                prot.writeMessageEnd();
+            }
+
+            public List<VisitRecord> getResult() throws org.apache.thrift.TException {
+                if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+                    throw new IllegalStateException("Method call not finished!");
+                }
+                org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+                org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+                return (new Client(prot)).recv_findVisitRecords();
+            }
+        }
+
+        public void listItemBasedRecommendations(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException {
+            checkReady();
+            listItemBasedRecommendations_call method_call = new listItemBasedRecommendations_call(start, limit, resultHandler, this, ___protocolFactory, ___transport);
+            this.___currentMethod = method_call;
+            ___manager.call(method_call);
+        }
+
+        public static class listItemBasedRecommendations_call extends org.apache.thrift.async.TAsyncMethodCall {
+            private int start;
+            private int limit;
+
+            public listItemBasedRecommendations_call(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listItemBasedRecommendations_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+                super(client, protocolFactory, transport, resultHandler, false);
+                this.start = start;
+                this.limit = limit;
+            }
+
+            public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+                prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listItemBasedRecommendations", org.apache.thrift.protocol.TMessageType.CALL, 0));
+                listItemBasedRecommendations_args args = new listItemBasedRecommendations_args();
+                args.setStart(start);
+                args.setLimit(limit);
+                args.write(prot);
+                prot.writeMessageEnd();
+            }
+
+            public List<UserRecommendations> getResult() throws org.apache.thrift.TException {
+                if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+                    throw new IllegalStateException("Method call not finished!");
+                }
+                org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+                org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+                return (new Client(prot)).recv_listItemBasedRecommendations();
+            }
+        }
+
+        public void findItemBasedRecommendations(String userCode, org.apache.thrift.async.AsyncMethodCallback<findItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException {
+            checkReady();
+            findItemBasedRecommendations_call method_call = new findItemBasedRecommendations_call(userCode, resultHandler, this, ___protocolFactory, ___transport);
+            this.___currentMethod = method_call;
+            ___manager.call(method_call);
+        }
+
+        public static class findItemBasedRecommendations_call extends org.apache.thrift.async.TAsyncMethodCall {
+            private String userCode;
+
+            public findItemBasedRecommendations_call(String userCode, org.apache.thrift.async.AsyncMethodCallback<findItemBasedRecommendations_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+                super(client, protocolFactory, transport, resultHandler, false);
+                this.userCode = userCode;
+            }
+
+            public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+                prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("findItemBasedRecommendations", org.apache.thrift.protocol.TMessageType.CALL, 0));
+                findItemBasedRecommendations_args args = new findItemBasedRecommendations_args();
+                args.setUserCode(userCode);
+                args.write(prot);
+                prot.writeMessageEnd();
+            }
+
+            public List<Recommendation> getResult() throws org.apache.thrift.TException {
+                if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+                    throw new IllegalStateException("Method call not finished!");
+                }
+                org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+                org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+                return (new Client(prot)).recv_findItemBasedRecommendations();
+            }
+        }
+
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    public static class Processor<I extends Iface> extends org.apache.thrift.TBaseProcessor<I> implements org.apache.thrift.TProcessor {
+        private static final Logger LOGGER = LoggerFactory.getLogger(Processor.class.getName());
+
+        public Processor(I iface) {
+            super(iface, getProcessMap(new HashMap<String, org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>>()));
+        }
+
+        protected Processor(I iface, Map<String, org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>> processMap) {
+            super(iface, getProcessMap(processMap));
+        }
+
+        private static <I extends Iface> Map<String, org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>> getProcessMap(Map<String, org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>> processMap) {
+            processMap.put("listUserVisitRecords", new listUserVisitRecords());
+            processMap.put("findVisitRecords", new findVisitRecords());
+            processMap.put("listItemBasedRecommendations", new listItemBasedRecommendations());
+            processMap.put("findItemBasedRecommendations", new findItemBasedRecommendations());
+            return processMap;
+        }
+
+        public static class listUserVisitRecords<I extends Iface> extends org.apache.thrift.ProcessFunction<I, listUserVisitRecords_args> {
+            public listUserVisitRecords() {
+                super("listUserVisitRecords");
+            }
+
+            public listUserVisitRecords_args getEmptyArgsInstance() {
+                return new listUserVisitRecords_args();
+            }
+
+            protected boolean isOneway() {
+                return false;
+            }
+
+            public listUserVisitRecords_result getResult(I iface, listUserVisitRecords_args args) throws org.apache.thrift.TException {
+                listUserVisitRecords_result result = new listUserVisitRecords_result();
+                result.success = iface.listUserVisitRecords(args.start, args.limit);
+                return result;
+            }
+        }
+
+        public static class findVisitRecords<I extends Iface> extends org.apache.thrift.ProcessFunction<I, findVisitRecords_args> {
+            public findVisitRecords() {
+                super("findVisitRecords");
+            }
+
+            public findVisitRecords_args getEmptyArgsInstance() {
+                return new findVisitRecords_args();
+            }
+
+            protected boolean isOneway() {
+                return false;
+            }
+
+            public findVisitRecords_result getResult(I iface, findVisitRecords_args args) throws org.apache.thrift.TException {
+                findVisitRecords_result result = new findVisitRecords_result();
+                result.success = iface.findVisitRecords(args.userCode, args.houseType);
+                return result;
+            }
+        }
+
+        public static class listItemBasedRecommendations<I extends Iface> extends org.apache.thrift.ProcessFunction<I, listItemBasedRecommendations_args> {
+            public listItemBasedRecommendations() {
+                super("listItemBasedRecommendations");
+            }
+
+            public listItemBasedRecommendations_args getEmptyArgsInstance() {
+                return new listItemBasedRecommendations_args();
+            }
+
+            protected boolean isOneway() {
+                return false;
+            }
+
+            public listItemBasedRecommendations_result getResult(I iface, listItemBasedRecommendations_args args) throws org.apache.thrift.TException {
+                listItemBasedRecommendations_result result = new listItemBasedRecommendations_result();
+                result.success = iface.listItemBasedRecommendations(args.start, args.limit);
+                return result;
+            }
+        }
+
+        public static class findItemBasedRecommendations<I extends Iface> extends org.apache.thrift.ProcessFunction<I, findItemBasedRecommendations_args> {
+            public findItemBasedRecommendations() {
+                super("findItemBasedRecommendations");
+            }
+
+            public findItemBasedRecommendations_args getEmptyArgsInstance() {
+                return new findItemBasedRecommendations_args();
+            }
+
+            protected boolean isOneway() {
+                return false;
+            }
+
+            public findItemBasedRecommendations_result getResult(I iface, findItemBasedRecommendations_args args) throws org.apache.thrift.TException {
+                findItemBasedRecommendations_result result = new findItemBasedRecommendations_result();
+                result.success = iface.findItemBasedRecommendations(args.userCode);
+                return result;
+            }
+        }
+
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-    }
+    public static class listUserVisitRecords_args implements org.apache.thrift.TBase<listUserVisitRecords_args, listUserVisitRecords_args._Fields>, java.io.Serializable, Cloneable {
+        private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listUserVisitRecords_args");
 
-    @Override
-    public String toString() {
-      StringBuilder sb = new StringBuilder("listUserVisitRecords_args(");
-      boolean first = true;
+        private static final org.apache.thrift.protocol.TField START_FIELD_DESC = new org.apache.thrift.protocol.TField("start", org.apache.thrift.protocol.TType.I32, (short) 1);
+        private static final org.apache.thrift.protocol.TField LIMIT_FIELD_DESC = new org.apache.thrift.protocol.TField("limit", org.apache.thrift.protocol.TType.I32, (short) 2);
 
-      sb.append("start:");
-      sb.append(this.start);
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("limit:");
-      sb.append(this.limit);
-      first = false;
-      sb.append(")");
-      return sb.toString();
-    }
+        private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
 
-    public void validate() throws org.apache.thrift.TException {
-      // check for required fields
-      // alas, we cannot check 'start' because it's a primitive and you chose the non-beans generator.
-      // alas, we cannot check 'limit' because it's a primitive and you chose the non-beans generator.
-      // check for sub-struct validity
-    }
+        static {
+            schemes.put(StandardScheme.class, new listUserVisitRecords_argsStandardSchemeFactory());
+            schemes.put(TupleScheme.class, new listUserVisitRecords_argsTupleSchemeFactory());
+        }
 
-    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-      try {
-        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
+        public int start; // required
+        public int limit; // required
 
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-      try {
-        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-        __isset_bitfield = 0;
-        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
+        public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+            START((short) 1, "start"),
+            LIMIT((short) 2, "limit");
 
-    private static class listUserVisitRecords_argsStandardSchemeFactory implements SchemeFactory {
-      public listUserVisitRecords_argsStandardScheme getScheme() {
-        return new listUserVisitRecords_argsStandardScheme();
-      }
-    }
+            private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
-    private static class listUserVisitRecords_argsStandardScheme extends StandardScheme<listUserVisitRecords_args> {
+            static {
+                for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                    byName.put(field.getFieldName(), field);
+                }
+            }
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TField schemeField;
-        iprot.readStructBegin();
-        while (true)
-        {
-          schemeField = iprot.readFieldBegin();
-          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-            break;
-          }
-          switch (schemeField.id) {
-            case 1: // START
-              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+            /**
+             * Find the _Fields constant that matches fieldId, or null if its not found.
+             */
+            public static _Fields findByThriftId(int fieldId) {
+                switch (fieldId) {
+                    case 1: // START
+                        return START;
+                    case 2: // LIMIT
+                        return LIMIT;
+                    default:
+                        return null;
+                }
+            }
+
+            /**
+             * Find the _Fields constant that matches fieldId, throwing an exception
+             * if it is not found.
+             */
+            public static _Fields findByThriftIdOrThrow(int fieldId) {
+                _Fields fields = findByThriftId(fieldId);
+                if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+                return fields;
+            }
+
+            /**
+             * Find the _Fields constant that matches name, or null if its not found.
+             */
+            public static _Fields findByName(String name) {
+                return byName.get(name);
+            }
+
+            private final short _thriftId;
+            private final String _fieldName;
+
+            _Fields(short thriftId, String fieldName) {
+                _thriftId = thriftId;
+                _fieldName = fieldName;
+            }
+
+            public short getThriftFieldId() {
+                return _thriftId;
+            }
+
+            public String getFieldName() {
+                return _fieldName;
+            }
+        }
+
+        // isset id assignments
+        private static final int __START_ISSET_ID = 0;
+        private static final int __LIMIT_ISSET_ID = 1;
+        private byte __isset_bitfield = 0;
+        public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+
+        static {
+            Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+            tmpMap.put(_Fields.START, new org.apache.thrift.meta_data.FieldMetaData("start", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                    new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+            tmpMap.put(_Fields.LIMIT, new org.apache.thrift.meta_data.FieldMetaData("limit", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                    new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+            metaDataMap = Collections.unmodifiableMap(tmpMap);
+            org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listUserVisitRecords_args.class, metaDataMap);
+        }
+
+        public listUserVisitRecords_args() {
+        }
+
+        public listUserVisitRecords_args(
+                int start,
+                int limit) {
+            this();
+            this.start = start;
+            setStartIsSet(true);
+            this.limit = limit;
+            setLimitIsSet(true);
+        }
+
+        /**
+         * Performs a deep copy on <i>other</i>.
+         */
+        public listUserVisitRecords_args(listUserVisitRecords_args other) {
+            __isset_bitfield = other.__isset_bitfield;
+            this.start = other.start;
+            this.limit = other.limit;
+        }
+
+        public listUserVisitRecords_args deepCopy() {
+            return new listUserVisitRecords_args(this);
+        }
+
+        @Override
+        public void clear() {
+            setStartIsSet(false);
+            this.start = 0;
+            setLimitIsSet(false);
+            this.limit = 0;
+        }
+
+        public int getStart() {
+            return this.start;
+        }
+
+        public listUserVisitRecords_args setStart(int start) {
+            this.start = start;
+            setStartIsSet(true);
+            return this;
+        }
+
+        public void unsetStart() {
+            __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __START_ISSET_ID);
+        }
+
+        /**
+         * Returns true if field start is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetStart() {
+            return EncodingUtils.testBit(__isset_bitfield, __START_ISSET_ID);
+        }
+
+        public void setStartIsSet(boolean value) {
+            __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __START_ISSET_ID, value);
+        }
+
+        public int getLimit() {
+            return this.limit;
+        }
+
+        public listUserVisitRecords_args setLimit(int limit) {
+            this.limit = limit;
+            setLimitIsSet(true);
+            return this;
+        }
+
+        public void unsetLimit() {
+            __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __LIMIT_ISSET_ID);
+        }
+
+        /**
+         * Returns true if field limit is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetLimit() {
+            return EncodingUtils.testBit(__isset_bitfield, __LIMIT_ISSET_ID);
+        }
+
+        public void setLimitIsSet(boolean value) {
+            __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __LIMIT_ISSET_ID, value);
+        }
+
+        public void setFieldValue(_Fields field, Object value) {
+            switch (field) {
+                case START:
+                    if (value == null) {
+                        unsetStart();
+                    } else {
+                        setStart((Integer) value);
+                    }
+                    break;
+
+                case LIMIT:
+                    if (value == null) {
+                        unsetLimit();
+                    } else {
+                        setLimit((Integer) value);
+                    }
+                    break;
+
+            }
+        }
+
+        public Object getFieldValue(_Fields field) {
+            switch (field) {
+                case START:
+                    return Integer.valueOf(getStart());
+
+                case LIMIT:
+                    return Integer.valueOf(getLimit());
+
+            }
+            throw new IllegalStateException();
+        }
+
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSet(_Fields field) {
+            if (field == null) {
+                throw new IllegalArgumentException();
+            }
+
+            switch (field) {
+                case START:
+                    return isSetStart();
+                case LIMIT:
+                    return isSetLimit();
+            }
+            throw new IllegalStateException();
+        }
+
+        @Override
+        public boolean equals(Object that) {
+            if (that == null)
+                return false;
+            if (that instanceof listUserVisitRecords_args)
+                return this.equals((listUserVisitRecords_args) that);
+            return false;
+        }
+
+        public boolean equals(listUserVisitRecords_args that) {
+            if (that == null)
+                return false;
+
+            boolean this_present_start = true;
+            boolean that_present_start = true;
+            if (this_present_start || that_present_start) {
+                if (!(this_present_start && that_present_start))
+                    return false;
+                if (this.start != that.start)
+                    return false;
+            }
+
+            boolean this_present_limit = true;
+            boolean that_present_limit = true;
+            if (this_present_limit || that_present_limit) {
+                if (!(this_present_limit && that_present_limit))
+                    return false;
+                if (this.limit != that.limit)
+                    return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        public int compareTo(listUserVisitRecords_args other) {
+            if (!getClass().equals(other.getClass())) {
+                return getClass().getName().compareTo(other.getClass().getName());
+            }
+
+            int lastComparison = 0;
+            listUserVisitRecords_args typedOther = (listUserVisitRecords_args) other;
+
+            lastComparison = Boolean.valueOf(isSetStart()).compareTo(typedOther.isSetStart());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetStart()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.start, typedOther.start);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            lastComparison = Boolean.valueOf(isSetLimit()).compareTo(typedOther.isSetLimit());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetLimit()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.limit, typedOther.limit);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            return 0;
+        }
+
+        public _Fields fieldForId(int fieldId) {
+            return _Fields.findByThriftId(fieldId);
+        }
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+            schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+            schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder("listUserVisitRecords_args(");
+            boolean first = true;
+
+            sb.append("start:");
+            sb.append(this.start);
+            first = false;
+            if (!first) sb.append(", ");
+            sb.append("limit:");
+            sb.append(this.limit);
+            first = false;
+            sb.append(")");
+            return sb.toString();
+        }
+
+        public void validate() throws org.apache.thrift.TException {
+            // check for required fields
+            // alas, we cannot check 'start' because it's a primitive and you chose the non-beans generator.
+            // alas, we cannot check 'limit' because it's a primitive and you chose the non-beans generator.
+            // check for sub-struct validity
+        }
+
+        private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+            try {
+                write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+            try {
+                // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+                __isset_bitfield = 0;
+                read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private static class listUserVisitRecords_argsStandardSchemeFactory implements SchemeFactory {
+            public listUserVisitRecords_argsStandardScheme getScheme() {
+                return new listUserVisitRecords_argsStandardScheme();
+            }
+        }
+
+        private static class listUserVisitRecords_argsStandardScheme extends StandardScheme<listUserVisitRecords_args> {
+
+            public void read(org.apache.thrift.protocol.TProtocol iprot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
+                org.apache.thrift.protocol.TField schemeField;
+                iprot.readStructBegin();
+                while (true) {
+                    schemeField = iprot.readFieldBegin();
+                    if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                        break;
+                    }
+                    switch (schemeField.id) {
+                        case 1: // START
+                            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                                struct.start = iprot.readI32();
+                                struct.setStartIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        case 2: // LIMIT
+                            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                                struct.limit = iprot.readI32();
+                                struct.setLimitIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        default:
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                    }
+                    iprot.readFieldEnd();
+                }
+                iprot.readStructEnd();
+
+                // check for required fields of primitive type, which can't be checked in the validate method
+                if (!struct.isSetStart()) {
+                    throw new org.apache.thrift.protocol.TProtocolException("Required field 'start' was not found in serialized data! Struct: " + toString());
+                }
+                if (!struct.isSetLimit()) {
+                    throw new org.apache.thrift.protocol.TProtocolException("Required field 'limit' was not found in serialized data! Struct: " + toString());
+                }
+                struct.validate();
+            }
+
+            public void write(org.apache.thrift.protocol.TProtocol oprot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
+                struct.validate();
+
+                oprot.writeStructBegin(STRUCT_DESC);
+                oprot.writeFieldBegin(START_FIELD_DESC);
+                oprot.writeI32(struct.start);
+                oprot.writeFieldEnd();
+                oprot.writeFieldBegin(LIMIT_FIELD_DESC);
+                oprot.writeI32(struct.limit);
+                oprot.writeFieldEnd();
+                oprot.writeFieldStop();
+                oprot.writeStructEnd();
+            }
+
+        }
+
+        private static class listUserVisitRecords_argsTupleSchemeFactory implements SchemeFactory {
+            public listUserVisitRecords_argsTupleScheme getScheme() {
+                return new listUserVisitRecords_argsTupleScheme();
+            }
+        }
+
+        private static class listUserVisitRecords_argsTupleScheme extends TupleScheme<listUserVisitRecords_args> {
+
+            @Override
+            public void write(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
+                TTupleProtocol oprot = (TTupleProtocol) prot;
+                oprot.writeI32(struct.start);
+                oprot.writeI32(struct.limit);
+            }
+
+            @Override
+            public void read(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
+                TTupleProtocol iprot = (TTupleProtocol) prot;
                 struct.start = iprot.readI32();
                 struct.setStartIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 2: // LIMIT
-              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
                 struct.limit = iprot.readI32();
                 struct.setLimitIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            default:
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-          }
-          iprot.readFieldEnd();
+            }
         }
-        iprot.readStructEnd();
 
-        // check for required fields of primitive type, which can't be checked in the validate method
-        if (!struct.isSetStart()) {
-          throw new org.apache.thrift.protocol.TProtocolException("Required field 'start' was not found in serialized data! Struct: " + toString());
+    }
+
+    public static class listUserVisitRecords_result implements org.apache.thrift.TBase<listUserVisitRecords_result, listUserVisitRecords_result._Fields>, java.io.Serializable, Cloneable {
+        private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listUserVisitRecords_result");
+
+        private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short) 0);
+
+        private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+
+        static {
+            schemes.put(StandardScheme.class, new listUserVisitRecords_resultStandardSchemeFactory());
+            schemes.put(TupleScheme.class, new listUserVisitRecords_resultTupleSchemeFactory());
         }
-        if (!struct.isSetLimit()) {
-          throw new org.apache.thrift.protocol.TProtocolException("Required field 'limit' was not found in serialized data! Struct: " + toString());
-        }
-        struct.validate();
-      }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
-        struct.validate();
+        public List<UserVisitRecord> success; // required
 
-        oprot.writeStructBegin(STRUCT_DESC);
-        oprot.writeFieldBegin(START_FIELD_DESC);
-        oprot.writeI32(struct.start);
-        oprot.writeFieldEnd();
-        oprot.writeFieldBegin(LIMIT_FIELD_DESC);
-        oprot.writeI32(struct.limit);
-        oprot.writeFieldEnd();
-        oprot.writeFieldStop();
-        oprot.writeStructEnd();
-      }
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
+        public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+            SUCCESS((short) 0, "success");
 
-    }
+            private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
-    private static class listUserVisitRecords_argsTupleSchemeFactory implements SchemeFactory {
-      public listUserVisitRecords_argsTupleScheme getScheme() {
-        return new listUserVisitRecords_argsTupleScheme();
-      }
-    }
-
-    private static class listUserVisitRecords_argsTupleScheme extends TupleScheme<listUserVisitRecords_args> {
-
-      @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
-        TTupleProtocol oprot = (TTupleProtocol) prot;
-        oprot.writeI32(struct.start);
-        oprot.writeI32(struct.limit);
-      }
-
-      @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
-        TTupleProtocol iprot = (TTupleProtocol) prot;
-        struct.start = iprot.readI32();
-        struct.setStartIsSet(true);
-        struct.limit = iprot.readI32();
-        struct.setLimitIsSet(true);
-      }
-    }
-
-  }
-
-  public static class listUserVisitRecords_result implements org.apache.thrift.TBase<listUserVisitRecords_result, listUserVisitRecords_result._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listUserVisitRecords_result");
-
-    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short)0);
-
-    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-    static {
-      schemes.put(StandardScheme.class, new listUserVisitRecords_resultStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new listUserVisitRecords_resultTupleSchemeFactory());
-    }
-
-    public List<UserVisitRecord> success; // required
-
-    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      SUCCESS((short)0, "success");
-
-      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
-
-      static {
-        for (_Fields field : EnumSet.allOf(_Fields.class)) {
-          byName.put(field.getFieldName(), field);
-        }
-      }
-
-      /**
-       * Find the _Fields constant that matches fieldId, or null if its not found.
-       */
-      public static _Fields findByThriftId(int fieldId) {
-        switch(fieldId) {
-          case 0: // SUCCESS
-            return SUCCESS;
-          default:
-            return null;
-        }
-      }
-
-      /**
-       * Find the _Fields constant that matches fieldId, throwing an exception
-       * if it is not found.
-       */
-      public static _Fields findByThriftIdOrThrow(int fieldId) {
-        _Fields fields = findByThriftId(fieldId);
-        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-        return fields;
-      }
-
-      /**
-       * Find the _Fields constant that matches name, or null if its not found.
-       */
-      public static _Fields findByName(String name) {
-        return byName.get(name);
-      }
-
-      private final short _thriftId;
-      private final String _fieldName;
-
-      _Fields(short thriftId, String fieldName) {
-        _thriftId = thriftId;
-        _fieldName = fieldName;
-      }
-
-      public short getThriftFieldId() {
-        return _thriftId;
-      }
-
-      public String getFieldName() {
-        return _fieldName;
-      }
-    }
-
-    // isset id assignments
-    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-    static {
-      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
-              new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, UserVisitRecord.class))));
-      metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listUserVisitRecords_result.class, metaDataMap);
-    }
-
-    public listUserVisitRecords_result() {
-    }
-
-    public listUserVisitRecords_result(
-      List<UserVisitRecord> success)
-    {
-      this();
-      this.success = success;
-    }
-
-    /**
-     * Performs a deep copy on <i>other</i>.
-     */
-    public listUserVisitRecords_result(listUserVisitRecords_result other) {
-      if (other.isSetSuccess()) {
-        List<UserVisitRecord> __this__success = new ArrayList<UserVisitRecord>();
-        for (UserVisitRecord other_element : other.success) {
-          __this__success.add(new UserVisitRecord(other_element));
-        }
-        this.success = __this__success;
-      }
-    }
-
-    public listUserVisitRecords_result deepCopy() {
-      return new listUserVisitRecords_result(this);
-    }
-
-    @Override
-    public void clear() {
-      this.success = null;
-    }
-
-    public int getSuccessSize() {
-      return (this.success == null) ? 0 : this.success.size();
-    }
-
-    public java.util.Iterator<UserVisitRecord> getSuccessIterator() {
-      return (this.success == null) ? null : this.success.iterator();
-    }
-
-    public void addToSuccess(UserVisitRecord elem) {
-      if (this.success == null) {
-        this.success = new ArrayList<UserVisitRecord>();
-      }
-      this.success.add(elem);
-    }
-
-    public List<UserVisitRecord> getSuccess() {
-      return this.success;
-    }
-
-    public listUserVisitRecords_result setSuccess(List<UserVisitRecord> success) {
-      this.success = success;
-      return this;
-    }
-
-    public void unsetSuccess() {
-      this.success = null;
-    }
-
-    /** Returns true if field success is set (has been assigned a value) and false otherwise */
-    public boolean isSetSuccess() {
-      return this.success != null;
-    }
-
-    public void setSuccessIsSet(boolean value) {
-      if (!value) {
-        this.success = null;
-      }
-    }
-
-    public void setFieldValue(_Fields field, Object value) {
-      switch (field) {
-      case SUCCESS:
-        if (value == null) {
-          unsetSuccess();
-        } else {
-          setSuccess((List<UserVisitRecord>)value);
-        }
-        break;
-
-      }
-    }
-
-    public Object getFieldValue(_Fields field) {
-      switch (field) {
-      case SUCCESS:
-        return getSuccess();
-
-      }
-      throw new IllegalStateException();
-    }
-
-    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-    public boolean isSet(_Fields field) {
-      if (field == null) {
-        throw new IllegalArgumentException();
-      }
-
-      switch (field) {
-      case SUCCESS:
-        return isSetSuccess();
-      }
-      throw new IllegalStateException();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      if (that == null)
-        return false;
-      if (that instanceof listUserVisitRecords_result)
-        return this.equals((listUserVisitRecords_result)that);
-      return false;
-    }
-
-    public boolean equals(listUserVisitRecords_result that) {
-      if (that == null)
-        return false;
-
-      boolean this_present_success = true && this.isSetSuccess();
-      boolean that_present_success = true && that.isSetSuccess();
-      if (this_present_success || that_present_success) {
-        if (!(this_present_success && that_present_success))
-          return false;
-        if (!this.success.equals(that.success))
-          return false;
-      }
-
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      return 0;
-    }
-
-    public int compareTo(listUserVisitRecords_result other) {
-      if (!getClass().equals(other.getClass())) {
-        return getClass().getName().compareTo(other.getClass().getName());
-      }
-
-      int lastComparison = 0;
-      listUserVisitRecords_result typedOther = (listUserVisitRecords_result)other;
-
-      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetSuccess()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, typedOther.success);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      return 0;
-    }
-
-    public _Fields fieldForId(int fieldId) {
-      return _Fields.findByThriftId(fieldId);
-    }
-
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
-    }
-
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-      }
-
-    @Override
-    public String toString() {
-      StringBuilder sb = new StringBuilder("listUserVisitRecords_result(");
-      boolean first = true;
-
-      sb.append("success:");
-      if (this.success == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.success);
-      }
-      first = false;
-      sb.append(")");
-      return sb.toString();
-    }
-
-    public void validate() throws org.apache.thrift.TException {
-      // check for required fields
-      // check for sub-struct validity
-    }
-
-    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-      try {
-        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
-
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-      try {
-        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
-
-    private static class listUserVisitRecords_resultStandardSchemeFactory implements SchemeFactory {
-      public listUserVisitRecords_resultStandardScheme getScheme() {
-        return new listUserVisitRecords_resultStandardScheme();
-      }
-    }
-
-    private static class listUserVisitRecords_resultStandardScheme extends StandardScheme<listUserVisitRecords_result> {
-
-      public void read(org.apache.thrift.protocol.TProtocol iprot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TField schemeField;
-        iprot.readStructBegin();
-        while (true)
-        {
-          schemeField = iprot.readFieldBegin();
-          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-            break;
-          }
-          switch (schemeField.id) {
-            case 0: // SUCCESS
-              if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
-                {
-                  org.apache.thrift.protocol.TList _list16 = iprot.readListBegin();
-                  struct.success = new ArrayList<UserVisitRecord>(_list16.size);
-                  for (int _i17 = 0; _i17 < _list16.size; ++_i17)
-                  {
-                    UserVisitRecord _elem18; // required
-                    _elem18 = new UserVisitRecord();
-                    _elem18.read(iprot);
-                    struct.success.add(_elem18);
-                  }
-                  iprot.readListEnd();
+            static {
+                for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                    byName.put(field.getFieldName(), field);
                 }
-                struct.setSuccessIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            default:
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-          }
-          iprot.readFieldEnd();
-        }
-        iprot.readStructEnd();
-
-        // check for required fields of primitive type, which can't be checked in the validate method
-        struct.validate();
-      }
-
-      public void write(org.apache.thrift.protocol.TProtocol oprot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
-        struct.validate();
-
-        oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.success != null) {
-          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
-          {
-            oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.success.size()));
-            for (UserVisitRecord _iter19 : struct.success)
-            {
-              _iter19.write(oprot);
             }
-            oprot.writeListEnd();
-          }
-          oprot.writeFieldEnd();
-        }
-        oprot.writeFieldStop();
-        oprot.writeStructEnd();
-      }
 
-    }
-
-    private static class listUserVisitRecords_resultTupleSchemeFactory implements SchemeFactory {
-      public listUserVisitRecords_resultTupleScheme getScheme() {
-        return new listUserVisitRecords_resultTupleScheme();
-      }
-    }
-
-    private static class listUserVisitRecords_resultTupleScheme extends TupleScheme<listUserVisitRecords_result> {
-
-      @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
-        TTupleProtocol oprot = (TTupleProtocol) prot;
-        BitSet optionals = new BitSet();
-        if (struct.isSetSuccess()) {
-          optionals.set(0);
-        }
-        oprot.writeBitSet(optionals, 1);
-        if (struct.isSetSuccess()) {
-          {
-            oprot.writeI32(struct.success.size());
-            for (UserVisitRecord _iter20 : struct.success)
-            {
-              _iter20.write(oprot);
+            /**
+             * Find the _Fields constant that matches fieldId, or null if its not found.
+             */
+            public static _Fields findByThriftId(int fieldId) {
+                switch (fieldId) {
+                    case 0: // SUCCESS
+                        return SUCCESS;
+                    default:
+                        return null;
+                }
             }
-          }
-        }
-      }
 
-      @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
-        TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(1);
-        if (incoming.get(0)) {
-          {
-            org.apache.thrift.protocol.TList _list21 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
-            struct.success = new ArrayList<UserVisitRecord>(_list21.size);
-            for (int _i22 = 0; _i22 < _list21.size; ++_i22)
-            {
-              UserVisitRecord _elem23; // required
-              _elem23 = new UserVisitRecord();
-              _elem23.read(iprot);
-              struct.success.add(_elem23);
+            /**
+             * Find the _Fields constant that matches fieldId, throwing an exception
+             * if it is not found.
+             */
+            public static _Fields findByThriftIdOrThrow(int fieldId) {
+                _Fields fields = findByThriftId(fieldId);
+                if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+                return fields;
             }
-          }
-          struct.setSuccessIsSet(true);
+
+            /**
+             * Find the _Fields constant that matches name, or null if its not found.
+             */
+            public static _Fields findByName(String name) {
+                return byName.get(name);
+            }
+
+            private final short _thriftId;
+            private final String _fieldName;
+
+            _Fields(short thriftId, String fieldName) {
+                _thriftId = thriftId;
+                _fieldName = fieldName;
+            }
+
+            public short getThriftFieldId() {
+                return _thriftId;
+            }
+
+            public String getFieldName() {
+                return _fieldName;
+            }
         }
-      }
-    }
 
-  }
+        // isset id assignments
+        public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
 
-  public static class findVisitRecords_args implements org.apache.thrift.TBase<findVisitRecords_args, findVisitRecords_args._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("findVisitRecords_args");
-
-    private static final org.apache.thrift.protocol.TField USER_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("userCode", org.apache.thrift.protocol.TType.STRING, (short)1);
-    private static final org.apache.thrift.protocol.TField HOUSE_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("houseType", org.apache.thrift.protocol.TType.BYTE, (short)2);
-
-    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-    static {
-      schemes.put(StandardScheme.class, new findVisitRecords_argsStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new findVisitRecords_argsTupleSchemeFactory());
-    }
-
-    public String userCode; // required
-    public byte houseType; // required
-
-    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      USER_CODE((short)1, "userCode"),
-      HOUSE_TYPE((short)2, "houseType");
-
-      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
-
-      static {
-        for (_Fields field : EnumSet.allOf(_Fields.class)) {
-          byName.put(field.getFieldName(), field);
+        static {
+            Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+            tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT,
+                    new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST,
+                            new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, UserVisitRecord.class))));
+            metaDataMap = Collections.unmodifiableMap(tmpMap);
+            org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listUserVisitRecords_result.class, metaDataMap);
         }
-      }
 
-      /**
-       * Find the _Fields constant that matches fieldId, or null if its not found.
-       */
-      public static _Fields findByThriftId(int fieldId) {
-        switch(fieldId) {
-          case 1: // USER_CODE
-            return USER_CODE;
-          case 2: // HOUSE_TYPE
-            return HOUSE_TYPE;
-          default:
-            return null;
+        public listUserVisitRecords_result() {
         }
-      }
 
-      /**
-       * Find the _Fields constant that matches fieldId, throwing an exception
-       * if it is not found.
-       */
-      public static _Fields findByThriftIdOrThrow(int fieldId) {
-        _Fields fields = findByThriftId(fieldId);
-        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-        return fields;
-      }
-
-      /**
-       * Find the _Fields constant that matches name, or null if its not found.
-       */
-      public static _Fields findByName(String name) {
-        return byName.get(name);
-      }
-
-      private final short _thriftId;
-      private final String _fieldName;
-
-      _Fields(short thriftId, String fieldName) {
-        _thriftId = thriftId;
-        _fieldName = fieldName;
-      }
-
-      public short getThriftFieldId() {
-        return _thriftId;
-      }
-
-      public String getFieldName() {
-        return _fieldName;
-      }
-    }
-
-    // isset id assignments
-    private static final int __HOUSETYPE_ISSET_ID = 0;
-    private byte __isset_bitfield = 0;
-    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-    static {
-      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.USER_CODE, new org.apache.thrift.meta_data.FieldMetaData("userCode", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.HOUSE_TYPE, new org.apache.thrift.meta_data.FieldMetaData("houseType", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BYTE)));
-      metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(findVisitRecords_args.class, metaDataMap);
-    }
-
-    public findVisitRecords_args() {
-    }
-
-    public findVisitRecords_args(
-      String userCode,
-      byte houseType)
-    {
-      this();
-      this.userCode = userCode;
-      this.houseType = houseType;
-      setHouseTypeIsSet(true);
-    }
-
-    /**
-     * Performs a deep copy on <i>other</i>.
-     */
-    public findVisitRecords_args(findVisitRecords_args other) {
-      __isset_bitfield = other.__isset_bitfield;
-      if (other.isSetUserCode()) {
-        this.userCode = other.userCode;
-      }
-      this.houseType = other.houseType;
-    }
-
-    public findVisitRecords_args deepCopy() {
-      return new findVisitRecords_args(this);
-    }
-
-    @Override
-    public void clear() {
-      this.userCode = null;
-      setHouseTypeIsSet(false);
-      this.houseType = 0;
-    }
-
-    public String getUserCode() {
-      return this.userCode;
-    }
-
-    public findVisitRecords_args setUserCode(String userCode) {
-      this.userCode = userCode;
-      return this;
-    }
-
-    public void unsetUserCode() {
-      this.userCode = null;
-    }
-
-    /** Returns true if field userCode is set (has been assigned a value) and false otherwise */
-    public boolean isSetUserCode() {
-      return this.userCode != null;
-    }
-
-    public void setUserCodeIsSet(boolean value) {
-      if (!value) {
-        this.userCode = null;
-      }
-    }
-
-    public byte getHouseType() {
-      return this.houseType;
-    }
-
-    public findVisitRecords_args setHouseType(byte houseType) {
-      this.houseType = houseType;
-      setHouseTypeIsSet(true);
-      return this;
-    }
-
-    public void unsetHouseType() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __HOUSETYPE_ISSET_ID);
-    }
-
-    /** Returns true if field houseType is set (has been assigned a value) and false otherwise */
-    public boolean isSetHouseType() {
-      return EncodingUtils.testBit(__isset_bitfield, __HOUSETYPE_ISSET_ID);
-    }
-
-    public void setHouseTypeIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __HOUSETYPE_ISSET_ID, value);
-    }
-
-    public void setFieldValue(_Fields field, Object value) {
-      switch (field) {
-      case USER_CODE:
-        if (value == null) {
-          unsetUserCode();
-        } else {
-          setUserCode((String)value);
+        public listUserVisitRecords_result(
+                List<UserVisitRecord> success) {
+            this();
+            this.success = success;
         }
-        break;
 
-      case HOUSE_TYPE:
-        if (value == null) {
-          unsetHouseType();
-        } else {
-          setHouseType((Byte)value);
+        /**
+         * Performs a deep copy on <i>other</i>.
+         */
+        public listUserVisitRecords_result(listUserVisitRecords_result other) {
+            if (other.isSetSuccess()) {
+                List<UserVisitRecord> __this__success = new ArrayList<UserVisitRecord>();
+                for (UserVisitRecord other_element : other.success) {
+                    __this__success.add(new UserVisitRecord(other_element));
+                }
+                this.success = __this__success;
+            }
         }
-        break;
 
-      }
-    }
-
-    public Object getFieldValue(_Fields field) {
-      switch (field) {
-      case USER_CODE:
-        return getUserCode();
-
-      case HOUSE_TYPE:
-        return Byte.valueOf(getHouseType());
-
-      }
-      throw new IllegalStateException();
-    }
-
-    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-    public boolean isSet(_Fields field) {
-      if (field == null) {
-        throw new IllegalArgumentException();
-      }
-
-      switch (field) {
-      case USER_CODE:
-        return isSetUserCode();
-      case HOUSE_TYPE:
-        return isSetHouseType();
-      }
-      throw new IllegalStateException();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      if (that == null)
-        return false;
-      if (that instanceof findVisitRecords_args)
-        return this.equals((findVisitRecords_args)that);
-      return false;
-    }
-
-    public boolean equals(findVisitRecords_args that) {
-      if (that == null)
-        return false;
-
-      boolean this_present_userCode = true && this.isSetUserCode();
-      boolean that_present_userCode = true && that.isSetUserCode();
-      if (this_present_userCode || that_present_userCode) {
-        if (!(this_present_userCode && that_present_userCode))
-          return false;
-        if (!this.userCode.equals(that.userCode))
-          return false;
-      }
-
-      boolean this_present_houseType = true;
-      boolean that_present_houseType = true;
-      if (this_present_houseType || that_present_houseType) {
-        if (!(this_present_houseType && that_present_houseType))
-          return false;
-        if (this.houseType != that.houseType)
-          return false;
-      }
-
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      return 0;
-    }
-
-    public int compareTo(findVisitRecords_args other) {
-      if (!getClass().equals(other.getClass())) {
-        return getClass().getName().compareTo(other.getClass().getName());
-      }
-
-      int lastComparison = 0;
-      findVisitRecords_args typedOther = (findVisitRecords_args)other;
-
-      lastComparison = Boolean.valueOf(isSetUserCode()).compareTo(typedOther.isSetUserCode());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetUserCode()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.userCode, typedOther.userCode);
-        if (lastComparison != 0) {
-          return lastComparison;
+        public listUserVisitRecords_result deepCopy() {
+            return new listUserVisitRecords_result(this);
         }
-      }
-      lastComparison = Boolean.valueOf(isSetHouseType()).compareTo(typedOther.isSetHouseType());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetHouseType()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.houseType, typedOther.houseType);
-        if (lastComparison != 0) {
-          return lastComparison;
+
+        @Override
+        public void clear() {
+            this.success = null;
         }
-      }
-      return 0;
+
+        public int getSuccessSize() {
+            return (this.success == null) ? 0 : this.success.size();
+        }
+
+        public java.util.Iterator<UserVisitRecord> getSuccessIterator() {
+            return (this.success == null) ? null : this.success.iterator();
+        }
+
+        public void addToSuccess(UserVisitRecord elem) {
+            if (this.success == null) {
+                this.success = new ArrayList<UserVisitRecord>();
+            }
+            this.success.add(elem);
+        }
+
+        public List<UserVisitRecord> getSuccess() {
+            return this.success;
+        }
+
+        public listUserVisitRecords_result setSuccess(List<UserVisitRecord> success) {
+            this.success = success;
+            return this;
+        }
+
+        public void unsetSuccess() {
+            this.success = null;
+        }
+
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetSuccess() {
+            return this.success != null;
+        }
+
+        public void setSuccessIsSet(boolean value) {
+            if (!value) {
+                this.success = null;
+            }
+        }
+
+        public void setFieldValue(_Fields field, Object value) {
+            switch (field) {
+                case SUCCESS:
+                    if (value == null) {
+                        unsetSuccess();
+                    } else {
+                        setSuccess((List<UserVisitRecord>) value);
+                    }
+                    break;
+
+            }
+        }
+
+        public Object getFieldValue(_Fields field) {
+            switch (field) {
+                case SUCCESS:
+                    return getSuccess();
+
+            }
+            throw new IllegalStateException();
+        }
+
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSet(_Fields field) {
+            if (field == null) {
+                throw new IllegalArgumentException();
+            }
+
+            switch (field) {
+                case SUCCESS:
+                    return isSetSuccess();
+            }
+            throw new IllegalStateException();
+        }
+
+        @Override
+        public boolean equals(Object that) {
+            if (that == null)
+                return false;
+            if (that instanceof listUserVisitRecords_result)
+                return this.equals((listUserVisitRecords_result) that);
+            return false;
+        }
+
+        public boolean equals(listUserVisitRecords_result that) {
+            if (that == null)
+                return false;
+
+            boolean this_present_success = true && this.isSetSuccess();
+            boolean that_present_success = true && that.isSetSuccess();
+            if (this_present_success || that_present_success) {
+                if (!(this_present_success && that_present_success))
+                    return false;
+                if (!this.success.equals(that.success))
+                    return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        public int compareTo(listUserVisitRecords_result other) {
+            if (!getClass().equals(other.getClass())) {
+                return getClass().getName().compareTo(other.getClass().getName());
+            }
+
+            int lastComparison = 0;
+            listUserVisitRecords_result typedOther = (listUserVisitRecords_result) other;
+
+            lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetSuccess()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, typedOther.success);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            return 0;
+        }
+
+        public _Fields fieldForId(int fieldId) {
+            return _Fields.findByThriftId(fieldId);
+        }
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+            schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+            schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder("listUserVisitRecords_result(");
+            boolean first = true;
+
+            sb.append("success:");
+            if (this.success == null) {
+                sb.append("null");
+            } else {
+                sb.append(this.success);
+            }
+            first = false;
+            sb.append(")");
+            return sb.toString();
+        }
+
+        public void validate() throws org.apache.thrift.TException {
+            // check for required fields
+            // check for sub-struct validity
+        }
+
+        private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+            try {
+                write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+            try {
+                read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private static class listUserVisitRecords_resultStandardSchemeFactory implements SchemeFactory {
+            public listUserVisitRecords_resultStandardScheme getScheme() {
+                return new listUserVisitRecords_resultStandardScheme();
+            }
+        }
+
+        private static class listUserVisitRecords_resultStandardScheme extends StandardScheme<listUserVisitRecords_result> {
+
+            public void read(org.apache.thrift.protocol.TProtocol iprot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
+                org.apache.thrift.protocol.TField schemeField;
+                iprot.readStructBegin();
+                while (true) {
+                    schemeField = iprot.readFieldBegin();
+                    if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                        break;
+                    }
+                    switch (schemeField.id) {
+                        case 0: // SUCCESS
+                            if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
+                                {
+                                    org.apache.thrift.protocol.TList _list16 = iprot.readListBegin();
+                                    struct.success = new ArrayList<UserVisitRecord>(_list16.size);
+                                    for (int _i17 = 0; _i17 < _list16.size; ++_i17) {
+                                        UserVisitRecord _elem18; // required
+                                        _elem18 = new UserVisitRecord();
+                                        _elem18.read(iprot);
+                                        struct.success.add(_elem18);
+                                    }
+                                    iprot.readListEnd();
+                                }
+                                struct.setSuccessIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        default:
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                    }
+                    iprot.readFieldEnd();
+                }
+                iprot.readStructEnd();
+
+                // check for required fields of primitive type, which can't be checked in the validate method
+                struct.validate();
+            }
+
+            public void write(org.apache.thrift.protocol.TProtocol oprot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
+                struct.validate();
+
+                oprot.writeStructBegin(STRUCT_DESC);
+                if (struct.success != null) {
+                    oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+                    {
+                        oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.success.size()));
+                        for (UserVisitRecord _iter19 : struct.success) {
+                            _iter19.write(oprot);
+                        }
+                        oprot.writeListEnd();
+                    }
+                    oprot.writeFieldEnd();
+                }
+                oprot.writeFieldStop();
+                oprot.writeStructEnd();
+            }
+
+        }
+
+        private static class listUserVisitRecords_resultTupleSchemeFactory implements SchemeFactory {
+            public listUserVisitRecords_resultTupleScheme getScheme() {
+                return new listUserVisitRecords_resultTupleScheme();
+            }
+        }
+
+        private static class listUserVisitRecords_resultTupleScheme extends TupleScheme<listUserVisitRecords_result> {
+
+            @Override
+            public void write(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
+                TTupleProtocol oprot = (TTupleProtocol) prot;
+                BitSet optionals = new BitSet();
+                if (struct.isSetSuccess()) {
+                    optionals.set(0);
+                }
+                oprot.writeBitSet(optionals, 1);
+                if (struct.isSetSuccess()) {
+                    {
+                        oprot.writeI32(struct.success.size());
+                        for (UserVisitRecord _iter20 : struct.success) {
+                            _iter20.write(oprot);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void read(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
+                TTupleProtocol iprot = (TTupleProtocol) prot;
+                BitSet incoming = iprot.readBitSet(1);
+                if (incoming.get(0)) {
+                    {
+                        org.apache.thrift.protocol.TList _list21 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
+                        struct.success = new ArrayList<UserVisitRecord>(_list21.size);
+                        for (int _i22 = 0; _i22 < _list21.size; ++_i22) {
+                            UserVisitRecord _elem23; // required
+                            _elem23 = new UserVisitRecord();
+                            _elem23.read(iprot);
+                            struct.success.add(_elem23);
+                        }
+                    }
+                    struct.setSuccessIsSet(true);
+                }
+            }
+        }
+
     }
 
-    public _Fields fieldForId(int fieldId) {
-      return _Fields.findByThriftId(fieldId);
-    }
+    public static class findVisitRecords_args implements org.apache.thrift.TBase<findVisitRecords_args, findVisitRecords_args._Fields>, java.io.Serializable, Cloneable {
+        private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("findVisitRecords_args");
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
-    }
+        private static final org.apache.thrift.protocol.TField USER_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("userCode", org.apache.thrift.protocol.TType.STRING, (short) 1);
+        private static final org.apache.thrift.protocol.TField HOUSE_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("houseType", org.apache.thrift.protocol.TType.BYTE, (short) 2);
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-    }
+        private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
 
-    @Override
-    public String toString() {
-      StringBuilder sb = new StringBuilder("findVisitRecords_args(");
-      boolean first = true;
+        static {
+            schemes.put(StandardScheme.class, new findVisitRecords_argsStandardSchemeFactory());
+            schemes.put(TupleScheme.class, new findVisitRecords_argsTupleSchemeFactory());
+        }
 
-      sb.append("userCode:");
-      if (this.userCode == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.userCode);
-      }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("houseType:");
-      sb.append(this.houseType);
-      first = false;
-      sb.append(")");
-      return sb.toString();
-    }
+        public String userCode; // required
+        public byte houseType; // required
 
-    public void validate() throws org.apache.thrift.TException {
-      // check for required fields
-      if (userCode == null) {
-        throw new org.apache.thrift.protocol.TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
-      }
-      // check for sub-struct validity
-    }
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
+        public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+            USER_CODE((short) 1, "userCode"),
+            HOUSE_TYPE((short) 2, "houseType");
 
-    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-      try {
-        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
+            private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-      try {
-        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-        __isset_bitfield = 0;
-        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
+            static {
+                for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                    byName.put(field.getFieldName(), field);
+                }
+            }
 
-    private static class findVisitRecords_argsStandardSchemeFactory implements SchemeFactory {
-      public findVisitRecords_argsStandardScheme getScheme() {
-        return new findVisitRecords_argsStandardScheme();
-      }
-    }
+            /**
+             * Find the _Fields constant that matches fieldId, or null if its not found.
+             */
+            public static _Fields findByThriftId(int fieldId) {
+                switch (fieldId) {
+                    case 1: // USER_CODE
+                        return USER_CODE;
+                    case 2: // HOUSE_TYPE
+                        return HOUSE_TYPE;
+                    default:
+                        return null;
+                }
+            }
 
-    private static class findVisitRecords_argsStandardScheme extends StandardScheme<findVisitRecords_args> {
+            /**
+             * Find the _Fields constant that matches fieldId, throwing an exception
+             * if it is not found.
+             */
+            public static _Fields findByThriftIdOrThrow(int fieldId) {
+                _Fields fields = findByThriftId(fieldId);
+                if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+                return fields;
+            }
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, findVisitRecords_args struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TField schemeField;
-        iprot.readStructBegin();
-        while (true)
-        {
-          schemeField = iprot.readFieldBegin();
-          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-            break;
-          }
-          switch (schemeField.id) {
-            case 1: // USER_CODE
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+            /**
+             * Find the _Fields constant that matches name, or null if its not found.
+             */
+            public static _Fields findByName(String name) {
+                return byName.get(name);
+            }
+
+            private final short _thriftId;
+            private final String _fieldName;
+
+            _Fields(short thriftId, String fieldName) {
+                _thriftId = thriftId;
+                _fieldName = fieldName;
+            }
+
+            public short getThriftFieldId() {
+                return _thriftId;
+            }
+
+            public String getFieldName() {
+                return _fieldName;
+            }
+        }
+
+        // isset id assignments
+        private static final int __HOUSETYPE_ISSET_ID = 0;
+        private byte __isset_bitfield = 0;
+        public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+
+        static {
+            Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+            tmpMap.put(_Fields.USER_CODE, new org.apache.thrift.meta_data.FieldMetaData("userCode", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                    new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+            tmpMap.put(_Fields.HOUSE_TYPE, new org.apache.thrift.meta_data.FieldMetaData("houseType", org.apache.thrift.TFieldRequirementType.DEFAULT,
+                    new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BYTE)));
+            metaDataMap = Collections.unmodifiableMap(tmpMap);
+            org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(findVisitRecords_args.class, metaDataMap);
+        }
+
+        public findVisitRecords_args() {
+        }
+
+        public findVisitRecords_args(
+                String userCode,
+                byte houseType) {
+            this();
+            this.userCode = userCode;
+            this.houseType = houseType;
+            setHouseTypeIsSet(true);
+        }
+
+        /**
+         * Performs a deep copy on <i>other</i>.
+         */
+        public findVisitRecords_args(findVisitRecords_args other) {
+            __isset_bitfield = other.__isset_bitfield;
+            if (other.isSetUserCode()) {
+                this.userCode = other.userCode;
+            }
+            this.houseType = other.houseType;
+        }
+
+        public findVisitRecords_args deepCopy() {
+            return new findVisitRecords_args(this);
+        }
+
+        @Override
+        public void clear() {
+            this.userCode = null;
+            setHouseTypeIsSet(false);
+            this.houseType = 0;
+        }
+
+        public String getUserCode() {
+            return this.userCode;
+        }
+
+        public findVisitRecords_args setUserCode(String userCode) {
+            this.userCode = userCode;
+            return this;
+        }
+
+        public void unsetUserCode() {
+            this.userCode = null;
+        }
+
+        /**
+         * Returns true if field userCode is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetUserCode() {
+            return this.userCode != null;
+        }
+
+        public void setUserCodeIsSet(boolean value) {
+            if (!value) {
+                this.userCode = null;
+            }
+        }
+
+        public byte getHouseType() {
+            return this.houseType;
+        }
+
+        public findVisitRecords_args setHouseType(byte houseType) {
+            this.houseType = houseType;
+            setHouseTypeIsSet(true);
+            return this;
+        }
+
+        public void unsetHouseType() {
+            __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __HOUSETYPE_ISSET_ID);
+        }
+
+        /**
+         * Returns true if field houseType is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetHouseType() {
+            return EncodingUtils.testBit(__isset_bitfield, __HOUSETYPE_ISSET_ID);
+        }
+
+        public void setHouseTypeIsSet(boolean value) {
+            __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __HOUSETYPE_ISSET_ID, value);
+        }
+
+        public void setFieldValue(_Fields field, Object value) {
+            switch (field) {
+                case USER_CODE:
+                    if (value == null) {
+                        unsetUserCode();
+                    } else {
+                        setUserCode((String) value);
+                    }
+                    break;
+
+                case HOUSE_TYPE:
+                    if (value == null) {
+                        unsetHouseType();
+                    } else {
+                        setHouseType((Byte) value);
+                    }
+                    break;
+
+            }
+        }
+
+        public Object getFieldValue(_Fields field) {
+            switch (field) {
+                case USER_CODE:
+                    return getUserCode();
+
+                case HOUSE_TYPE:
+                    return Byte.valueOf(getHouseType());
+
+            }
+            throw new IllegalStateException();
+        }
+
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSet(_Fields field) {
+            if (field == null) {
+                throw new IllegalArgumentException();
+            }
+
+            switch (field) {
+                case USER_CODE:
+                    return isSetUserCode();
+                case HOUSE_TYPE:
+                    return isSetHouseType();
+            }
+            throw new IllegalStateException();
+        }
+
+        @Override
+        public boolean equals(Object that) {
+            if (that == null)
+                return false;
+            if (that instanceof findVisitRecords_args)
+                return this.equals((findVisitRecords_args) that);
+            return false;
+        }
+
+        public boolean equals(findVisitRecords_args that) {
+            if (that == null)
+                return false;
+
+            boolean this_present_userCode = true && this.isSetUserCode();
+            boolean that_present_userCode = true && that.isSetUserCode();
+            if (this_present_userCode || that_present_userCode) {
+                if (!(this_present_userCode && that_present_userCode))
+                    return false;
+                if (!this.userCode.equals(that.userCode))
+                    return false;
+            }
+
+            boolean this_present_houseType = true;
+            boolean that_present_houseType = true;
+            if (this_present_houseType || that_present_houseType) {
+                if (!(this_present_houseType && that_present_houseType))
+                    return false;
+                if (this.houseType != that.houseType)
+                    return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        public int compareTo(findVisitRecords_args other) {
+            if (!getClass().equals(other.getClass())) {
+                return getClass().getName().compareTo(other.getClass().getName());
+            }
+
+            int lastComparison = 0;
+            findVisitRecords_args typedOther = (findVisitRecords_args) other;
+
+            lastComparison = Boolean.valueOf(isSetUserCode()).compareTo(typedOther.isSetUserCode());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetUserCode()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.userCode, typedOther.userCode);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            lastComparison = Boolean.valueOf(isSetHouseType()).compareTo(typedOther.isSetHouseType());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetHouseType()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.houseType, typedOther.houseType);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            return 0;
+        }
+
+        public _Fields fieldForId(int fieldId) {
+            return _Fields.findByThriftId(fieldId);
+        }
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+            schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+            schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder("findVisitRecords_args(");
+            boolean first = true;
+
+            sb.append("userCode:");
+            if (this.userCode == null) {
+                sb.append("null");
+            } else {
+                sb.append(this.userCode);
+            }
+            first = false;
+            if (!first) sb.append(", ");
+            sb.append("houseType:");
+            sb.append(this.houseType);
+            first = false;
+            sb.append(")");
+            return sb.toString();
+        }
+
+        public void validate() throws org.apache.thrift.TException {
+            // check for required fields
+            if (userCode == null) {
+                throw new org.apache.thrift.protocol.TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
+            }
+            // check for sub-struct validity
+        }
+
+        private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+            try {
+                write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+            try {
+                // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+                __isset_bitfield = 0;
+                read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private static class findVisitRecords_argsStandardSchemeFactory implements SchemeFactory {
+            public findVisitRecords_argsStandardScheme getScheme() {
+                return new findVisitRecords_argsStandardScheme();
+            }
+        }
+
+        private static class findVisitRecords_argsStandardScheme extends StandardScheme<findVisitRecords_args> {
+
+            public void read(org.apache.thrift.protocol.TProtocol iprot, findVisitRecords_args struct) throws org.apache.thrift.TException {
+                org.apache.thrift.protocol.TField schemeField;
+                iprot.readStructBegin();
+                while (true) {
+                    schemeField = iprot.readFieldBegin();
+                    if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                        break;
+                    }
+                    switch (schemeField.id) {
+                        case 1: // USER_CODE
+                            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                                struct.userCode = iprot.readString();
+                                struct.setUserCodeIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        case 2: // HOUSE_TYPE
+                            if (schemeField.type == org.apache.thrift.protocol.TType.BYTE) {
+                                struct.houseType = iprot.readByte();
+                                struct.setHouseTypeIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        default:
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                    }
+                    iprot.readFieldEnd();
+                }
+                iprot.readStructEnd();
+
+                // check for required fields of primitive type, which can't be checked in the validate method
+                struct.validate();
+            }
+
+            public void write(org.apache.thrift.protocol.TProtocol oprot, findVisitRecords_args struct) throws org.apache.thrift.TException {
+                struct.validate();
+
+                oprot.writeStructBegin(STRUCT_DESC);
+                if (struct.userCode != null) {
+                    oprot.writeFieldBegin(USER_CODE_FIELD_DESC);
+                    oprot.writeString(struct.userCode);
+                    oprot.writeFieldEnd();
+                }
+                oprot.writeFieldBegin(HOUSE_TYPE_FIELD_DESC);
+                oprot.writeByte(struct.houseType);
+                oprot.writeFieldEnd();
+                oprot.writeFieldStop();
+                oprot.writeStructEnd();
+            }
+
+        }
+
+        private static class findVisitRecords_argsTupleSchemeFactory implements SchemeFactory {
+            public findVisitRecords_argsTupleScheme getScheme() {
+                return new findVisitRecords_argsTupleScheme();
+            }
+        }
+
+        private static class findVisitRecords_argsTupleScheme extends TupleScheme<findVisitRecords_args> {
+
+            @Override
+            public void write(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_args struct) throws org.apache.thrift.TException {
+                TTupleProtocol oprot = (TTupleProtocol) prot;
+                oprot.writeString(struct.userCode);
+                BitSet optionals = new BitSet();
+                if (struct.isSetHouseType()) {
+                    optionals.set(0);
+                }
+                oprot.writeBitSet(optionals, 1);
+                if (struct.isSetHouseType()) {
+                    oprot.writeByte(struct.houseType);
+                }
+            }
+
+            @Override
+            public void read(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_args struct) throws org.apache.thrift.TException {
+                TTupleProtocol iprot = (TTupleProtocol) prot;
                 struct.userCode = iprot.readString();
                 struct.setUserCodeIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 2: // HOUSE_TYPE
-              if (schemeField.type == org.apache.thrift.protocol.TType.BYTE) {
-                struct.houseType = iprot.readByte();
-                struct.setHouseTypeIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            default:
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-          }
-          iprot.readFieldEnd();
-        }
-        iprot.readStructEnd();
-
-        // check for required fields of primitive type, which can't be checked in the validate method
-        struct.validate();
-      }
-
-      public void write(org.apache.thrift.protocol.TProtocol oprot, findVisitRecords_args struct) throws org.apache.thrift.TException {
-        struct.validate();
-
-        oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.userCode != null) {
-          oprot.writeFieldBegin(USER_CODE_FIELD_DESC);
-          oprot.writeString(struct.userCode);
-          oprot.writeFieldEnd();
-        }
-        oprot.writeFieldBegin(HOUSE_TYPE_FIELD_DESC);
-        oprot.writeByte(struct.houseType);
-        oprot.writeFieldEnd();
-        oprot.writeFieldStop();
-        oprot.writeStructEnd();
-      }
-
-    }
-
-    private static class findVisitRecords_argsTupleSchemeFactory implements SchemeFactory {
-      public findVisitRecords_argsTupleScheme getScheme() {
-        return new findVisitRecords_argsTupleScheme();
-      }
-    }
-
-    private static class findVisitRecords_argsTupleScheme extends TupleScheme<findVisitRecords_args> {
-
-      @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_args struct) throws org.apache.thrift.TException {
-        TTupleProtocol oprot = (TTupleProtocol) prot;
-        oprot.writeString(struct.userCode);
-        BitSet optionals = new BitSet();
-        if (struct.isSetHouseType()) {
-          optionals.set(0);
-        }
-        oprot.writeBitSet(optionals, 1);
-        if (struct.isSetHouseType()) {
-          oprot.writeByte(struct.houseType);
-        }
-      }
-
-      @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_args struct) throws org.apache.thrift.TException {
-        TTupleProtocol iprot = (TTupleProtocol) prot;
-        struct.userCode = iprot.readString();
-        struct.setUserCodeIsSet(true);
-        BitSet incoming = iprot.readBitSet(1);
-        if (incoming.get(0)) {
-          struct.houseType = iprot.readByte();
-          struct.setHouseTypeIsSet(true);
-        }
-      }
-    }
-
-  }
-
-  public static class findVisitRecords_result implements org.apache.thrift.TBase<findVisitRecords_result, findVisitRecords_result._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("findVisitRecords_result");
-
-    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short)0);
-
-    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-    static {
-      schemes.put(StandardScheme.class, new findVisitRecords_resultStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new findVisitRecords_resultTupleSchemeFactory());
-    }
-
-    public List<VisitRecord> success; // required
-
-    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      SUCCESS((short)0, "success");
-
-      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
-
-      static {
-        for (_Fields field : EnumSet.allOf(_Fields.class)) {
-          byName.put(field.getFieldName(), field);
-        }
-      }
-
-      /**
-       * Find the _Fields constant that matches fieldId, or null if its not found.
-       */
-      public static _Fields findByThriftId(int fieldId) {
-        switch(fieldId) {
-          case 0: // SUCCESS
-            return SUCCESS;
-          default:
-            return null;
-        }
-      }
-
-      /**
-       * Find the _Fields constant that matches fieldId, throwing an exception
-       * if it is not found.
-       */
-      public static _Fields findByThriftIdOrThrow(int fieldId) {
-        _Fields fields = findByThriftId(fieldId);
-        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-        return fields;
-      }
-
-      /**
-       * Find the _Fields constant that matches name, or null if its not found.
-       */
-      public static _Fields findByName(String name) {
-        return byName.get(name);
-      }
-
-      private final short _thriftId;
-      private final String _fieldName;
-
-      _Fields(short thriftId, String fieldName) {
-        _thriftId = thriftId;
-        _fieldName = fieldName;
-      }
-
-      public short getThriftFieldId() {
-        return _thriftId;
-      }
-
-      public String getFieldName() {
-        return _fieldName;
-      }
-    }
-
-    // isset id assignments
-    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-    static {
-      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
-              new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, VisitRecord.class))));
-      metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(findVisitRecords_result.class, metaDataMap);
-    }
-
-    public findVisitRecords_result() {
-    }
-
-    public findVisitRecords_result(
-      List<VisitRecord> success)
-    {
-      this();
-      this.success = success;
-    }
-
-    /**
-     * Performs a deep copy on <i>other</i>.
-     */
-    public findVisitRecords_result(findVisitRecords_result other) {
-      if (other.isSetSuccess()) {
-        List<VisitRecord> __this__success = new ArrayList<VisitRecord>();
-        for (VisitRecord other_element : other.success) {
-          __this__success.add(new VisitRecord(other_element));
-        }
-        this.success = __this__success;
-      }
-    }
-
-    public findVisitRecords_result deepCopy() {
-      return new findVisitRecords_result(this);
-    }
-
-    @Override
-    public void clear() {
-      this.success = null;
-    }
-
-    public int getSuccessSize() {
-      return (this.success == null) ? 0 : this.success.size();
-    }
-
-    public java.util.Iterator<VisitRecord> getSuccessIterator() {
-      return (this.success == null) ? null : this.success.iterator();
-    }
-
-    public void addToSuccess(VisitRecord elem) {
-      if (this.success == null) {
-        this.success = new ArrayList<VisitRecord>();
-      }
-      this.success.add(elem);
-    }
-
-    public List<VisitRecord> getSuccess() {
-      return this.success;
-    }
-
-    public findVisitRecords_result setSuccess(List<VisitRecord> success) {
-      this.success = success;
-      return this;
-    }
-
-    public void unsetSuccess() {
-      this.success = null;
-    }
-
-    /** Returns true if field success is set (has been assigned a value) and false otherwise */
-    public boolean isSetSuccess() {
-      return this.success != null;
-    }
-
-    public void setSuccessIsSet(boolean value) {
-      if (!value) {
-        this.success = null;
-      }
-    }
-
-    public void setFieldValue(_Fields field, Object value) {
-      switch (field) {
-      case SUCCESS:
-        if (value == null) {
-          unsetSuccess();
-        } else {
-          setSuccess((List<VisitRecord>)value);
-        }
-        break;
-
-      }
-    }
-
-    public Object getFieldValue(_Fields field) {
-      switch (field) {
-      case SUCCESS:
-        return getSuccess();
-
-      }
-      throw new IllegalStateException();
-    }
-
-    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-    public boolean isSet(_Fields field) {
-      if (field == null) {
-        throw new IllegalArgumentException();
-      }
-
-      switch (field) {
-      case SUCCESS:
-        return isSetSuccess();
-      }
-      throw new IllegalStateException();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      if (that == null)
-        return false;
-      if (that instanceof findVisitRecords_result)
-        return this.equals((findVisitRecords_result)that);
-      return false;
-    }
-
-    public boolean equals(findVisitRecords_result that) {
-      if (that == null)
-        return false;
-
-      boolean this_present_success = true && this.isSetSuccess();
-      boolean that_present_success = true && that.isSetSuccess();
-      if (this_present_success || that_present_success) {
-        if (!(this_present_success && that_present_success))
-          return false;
-        if (!this.success.equals(that.success))
-          return false;
-      }
-
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      return 0;
-    }
-
-    public int compareTo(findVisitRecords_result other) {
-      if (!getClass().equals(other.getClass())) {
-        return getClass().getName().compareTo(other.getClass().getName());
-      }
-
-      int lastComparison = 0;
-      findVisitRecords_result typedOther = (findVisitRecords_result)other;
-
-      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetSuccess()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, typedOther.success);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      return 0;
-    }
-
-    public _Fields fieldForId(int fieldId) {
-      return _Fields.findByThriftId(fieldId);
-    }
-
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
-    }
-
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-      }
-
-    @Override
-    public String toString() {
-      StringBuilder sb = new StringBuilder("findVisitRecords_result(");
-      boolean first = true;
-
-      sb.append("success:");
-      if (this.success == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.success);
-      }
-      first = false;
-      sb.append(")");
-      return sb.toString();
-    }
-
-    public void validate() throws org.apache.thrift.TException {
-      // check for required fields
-      // check for sub-struct validity
-    }
-
-    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-      try {
-        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
-
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-      try {
-        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
-
-    private static class findVisitRecords_resultStandardSchemeFactory implements SchemeFactory {
-      public findVisitRecords_resultStandardScheme getScheme() {
-        return new findVisitRecords_resultStandardScheme();
-      }
-    }
-
-    private static class findVisitRecords_resultStandardScheme extends StandardScheme<findVisitRecords_result> {
-
-      public void read(org.apache.thrift.protocol.TProtocol iprot, findVisitRecords_result struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TField schemeField;
-        iprot.readStructBegin();
-        while (true)
-        {
-          schemeField = iprot.readFieldBegin();
-          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-            break;
-          }
-          switch (schemeField.id) {
-            case 0: // SUCCESS
-              if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
-                {
-                  org.apache.thrift.protocol.TList _list24 = iprot.readListBegin();
-                  struct.success = new ArrayList<VisitRecord>(_list24.size);
-                  for (int _i25 = 0; _i25 < _list24.size; ++_i25)
-                  {
-                    VisitRecord _elem26; // required
-                    _elem26 = new VisitRecord();
-                    _elem26.read(iprot);
-                    struct.success.add(_elem26);
-                  }
-                  iprot.readListEnd();
+                BitSet incoming = iprot.readBitSet(1);
+                if (incoming.get(0)) {
+                    struct.houseType = iprot.readByte();
+                    struct.setHouseTypeIsSet(true);
                 }
-                struct.setSuccessIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            default:
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-          }
-          iprot.readFieldEnd();
-        }
-        iprot.readStructEnd();
-
-        // check for required fields of primitive type, which can't be checked in the validate method
-        struct.validate();
-      }
-
-      public void write(org.apache.thrift.protocol.TProtocol oprot, findVisitRecords_result struct) throws org.apache.thrift.TException {
-        struct.validate();
-
-        oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.success != null) {
-          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
-          {
-            oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.success.size()));
-            for (VisitRecord _iter27 : struct.success)
-            {
-              _iter27.write(oprot);
             }
-            oprot.writeListEnd();
-          }
-          oprot.writeFieldEnd();
         }
-        oprot.writeFieldStop();
-        oprot.writeStructEnd();
-      }
 
     }
 
-    private static class findVisitRecords_resultTupleSchemeFactory implements SchemeFactory {
-      public findVisitRecords_resultTupleScheme getScheme() {
-        return new findVisitRecords_resultTupleScheme();
-      }
-    }
+    public static class findVisitRecords_result implements org.apache.thrift.TBase<findVisitRecords_result, findVisitRecords_result._Fields>, java.io.Serializable, Cloneable {
+        private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("findVisitRecords_result");
 
-    private static class findVisitRecords_resultTupleScheme extends TupleScheme<findVisitRecords_result> {
+        private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short) 0);
 
-      @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_result struct) throws org.apache.thrift.TException {
-        TTupleProtocol oprot = (TTupleProtocol) prot;
-        BitSet optionals = new BitSet();
-        if (struct.isSetSuccess()) {
-          optionals.set(0);
+        private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+
+        static {
+            schemes.put(StandardScheme.class, new findVisitRecords_resultStandardSchemeFactory());
+            schemes.put(TupleScheme.class, new findVisitRecords_resultTupleSchemeFactory());
         }
-        oprot.writeBitSet(optionals, 1);
-        if (struct.isSetSuccess()) {
-          {
-            oprot.writeI32(struct.success.size());
-            for (VisitRecord _iter28 : struct.success)
-            {
-              _iter28.write(oprot);
+
+        public List<VisitRecord> success; // required
+
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
+        public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+            SUCCESS((short) 0, "success");
+
+            private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+            static {
+                for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                    byName.put(field.getFieldName(), field);
+                }
             }
-          }
-        }
-      }
 
-      @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_result struct) throws org.apache.thrift.TException {
-        TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(1);
-        if (incoming.get(0)) {
-          {
-            org.apache.thrift.protocol.TList _list29 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
-            struct.success = new ArrayList<VisitRecord>(_list29.size);
-            for (int _i30 = 0; _i30 < _list29.size; ++_i30)
-            {
-              VisitRecord _elem31; // required
-              _elem31 = new VisitRecord();
-              _elem31.read(iprot);
-              struct.success.add(_elem31);
+            /**
+             * Find the _Fields constant that matches fieldId, or null if its not found.
+             */
+            public static _Fields findByThriftId(int fieldId) {
+                switch (fieldId) {
+                    case 0: // SUCCESS
+                        return SUCCESS;
+                    default:
+                        return null;
+                }
             }
-          }
-          struct.setSuccessIsSet(true);
+
+            /**
+             * Find the _Fields constant that matches fieldId, throwing an exception
+             * if it is not found.
+             */
+            public static _Fields findByThriftIdOrThrow(int fieldId) {
+                _Fields fields = findByThriftId(fieldId);
+                if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+                return fields;
+            }
+
+            /**
+             * Find the _Fields constant that matches name, or null if its not found.
+             */
+            public static _Fields findByName(String name) {
+                return byName.get(name);
+            }
+
+            private final short _thriftId;
+            private final String _fieldName;
+
+            _Fields(short thriftId, String fieldName) {
+                _thriftId = thriftId;
+                _fieldName = fieldName;
+            }
+
+            public short getThriftFieldId() {
+                return _thriftId;
+            }
+
+            public String getFieldName() {
+                return _fieldName;
+            }
         }
-      }
-    }
 
-  }
+        // isset id assignments
+        public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
 
-  public static class listItemBasedRecommendations_args implements org.apache.thrift.TBase<listItemBasedRecommendations_args, listItemBasedRecommendations_args._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listItemBasedRecommendations_args");
-
-    private static final org.apache.thrift.protocol.TField START_FIELD_DESC = new org.apache.thrift.protocol.TField("start", org.apache.thrift.protocol.TType.I32, (short)1);
-    private static final org.apache.thrift.protocol.TField LIMIT_FIELD_DESC = new org.apache.thrift.protocol.TField("limit", org.apache.thrift.protocol.TType.I32, (short)2);
-
-    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-    static {
-      schemes.put(StandardScheme.class, new listItemBasedRecommendations_argsStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new listItemBasedRecommendations_argsTupleSchemeFactory());
-    }
-
-    public int start; // required
-    public int limit; // required
-
-    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      START((short)1, "start"),
-      LIMIT((short)2, "limit");
-
-      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
-
-      static {
-        for (_Fields field : EnumSet.allOf(_Fields.class)) {
-          byName.put(field.getFieldName(), field);
+        static {
+            Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+            tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT,
+                    new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST,
+                            new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, VisitRecord.class))));
+            metaDataMap = Collections.unmodifiableMap(tmpMap);
+            org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(findVisitRecords_result.class, metaDataMap);
         }
-      }
 
-      /**
-       * Find the _Fields constant that matches fieldId, or null if its not found.
-       */
-      public static _Fields findByThriftId(int fieldId) {
-        switch(fieldId) {
-          case 1: // START
-            return START;
-          case 2: // LIMIT
-            return LIMIT;
-          default:
-            return null;
+        public findVisitRecords_result() {
         }
-      }
 
-      /**
-       * Find the _Fields constant that matches fieldId, throwing an exception
-       * if it is not found.
-       */
-      public static _Fields findByThriftIdOrThrow(int fieldId) {
-        _Fields fields = findByThriftId(fieldId);
-        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-        return fields;
-      }
-
-      /**
-       * Find the _Fields constant that matches name, or null if its not found.
-       */
-      public static _Fields findByName(String name) {
-        return byName.get(name);
-      }
-
-      private final short _thriftId;
-      private final String _fieldName;
-
-      _Fields(short thriftId, String fieldName) {
-        _thriftId = thriftId;
-        _fieldName = fieldName;
-      }
-
-      public short getThriftFieldId() {
-        return _thriftId;
-      }
-
-      public String getFieldName() {
-        return _fieldName;
-      }
-    }
-
-    // isset id assignments
-    private static final int __START_ISSET_ID = 0;
-    private static final int __LIMIT_ISSET_ID = 1;
-    private byte __isset_bitfield = 0;
-    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-    static {
-      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.START, new org.apache.thrift.meta_data.FieldMetaData("start", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-      tmpMap.put(_Fields.LIMIT, new org.apache.thrift.meta_data.FieldMetaData("limit", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-      metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listItemBasedRecommendations_args.class, metaDataMap);
-    }
-
-    public listItemBasedRecommendations_args() {
-    }
-
-    public listItemBasedRecommendations_args(
-      int start,
-      int limit)
-    {
-      this();
-      this.start = start;
-      setStartIsSet(true);
-      this.limit = limit;
-      setLimitIsSet(true);
-    }
-
-    /**
-     * Performs a deep copy on <i>other</i>.
-     */
-    public listItemBasedRecommendations_args(listItemBasedRecommendations_args other) {
-      __isset_bitfield = other.__isset_bitfield;
-      this.start = other.start;
-      this.limit = other.limit;
-    }
-
-    public listItemBasedRecommendations_args deepCopy() {
-      return new listItemBasedRecommendations_args(this);
-    }
-
-    @Override
-    public void clear() {
-      setStartIsSet(false);
-      this.start = 0;
-      setLimitIsSet(false);
-      this.limit = 0;
-    }
-
-    public int getStart() {
-      return this.start;
-    }
-
-    public listItemBasedRecommendations_args setStart(int start) {
-      this.start = start;
-      setStartIsSet(true);
-      return this;
-    }
-
-    public void unsetStart() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __START_ISSET_ID);
-    }
-
-    /** Returns true if field start is set (has been assigned a value) and false otherwise */
-    public boolean isSetStart() {
-      return EncodingUtils.testBit(__isset_bitfield, __START_ISSET_ID);
-    }
-
-    public void setStartIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __START_ISSET_ID, value);
-    }
-
-    public int getLimit() {
-      return this.limit;
-    }
-
-    public listItemBasedRecommendations_args setLimit(int limit) {
-      this.limit = limit;
-      setLimitIsSet(true);
-      return this;
-    }
-
-    public void unsetLimit() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __LIMIT_ISSET_ID);
-    }
-
-    /** Returns true if field limit is set (has been assigned a value) and false otherwise */
-    public boolean isSetLimit() {
-      return EncodingUtils.testBit(__isset_bitfield, __LIMIT_ISSET_ID);
-    }
-
-    public void setLimitIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __LIMIT_ISSET_ID, value);
-    }
-
-    public void setFieldValue(_Fields field, Object value) {
-      switch (field) {
-      case START:
-        if (value == null) {
-          unsetStart();
-        } else {
-          setStart((Integer)value);
+        public findVisitRecords_result(
+                List<VisitRecord> success) {
+            this();
+            this.success = success;
         }
-        break;
 
-      case LIMIT:
-        if (value == null) {
-          unsetLimit();
-        } else {
-          setLimit((Integer)value);
+        /**
+         * Performs a deep copy on <i>other</i>.
+         */
+        public findVisitRecords_result(findVisitRecords_result other) {
+            if (other.isSetSuccess()) {
+                List<VisitRecord> __this__success = new ArrayList<VisitRecord>();
+                for (VisitRecord other_element : other.success) {
+                    __this__success.add(new VisitRecord(other_element));
+                }
+                this.success = __this__success;
+            }
         }
-        break;
 
-      }
-    }
-
-    public Object getFieldValue(_Fields field) {
-      switch (field) {
-      case START:
-        return Integer.valueOf(getStart());
-
-      case LIMIT:
-        return Integer.valueOf(getLimit());
-
-      }
-      throw new IllegalStateException();
-    }
-
-    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-    public boolean isSet(_Fields field) {
-      if (field == null) {
-        throw new IllegalArgumentException();
-      }
-
-      switch (field) {
-      case START:
-        return isSetStart();
-      case LIMIT:
-        return isSetLimit();
-      }
-      throw new IllegalStateException();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      if (that == null)
-        return false;
-      if (that instanceof listItemBasedRecommendations_args)
-        return this.equals((listItemBasedRecommendations_args)that);
-      return false;
-    }
-
-    public boolean equals(listItemBasedRecommendations_args that) {
-      if (that == null)
-        return false;
-
-      boolean this_present_start = true;
-      boolean that_present_start = true;
-      if (this_present_start || that_present_start) {
-        if (!(this_present_start && that_present_start))
-          return false;
-        if (this.start != that.start)
-          return false;
-      }
-
-      boolean this_present_limit = true;
-      boolean that_present_limit = true;
-      if (this_present_limit || that_present_limit) {
-        if (!(this_present_limit && that_present_limit))
-          return false;
-        if (this.limit != that.limit)
-          return false;
-      }
-
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      return 0;
-    }
-
-    public int compareTo(listItemBasedRecommendations_args other) {
-      if (!getClass().equals(other.getClass())) {
-        return getClass().getName().compareTo(other.getClass().getName());
-      }
-
-      int lastComparison = 0;
-      listItemBasedRecommendations_args typedOther = (listItemBasedRecommendations_args)other;
-
-      lastComparison = Boolean.valueOf(isSetStart()).compareTo(typedOther.isSetStart());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetStart()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.start, typedOther.start);
-        if (lastComparison != 0) {
-          return lastComparison;
+        public findVisitRecords_result deepCopy() {
+            return new findVisitRecords_result(this);
         }
-      }
-      lastComparison = Boolean.valueOf(isSetLimit()).compareTo(typedOther.isSetLimit());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetLimit()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.limit, typedOther.limit);
-        if (lastComparison != 0) {
-          return lastComparison;
+
+        @Override
+        public void clear() {
+            this.success = null;
         }
-      }
-      return 0;
+
+        public int getSuccessSize() {
+            return (this.success == null) ? 0 : this.success.size();
+        }
+
+        public java.util.Iterator<VisitRecord> getSuccessIterator() {
+            return (this.success == null) ? null : this.success.iterator();
+        }
+
+        public void addToSuccess(VisitRecord elem) {
+            if (this.success == null) {
+                this.success = new ArrayList<VisitRecord>();
+            }
+            this.success.add(elem);
+        }
+
+        public List<VisitRecord> getSuccess() {
+            return this.success;
+        }
+
+        public findVisitRecords_result setSuccess(List<VisitRecord> success) {
+            this.success = success;
+            return this;
+        }
+
+        public void unsetSuccess() {
+            this.success = null;
+        }
+
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetSuccess() {
+            return this.success != null;
+        }
+
+        public void setSuccessIsSet(boolean value) {
+            if (!value) {
+                this.success = null;
+            }
+        }
+
+        public void setFieldValue(_Fields field, Object value) {
+            switch (field) {
+                case SUCCESS:
+                    if (value == null) {
+                        unsetSuccess();
+                    } else {
+                        setSuccess((List<VisitRecord>) value);
+                    }
+                    break;
+
+            }
+        }
+
+        public Object getFieldValue(_Fields field) {
+            switch (field) {
+                case SUCCESS:
+                    return getSuccess();
+
+            }
+            throw new IllegalStateException();
+        }
+
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSet(_Fields field) {
+            if (field == null) {
+                throw new IllegalArgumentException();
+            }
+
+            switch (field) {
+                case SUCCESS:
+                    return isSetSuccess();
+            }
+            throw new IllegalStateException();
+        }
+
+        @Override
+        public boolean equals(Object that) {
+            if (that == null)
+                return false;
+            if (that instanceof findVisitRecords_result)
+                return this.equals((findVisitRecords_result) that);
+            return false;
+        }
+
+        public boolean equals(findVisitRecords_result that) {
+            if (that == null)
+                return false;
+
+            boolean this_present_success = true && this.isSetSuccess();
+            boolean that_present_success = true && that.isSetSuccess();
+            if (this_present_success || that_present_success) {
+                if (!(this_present_success && that_present_success))
+                    return false;
+                if (!this.success.equals(that.success))
+                    return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        public int compareTo(findVisitRecords_result other) {
+            if (!getClass().equals(other.getClass())) {
+                return getClass().getName().compareTo(other.getClass().getName());
+            }
+
+            int lastComparison = 0;
+            findVisitRecords_result typedOther = (findVisitRecords_result) other;
+
+            lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetSuccess()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, typedOther.success);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            return 0;
+        }
+
+        public _Fields fieldForId(int fieldId) {
+            return _Fields.findByThriftId(fieldId);
+        }
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+            schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+            schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder("findVisitRecords_result(");
+            boolean first = true;
+
+            sb.append("success:");
+            if (this.success == null) {
+                sb.append("null");
+            } else {
+                sb.append(this.success);
+            }
+            first = false;
+            sb.append(")");
+            return sb.toString();
+        }
+
+        public void validate() throws org.apache.thrift.TException {
+            // check for required fields
+            // check for sub-struct validity
+        }
+
+        private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+            try {
+                write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+            try {
+                read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private static class findVisitRecords_resultStandardSchemeFactory implements SchemeFactory {
+            public findVisitRecords_resultStandardScheme getScheme() {
+                return new findVisitRecords_resultStandardScheme();
+            }
+        }
+
+        private static class findVisitRecords_resultStandardScheme extends StandardScheme<findVisitRecords_result> {
+
+            public void read(org.apache.thrift.protocol.TProtocol iprot, findVisitRecords_result struct) throws org.apache.thrift.TException {
+                org.apache.thrift.protocol.TField schemeField;
+                iprot.readStructBegin();
+                while (true) {
+                    schemeField = iprot.readFieldBegin();
+                    if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                        break;
+                    }
+                    switch (schemeField.id) {
+                        case 0: // SUCCESS
+                            if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
+                                {
+                                    org.apache.thrift.protocol.TList _list24 = iprot.readListBegin();
+                                    struct.success = new ArrayList<VisitRecord>(_list24.size);
+                                    for (int _i25 = 0; _i25 < _list24.size; ++_i25) {
+                                        VisitRecord _elem26; // required
+                                        _elem26 = new VisitRecord();
+                                        _elem26.read(iprot);
+                                        struct.success.add(_elem26);
+                                    }
+                                    iprot.readListEnd();
+                                }
+                                struct.setSuccessIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        default:
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                    }
+                    iprot.readFieldEnd();
+                }
+                iprot.readStructEnd();
+
+                // check for required fields of primitive type, which can't be checked in the validate method
+                struct.validate();
+            }
+
+            public void write(org.apache.thrift.protocol.TProtocol oprot, findVisitRecords_result struct) throws org.apache.thrift.TException {
+                struct.validate();
+
+                oprot.writeStructBegin(STRUCT_DESC);
+                if (struct.success != null) {
+                    oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+                    {
+                        oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.success.size()));
+                        for (VisitRecord _iter27 : struct.success) {
+                            _iter27.write(oprot);
+                        }
+                        oprot.writeListEnd();
+                    }
+                    oprot.writeFieldEnd();
+                }
+                oprot.writeFieldStop();
+                oprot.writeStructEnd();
+            }
+
+        }
+
+        private static class findVisitRecords_resultTupleSchemeFactory implements SchemeFactory {
+            public findVisitRecords_resultTupleScheme getScheme() {
+                return new findVisitRecords_resultTupleScheme();
+            }
+        }
+
+        private static class findVisitRecords_resultTupleScheme extends TupleScheme<findVisitRecords_result> {
+
+            @Override
+            public void write(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_result struct) throws org.apache.thrift.TException {
+                TTupleProtocol oprot = (TTupleProtocol) prot;
+                BitSet optionals = new BitSet();
+                if (struct.isSetSuccess()) {
+                    optionals.set(0);
+                }
+                oprot.writeBitSet(optionals, 1);
+                if (struct.isSetSuccess()) {
+                    {
+                        oprot.writeI32(struct.success.size());
+                        for (VisitRecord _iter28 : struct.success) {
+                            _iter28.write(oprot);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void read(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_result struct) throws org.apache.thrift.TException {
+                TTupleProtocol iprot = (TTupleProtocol) prot;
+                BitSet incoming = iprot.readBitSet(1);
+                if (incoming.get(0)) {
+                    {
+                        org.apache.thrift.protocol.TList _list29 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
+                        struct.success = new ArrayList<VisitRecord>(_list29.size);
+                        for (int _i30 = 0; _i30 < _list29.size; ++_i30) {
+                            VisitRecord _elem31; // required
+                            _elem31 = new VisitRecord();
+                            _elem31.read(iprot);
+                            struct.success.add(_elem31);
+                        }
+                    }
+                    struct.setSuccessIsSet(true);
+                }
+            }
+        }
+
     }
 
-    public _Fields fieldForId(int fieldId) {
-      return _Fields.findByThriftId(fieldId);
-    }
+    public static class listItemBasedRecommendations_args implements org.apache.thrift.TBase<listItemBasedRecommendations_args, listItemBasedRecommendations_args._Fields>, java.io.Serializable, Cloneable {
+        private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listItemBasedRecommendations_args");
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
-    }
+        private static final org.apache.thrift.protocol.TField START_FIELD_DESC = new org.apache.thrift.protocol.TField("start", org.apache.thrift.protocol.TType.I32, (short) 1);
+        private static final org.apache.thrift.protocol.TField LIMIT_FIELD_DESC = new org.apache.thrift.protocol.TField("limit", org.apache.thrift.protocol.TType.I32, (short) 2);
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-    }
+        private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
 
-    @Override
-    public String toString() {
-      StringBuilder sb = new StringBuilder("listItemBasedRecommendations_args(");
-      boolean first = true;
+        static {
+            schemes.put(StandardScheme.class, new listItemBasedRecommendations_argsStandardSchemeFactory());
+            schemes.put(TupleScheme.class, new listItemBasedRecommendations_argsTupleSchemeFactory());
+        }
 
-      sb.append("start:");
-      sb.append(this.start);
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("limit:");
-      sb.append(this.limit);
-      first = false;
-      sb.append(")");
-      return sb.toString();
-    }
+        public int start; // required
+        public int limit; // required
 
-    public void validate() throws org.apache.thrift.TException {
-      // check for required fields
-      // alas, we cannot check 'start' because it's a primitive and you chose the non-beans generator.
-      // alas, we cannot check 'limit' because it's a primitive and you chose the non-beans generator.
-      // check for sub-struct validity
-    }
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
+        public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+            START((short) 1, "start"),
+            LIMIT((short) 2, "limit");
 
-    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-      try {
-        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
+            private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-      try {
-        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-        __isset_bitfield = 0;
-        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
+            static {
+                for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                    byName.put(field.getFieldName(), field);
+                }
+            }
 
-    private static class listItemBasedRecommendations_argsStandardSchemeFactory implements SchemeFactory {
-      public listItemBasedRecommendations_argsStandardScheme getScheme() {
-        return new listItemBasedRecommendations_argsStandardScheme();
-      }
-    }
+            /**
+             * Find the _Fields constant that matches fieldId, or null if its not found.
+             */
+            public static _Fields findByThriftId(int fieldId) {
+                switch (fieldId) {
+                    case 1: // START
+                        return START;
+                    case 2: // LIMIT
+                        return LIMIT;
+                    default:
+                        return null;
+                }
+            }
 
-    private static class listItemBasedRecommendations_argsStandardScheme extends StandardScheme<listItemBasedRecommendations_args> {
+            /**
+             * Find the _Fields constant that matches fieldId, throwing an exception
+             * if it is not found.
+             */
+            public static _Fields findByThriftIdOrThrow(int fieldId) {
+                _Fields fields = findByThriftId(fieldId);
+                if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+                return fields;
+            }
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TField schemeField;
-        iprot.readStructBegin();
-        while (true)
-        {
-          schemeField = iprot.readFieldBegin();
-          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-            break;
-          }
-          switch (schemeField.id) {
-            case 1: // START
-              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+            /**
+             * Find the _Fields constant that matches name, or null if its not found.
+             */
+            public static _Fields findByName(String name) {
+                return byName.get(name);
+            }
+
+            private final short _thriftId;
+            private final String _fieldName;
+
+            _Fields(short thriftId, String fieldName) {
+                _thriftId = thriftId;
+                _fieldName = fieldName;
+            }
+
+            public short getThriftFieldId() {
+                return _thriftId;
+            }
+
+            public String getFieldName() {
+                return _fieldName;
+            }
+        }
+
+        // isset id assignments
+        private static final int __START_ISSET_ID = 0;
+        private static final int __LIMIT_ISSET_ID = 1;
+        private byte __isset_bitfield = 0;
+        public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+
+        static {
+            Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+            tmpMap.put(_Fields.START, new org.apache.thrift.meta_data.FieldMetaData("start", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                    new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+            tmpMap.put(_Fields.LIMIT, new org.apache.thrift.meta_data.FieldMetaData("limit", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                    new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+            metaDataMap = Collections.unmodifiableMap(tmpMap);
+            org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listItemBasedRecommendations_args.class, metaDataMap);
+        }
+
+        public listItemBasedRecommendations_args() {
+        }
+
+        public listItemBasedRecommendations_args(
+                int start,
+                int limit) {
+            this();
+            this.start = start;
+            setStartIsSet(true);
+            this.limit = limit;
+            setLimitIsSet(true);
+        }
+
+        /**
+         * Performs a deep copy on <i>other</i>.
+         */
+        public listItemBasedRecommendations_args(listItemBasedRecommendations_args other) {
+            __isset_bitfield = other.__isset_bitfield;
+            this.start = other.start;
+            this.limit = other.limit;
+        }
+
+        public listItemBasedRecommendations_args deepCopy() {
+            return new listItemBasedRecommendations_args(this);
+        }
+
+        @Override
+        public void clear() {
+            setStartIsSet(false);
+            this.start = 0;
+            setLimitIsSet(false);
+            this.limit = 0;
+        }
+
+        public int getStart() {
+            return this.start;
+        }
+
+        public listItemBasedRecommendations_args setStart(int start) {
+            this.start = start;
+            setStartIsSet(true);
+            return this;
+        }
+
+        public void unsetStart() {
+            __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __START_ISSET_ID);
+        }
+
+        /**
+         * Returns true if field start is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetStart() {
+            return EncodingUtils.testBit(__isset_bitfield, __START_ISSET_ID);
+        }
+
+        public void setStartIsSet(boolean value) {
+            __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __START_ISSET_ID, value);
+        }
+
+        public int getLimit() {
+            return this.limit;
+        }
+
+        public listItemBasedRecommendations_args setLimit(int limit) {
+            this.limit = limit;
+            setLimitIsSet(true);
+            return this;
+        }
+
+        public void unsetLimit() {
+            __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __LIMIT_ISSET_ID);
+        }
+
+        /**
+         * Returns true if field limit is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetLimit() {
+            return EncodingUtils.testBit(__isset_bitfield, __LIMIT_ISSET_ID);
+        }
+
+        public void setLimitIsSet(boolean value) {
+            __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __LIMIT_ISSET_ID, value);
+        }
+
+        public void setFieldValue(_Fields field, Object value) {
+            switch (field) {
+                case START:
+                    if (value == null) {
+                        unsetStart();
+                    } else {
+                        setStart((Integer) value);
+                    }
+                    break;
+
+                case LIMIT:
+                    if (value == null) {
+                        unsetLimit();
+                    } else {
+                        setLimit((Integer) value);
+                    }
+                    break;
+
+            }
+        }
+
+        public Object getFieldValue(_Fields field) {
+            switch (field) {
+                case START:
+                    return Integer.valueOf(getStart());
+
+                case LIMIT:
+                    return Integer.valueOf(getLimit());
+
+            }
+            throw new IllegalStateException();
+        }
+
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSet(_Fields field) {
+            if (field == null) {
+                throw new IllegalArgumentException();
+            }
+
+            switch (field) {
+                case START:
+                    return isSetStart();
+                case LIMIT:
+                    return isSetLimit();
+            }
+            throw new IllegalStateException();
+        }
+
+        @Override
+        public boolean equals(Object that) {
+            if (that == null)
+                return false;
+            if (that instanceof listItemBasedRecommendations_args)
+                return this.equals((listItemBasedRecommendations_args) that);
+            return false;
+        }
+
+        public boolean equals(listItemBasedRecommendations_args that) {
+            if (that == null)
+                return false;
+
+            boolean this_present_start = true;
+            boolean that_present_start = true;
+            if (this_present_start || that_present_start) {
+                if (!(this_present_start && that_present_start))
+                    return false;
+                if (this.start != that.start)
+                    return false;
+            }
+
+            boolean this_present_limit = true;
+            boolean that_present_limit = true;
+            if (this_present_limit || that_present_limit) {
+                if (!(this_present_limit && that_present_limit))
+                    return false;
+                if (this.limit != that.limit)
+                    return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        public int compareTo(listItemBasedRecommendations_args other) {
+            if (!getClass().equals(other.getClass())) {
+                return getClass().getName().compareTo(other.getClass().getName());
+            }
+
+            int lastComparison = 0;
+            listItemBasedRecommendations_args typedOther = (listItemBasedRecommendations_args) other;
+
+            lastComparison = Boolean.valueOf(isSetStart()).compareTo(typedOther.isSetStart());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetStart()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.start, typedOther.start);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            lastComparison = Boolean.valueOf(isSetLimit()).compareTo(typedOther.isSetLimit());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetLimit()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.limit, typedOther.limit);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            return 0;
+        }
+
+        public _Fields fieldForId(int fieldId) {
+            return _Fields.findByThriftId(fieldId);
+        }
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+            schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+            schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder("listItemBasedRecommendations_args(");
+            boolean first = true;
+
+            sb.append("start:");
+            sb.append(this.start);
+            first = false;
+            if (!first) sb.append(", ");
+            sb.append("limit:");
+            sb.append(this.limit);
+            first = false;
+            sb.append(")");
+            return sb.toString();
+        }
+
+        public void validate() throws org.apache.thrift.TException {
+            // check for required fields
+            // alas, we cannot check 'start' because it's a primitive and you chose the non-beans generator.
+            // alas, we cannot check 'limit' because it's a primitive and you chose the non-beans generator.
+            // check for sub-struct validity
+        }
+
+        private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+            try {
+                write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+            try {
+                // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+                __isset_bitfield = 0;
+                read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private static class listItemBasedRecommendations_argsStandardSchemeFactory implements SchemeFactory {
+            public listItemBasedRecommendations_argsStandardScheme getScheme() {
+                return new listItemBasedRecommendations_argsStandardScheme();
+            }
+        }
+
+        private static class listItemBasedRecommendations_argsStandardScheme extends StandardScheme<listItemBasedRecommendations_args> {
+
+            public void read(org.apache.thrift.protocol.TProtocol iprot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
+                org.apache.thrift.protocol.TField schemeField;
+                iprot.readStructBegin();
+                while (true) {
+                    schemeField = iprot.readFieldBegin();
+                    if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                        break;
+                    }
+                    switch (schemeField.id) {
+                        case 1: // START
+                            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                                struct.start = iprot.readI32();
+                                struct.setStartIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        case 2: // LIMIT
+                            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                                struct.limit = iprot.readI32();
+                                struct.setLimitIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        default:
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                    }
+                    iprot.readFieldEnd();
+                }
+                iprot.readStructEnd();
+
+                // check for required fields of primitive type, which can't be checked in the validate method
+                if (!struct.isSetStart()) {
+                    throw new org.apache.thrift.protocol.TProtocolException("Required field 'start' was not found in serialized data! Struct: " + toString());
+                }
+                if (!struct.isSetLimit()) {
+                    throw new org.apache.thrift.protocol.TProtocolException("Required field 'limit' was not found in serialized data! Struct: " + toString());
+                }
+                struct.validate();
+            }
+
+            public void write(org.apache.thrift.protocol.TProtocol oprot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
+                struct.validate();
+
+                oprot.writeStructBegin(STRUCT_DESC);
+                oprot.writeFieldBegin(START_FIELD_DESC);
+                oprot.writeI32(struct.start);
+                oprot.writeFieldEnd();
+                oprot.writeFieldBegin(LIMIT_FIELD_DESC);
+                oprot.writeI32(struct.limit);
+                oprot.writeFieldEnd();
+                oprot.writeFieldStop();
+                oprot.writeStructEnd();
+            }
+
+        }
+
+        private static class listItemBasedRecommendations_argsTupleSchemeFactory implements SchemeFactory {
+            public listItemBasedRecommendations_argsTupleScheme getScheme() {
+                return new listItemBasedRecommendations_argsTupleScheme();
+            }
+        }
+
+        private static class listItemBasedRecommendations_argsTupleScheme extends TupleScheme<listItemBasedRecommendations_args> {
+
+            @Override
+            public void write(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
+                TTupleProtocol oprot = (TTupleProtocol) prot;
+                oprot.writeI32(struct.start);
+                oprot.writeI32(struct.limit);
+            }
+
+            @Override
+            public void read(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
+                TTupleProtocol iprot = (TTupleProtocol) prot;
                 struct.start = iprot.readI32();
                 struct.setStartIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 2: // LIMIT
-              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
                 struct.limit = iprot.readI32();
                 struct.setLimitIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            default:
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-          }
-          iprot.readFieldEnd();
+            }
         }
-        iprot.readStructEnd();
 
-        // check for required fields of primitive type, which can't be checked in the validate method
-        if (!struct.isSetStart()) {
-          throw new org.apache.thrift.protocol.TProtocolException("Required field 'start' was not found in serialized data! Struct: " + toString());
+    }
+
+    public static class listItemBasedRecommendations_result implements org.apache.thrift.TBase<listItemBasedRecommendations_result, listItemBasedRecommendations_result._Fields>, java.io.Serializable, Cloneable {
+        private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listItemBasedRecommendations_result");
+
+        private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short) 0);
+
+        private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+
+        static {
+            schemes.put(StandardScheme.class, new listItemBasedRecommendations_resultStandardSchemeFactory());
+            schemes.put(TupleScheme.class, new listItemBasedRecommendations_resultTupleSchemeFactory());
         }
-        if (!struct.isSetLimit()) {
-          throw new org.apache.thrift.protocol.TProtocolException("Required field 'limit' was not found in serialized data! Struct: " + toString());
-        }
-        struct.validate();
-      }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
-        struct.validate();
+        public List<UserRecommendations> success; // required
 
-        oprot.writeStructBegin(STRUCT_DESC);
-        oprot.writeFieldBegin(START_FIELD_DESC);
-        oprot.writeI32(struct.start);
-        oprot.writeFieldEnd();
-        oprot.writeFieldBegin(LIMIT_FIELD_DESC);
-        oprot.writeI32(struct.limit);
-        oprot.writeFieldEnd();
-        oprot.writeFieldStop();
-        oprot.writeStructEnd();
-      }
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
+        public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+            SUCCESS((short) 0, "success");
 
-    }
+            private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
-    private static class listItemBasedRecommendations_argsTupleSchemeFactory implements SchemeFactory {
-      public listItemBasedRecommendations_argsTupleScheme getScheme() {
-        return new listItemBasedRecommendations_argsTupleScheme();
-      }
-    }
-
-    private static class listItemBasedRecommendations_argsTupleScheme extends TupleScheme<listItemBasedRecommendations_args> {
-
-      @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
-        TTupleProtocol oprot = (TTupleProtocol) prot;
-        oprot.writeI32(struct.start);
-        oprot.writeI32(struct.limit);
-      }
-
-      @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
-        TTupleProtocol iprot = (TTupleProtocol) prot;
-        struct.start = iprot.readI32();
-        struct.setStartIsSet(true);
-        struct.limit = iprot.readI32();
-        struct.setLimitIsSet(true);
-      }
-    }
-
-  }
-
-  public static class listItemBasedRecommendations_result implements org.apache.thrift.TBase<listItemBasedRecommendations_result, listItemBasedRecommendations_result._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listItemBasedRecommendations_result");
-
-    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short)0);
-
-    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-    static {
-      schemes.put(StandardScheme.class, new listItemBasedRecommendations_resultStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new listItemBasedRecommendations_resultTupleSchemeFactory());
-    }
-
-    public List<UserRecommendations> success; // required
-
-    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      SUCCESS((short)0, "success");
-
-      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
-
-      static {
-        for (_Fields field : EnumSet.allOf(_Fields.class)) {
-          byName.put(field.getFieldName(), field);
-        }
-      }
-
-      /**
-       * Find the _Fields constant that matches fieldId, or null if its not found.
-       */
-      public static _Fields findByThriftId(int fieldId) {
-        switch(fieldId) {
-          case 0: // SUCCESS
-            return SUCCESS;
-          default:
-            return null;
-        }
-      }
-
-      /**
-       * Find the _Fields constant that matches fieldId, throwing an exception
-       * if it is not found.
-       */
-      public static _Fields findByThriftIdOrThrow(int fieldId) {
-        _Fields fields = findByThriftId(fieldId);
-        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-        return fields;
-      }
-
-      /**
-       * Find the _Fields constant that matches name, or null if its not found.
-       */
-      public static _Fields findByName(String name) {
-        return byName.get(name);
-      }
-
-      private final short _thriftId;
-      private final String _fieldName;
-
-      _Fields(short thriftId, String fieldName) {
-        _thriftId = thriftId;
-        _fieldName = fieldName;
-      }
-
-      public short getThriftFieldId() {
-        return _thriftId;
-      }
-
-      public String getFieldName() {
-        return _fieldName;
-      }
-    }
-
-    // isset id assignments
-    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-    static {
-      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
-              new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, UserRecommendations.class))));
-      metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listItemBasedRecommendations_result.class, metaDataMap);
-    }
-
-    public listItemBasedRecommendations_result() {
-    }
-
-    public listItemBasedRecommendations_result(
-      List<UserRecommendations> success)
-    {
-      this();
-      this.success = success;
-    }
-
-    /**
-     * Performs a deep copy on <i>other</i>.
-     */
-    public listItemBasedRecommendations_result(listItemBasedRecommendations_result other) {
-      if (other.isSetSuccess()) {
-        List<UserRecommendations> __this__success = new ArrayList<UserRecommendations>();
-        for (UserRecommendations other_element : other.success) {
-          __this__success.add(new UserRecommendations(other_element));
-        }
-        this.success = __this__success;
-      }
-    }
-
-    public listItemBasedRecommendations_result deepCopy() {
-      return new listItemBasedRecommendations_result(this);
-    }
-
-    @Override
-    public void clear() {
-      this.success = null;
-    }
-
-    public int getSuccessSize() {
-      return (this.success == null) ? 0 : this.success.size();
-    }
-
-    public java.util.Iterator<UserRecommendations> getSuccessIterator() {
-      return (this.success == null) ? null : this.success.iterator();
-    }
-
-    public void addToSuccess(UserRecommendations elem) {
-      if (this.success == null) {
-        this.success = new ArrayList<UserRecommendations>();
-      }
-      this.success.add(elem);
-    }
-
-    public List<UserRecommendations> getSuccess() {
-      return this.success;
-    }
-
-    public listItemBasedRecommendations_result setSuccess(List<UserRecommendations> success) {
-      this.success = success;
-      return this;
-    }
-
-    public void unsetSuccess() {
-      this.success = null;
-    }
-
-    /** Returns true if field success is set (has been assigned a value) and false otherwise */
-    public boolean isSetSuccess() {
-      return this.success != null;
-    }
-
-    public void setSuccessIsSet(boolean value) {
-      if (!value) {
-        this.success = null;
-      }
-    }
-
-    public void setFieldValue(_Fields field, Object value) {
-      switch (field) {
-      case SUCCESS:
-        if (value == null) {
-          unsetSuccess();
-        } else {
-          setSuccess((List<UserRecommendations>)value);
-        }
-        break;
-
-      }
-    }
-
-    public Object getFieldValue(_Fields field) {
-      switch (field) {
-      case SUCCESS:
-        return getSuccess();
-
-      }
-      throw new IllegalStateException();
-    }
-
-    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-    public boolean isSet(_Fields field) {
-      if (field == null) {
-        throw new IllegalArgumentException();
-      }
-
-      switch (field) {
-      case SUCCESS:
-        return isSetSuccess();
-      }
-      throw new IllegalStateException();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      if (that == null)
-        return false;
-      if (that instanceof listItemBasedRecommendations_result)
-        return this.equals((listItemBasedRecommendations_result)that);
-      return false;
-    }
-
-    public boolean equals(listItemBasedRecommendations_result that) {
-      if (that == null)
-        return false;
-
-      boolean this_present_success = true && this.isSetSuccess();
-      boolean that_present_success = true && that.isSetSuccess();
-      if (this_present_success || that_present_success) {
-        if (!(this_present_success && that_present_success))
-          return false;
-        if (!this.success.equals(that.success))
-          return false;
-      }
-
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      return 0;
-    }
-
-    public int compareTo(listItemBasedRecommendations_result other) {
-      if (!getClass().equals(other.getClass())) {
-        return getClass().getName().compareTo(other.getClass().getName());
-      }
-
-      int lastComparison = 0;
-      listItemBasedRecommendations_result typedOther = (listItemBasedRecommendations_result)other;
-
-      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetSuccess()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, typedOther.success);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      return 0;
-    }
-
-    public _Fields fieldForId(int fieldId) {
-      return _Fields.findByThriftId(fieldId);
-    }
-
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
-    }
-
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-      }
-
-    @Override
-    public String toString() {
-      StringBuilder sb = new StringBuilder("listItemBasedRecommendations_result(");
-      boolean first = true;
-
-      sb.append("success:");
-      if (this.success == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.success);
-      }
-      first = false;
-      sb.append(")");
-      return sb.toString();
-    }
-
-    public void validate() throws org.apache.thrift.TException {
-      // check for required fields
-      // check for sub-struct validity
-    }
-
-    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-      try {
-        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
-
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-      try {
-        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
-
-    private static class listItemBasedRecommendations_resultStandardSchemeFactory implements SchemeFactory {
-      public listItemBasedRecommendations_resultStandardScheme getScheme() {
-        return new listItemBasedRecommendations_resultStandardScheme();
-      }
-    }
-
-    private static class listItemBasedRecommendations_resultStandardScheme extends StandardScheme<listItemBasedRecommendations_result> {
-
-      public void read(org.apache.thrift.protocol.TProtocol iprot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TField schemeField;
-        iprot.readStructBegin();
-        while (true)
-        {
-          schemeField = iprot.readFieldBegin();
-          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-            break;
-          }
-          switch (schemeField.id) {
-            case 0: // SUCCESS
-              if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
-                {
-                  org.apache.thrift.protocol.TList _list32 = iprot.readListBegin();
-                  struct.success = new ArrayList<UserRecommendations>(_list32.size);
-                  for (int _i33 = 0; _i33 < _list32.size; ++_i33)
-                  {
-                    UserRecommendations _elem34; // required
-                    _elem34 = new UserRecommendations();
-                    _elem34.read(iprot);
-                    struct.success.add(_elem34);
-                  }
-                  iprot.readListEnd();
+            static {
+                for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                    byName.put(field.getFieldName(), field);
                 }
-                struct.setSuccessIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            default:
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-          }
-          iprot.readFieldEnd();
-        }
-        iprot.readStructEnd();
-
-        // check for required fields of primitive type, which can't be checked in the validate method
-        struct.validate();
-      }
-
-      public void write(org.apache.thrift.protocol.TProtocol oprot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
-        struct.validate();
-
-        oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.success != null) {
-          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
-          {
-            oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.success.size()));
-            for (UserRecommendations _iter35 : struct.success)
-            {
-              _iter35.write(oprot);
             }
-            oprot.writeListEnd();
-          }
-          oprot.writeFieldEnd();
-        }
-        oprot.writeFieldStop();
-        oprot.writeStructEnd();
-      }
 
-    }
-
-    private static class listItemBasedRecommendations_resultTupleSchemeFactory implements SchemeFactory {
-      public listItemBasedRecommendations_resultTupleScheme getScheme() {
-        return new listItemBasedRecommendations_resultTupleScheme();
-      }
-    }
-
-    private static class listItemBasedRecommendations_resultTupleScheme extends TupleScheme<listItemBasedRecommendations_result> {
-
-      @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
-        TTupleProtocol oprot = (TTupleProtocol) prot;
-        BitSet optionals = new BitSet();
-        if (struct.isSetSuccess()) {
-          optionals.set(0);
-        }
-        oprot.writeBitSet(optionals, 1);
-        if (struct.isSetSuccess()) {
-          {
-            oprot.writeI32(struct.success.size());
-            for (UserRecommendations _iter36 : struct.success)
-            {
-              _iter36.write(oprot);
+            /**
+             * Find the _Fields constant that matches fieldId, or null if its not found.
+             */
+            public static _Fields findByThriftId(int fieldId) {
+                switch (fieldId) {
+                    case 0: // SUCCESS
+                        return SUCCESS;
+                    default:
+                        return null;
+                }
             }
-          }
-        }
-      }
 
-      @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
-        TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(1);
-        if (incoming.get(0)) {
-          {
-            org.apache.thrift.protocol.TList _list37 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
-            struct.success = new ArrayList<UserRecommendations>(_list37.size);
-            for (int _i38 = 0; _i38 < _list37.size; ++_i38)
-            {
-              UserRecommendations _elem39; // required
-              _elem39 = new UserRecommendations();
-              _elem39.read(iprot);
-              struct.success.add(_elem39);
+            /**
+             * Find the _Fields constant that matches fieldId, throwing an exception
+             * if it is not found.
+             */
+            public static _Fields findByThriftIdOrThrow(int fieldId) {
+                _Fields fields = findByThriftId(fieldId);
+                if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+                return fields;
             }
-          }
-          struct.setSuccessIsSet(true);
+
+            /**
+             * Find the _Fields constant that matches name, or null if its not found.
+             */
+            public static _Fields findByName(String name) {
+                return byName.get(name);
+            }
+
+            private final short _thriftId;
+            private final String _fieldName;
+
+            _Fields(short thriftId, String fieldName) {
+                _thriftId = thriftId;
+                _fieldName = fieldName;
+            }
+
+            public short getThriftFieldId() {
+                return _thriftId;
+            }
+
+            public String getFieldName() {
+                return _fieldName;
+            }
         }
-      }
-    }
 
-  }
+        // isset id assignments
+        public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
 
-  public static class findItemBasedRecommendations_args implements org.apache.thrift.TBase<findItemBasedRecommendations_args, findItemBasedRecommendations_args._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("findItemBasedRecommendations_args");
-
-    private static final org.apache.thrift.protocol.TField USER_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("userCode", org.apache.thrift.protocol.TType.STRING, (short)1);
-
-    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-    static {
-      schemes.put(StandardScheme.class, new findItemBasedRecommendations_argsStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new findItemBasedRecommendations_argsTupleSchemeFactory());
-    }
-
-    public String userCode; // required
-
-    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      USER_CODE((short)1, "userCode");
-
-      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
-
-      static {
-        for (_Fields field : EnumSet.allOf(_Fields.class)) {
-          byName.put(field.getFieldName(), field);
+        static {
+            Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+            tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT,
+                    new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST,
+                            new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, UserRecommendations.class))));
+            metaDataMap = Collections.unmodifiableMap(tmpMap);
+            org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listItemBasedRecommendations_result.class, metaDataMap);
         }
-      }
 
-      /**
-       * Find the _Fields constant that matches fieldId, or null if its not found.
-       */
-      public static _Fields findByThriftId(int fieldId) {
-        switch(fieldId) {
-          case 1: // USER_CODE
-            return USER_CODE;
-          default:
-            return null;
+        public listItemBasedRecommendations_result() {
         }
-      }
 
-      /**
-       * Find the _Fields constant that matches fieldId, throwing an exception
-       * if it is not found.
-       */
-      public static _Fields findByThriftIdOrThrow(int fieldId) {
-        _Fields fields = findByThriftId(fieldId);
-        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-        return fields;
-      }
-
-      /**
-       * Find the _Fields constant that matches name, or null if its not found.
-       */
-      public static _Fields findByName(String name) {
-        return byName.get(name);
-      }
-
-      private final short _thriftId;
-      private final String _fieldName;
-
-      _Fields(short thriftId, String fieldName) {
-        _thriftId = thriftId;
-        _fieldName = fieldName;
-      }
-
-      public short getThriftFieldId() {
-        return _thriftId;
-      }
-
-      public String getFieldName() {
-        return _fieldName;
-      }
-    }
-
-    // isset id assignments
-    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-    static {
-      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.USER_CODE, new org.apache.thrift.meta_data.FieldMetaData("userCode", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(findItemBasedRecommendations_args.class, metaDataMap);
-    }
-
-    public findItemBasedRecommendations_args() {
-    }
-
-    public findItemBasedRecommendations_args(
-      String userCode)
-    {
-      this();
-      this.userCode = userCode;
-    }
-
-    /**
-     * Performs a deep copy on <i>other</i>.
-     */
-    public findItemBasedRecommendations_args(findItemBasedRecommendations_args other) {
-      if (other.isSetUserCode()) {
-        this.userCode = other.userCode;
-      }
-    }
-
-    public findItemBasedRecommendations_args deepCopy() {
-      return new findItemBasedRecommendations_args(this);
-    }
-
-    @Override
-    public void clear() {
-      this.userCode = null;
-    }
-
-    public String getUserCode() {
-      return this.userCode;
-    }
-
-    public findItemBasedRecommendations_args setUserCode(String userCode) {
-      this.userCode = userCode;
-      return this;
-    }
-
-    public void unsetUserCode() {
-      this.userCode = null;
-    }
-
-    /** Returns true if field userCode is set (has been assigned a value) and false otherwise */
-    public boolean isSetUserCode() {
-      return this.userCode != null;
-    }
-
-    public void setUserCodeIsSet(boolean value) {
-      if (!value) {
-        this.userCode = null;
-      }
-    }
-
-    public void setFieldValue(_Fields field, Object value) {
-      switch (field) {
-      case USER_CODE:
-        if (value == null) {
-          unsetUserCode();
-        } else {
-          setUserCode((String)value);
+        public listItemBasedRecommendations_result(
+                List<UserRecommendations> success) {
+            this();
+            this.success = success;
         }
-        break;
 
-      }
-    }
-
-    public Object getFieldValue(_Fields field) {
-      switch (field) {
-      case USER_CODE:
-        return getUserCode();
-
-      }
-      throw new IllegalStateException();
-    }
-
-    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-    public boolean isSet(_Fields field) {
-      if (field == null) {
-        throw new IllegalArgumentException();
-      }
-
-      switch (field) {
-      case USER_CODE:
-        return isSetUserCode();
-      }
-      throw new IllegalStateException();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      if (that == null)
-        return false;
-      if (that instanceof findItemBasedRecommendations_args)
-        return this.equals((findItemBasedRecommendations_args)that);
-      return false;
-    }
-
-    public boolean equals(findItemBasedRecommendations_args that) {
-      if (that == null)
-        return false;
-
-      boolean this_present_userCode = true && this.isSetUserCode();
-      boolean that_present_userCode = true && that.isSetUserCode();
-      if (this_present_userCode || that_present_userCode) {
-        if (!(this_present_userCode && that_present_userCode))
-          return false;
-        if (!this.userCode.equals(that.userCode))
-          return false;
-      }
-
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      return 0;
-    }
-
-    public int compareTo(findItemBasedRecommendations_args other) {
-      if (!getClass().equals(other.getClass())) {
-        return getClass().getName().compareTo(other.getClass().getName());
-      }
-
-      int lastComparison = 0;
-      findItemBasedRecommendations_args typedOther = (findItemBasedRecommendations_args)other;
-
-      lastComparison = Boolean.valueOf(isSetUserCode()).compareTo(typedOther.isSetUserCode());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetUserCode()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.userCode, typedOther.userCode);
-        if (lastComparison != 0) {
-          return lastComparison;
+        /**
+         * Performs a deep copy on <i>other</i>.
+         */
+        public listItemBasedRecommendations_result(listItemBasedRecommendations_result other) {
+            if (other.isSetSuccess()) {
+                List<UserRecommendations> __this__success = new ArrayList<UserRecommendations>();
+                for (UserRecommendations other_element : other.success) {
+                    __this__success.add(new UserRecommendations(other_element));
+                }
+                this.success = __this__success;
+            }
         }
-      }
-      return 0;
+
+        public listItemBasedRecommendations_result deepCopy() {
+            return new listItemBasedRecommendations_result(this);
+        }
+
+        @Override
+        public void clear() {
+            this.success = null;
+        }
+
+        public int getSuccessSize() {
+            return (this.success == null) ? 0 : this.success.size();
+        }
+
+        public java.util.Iterator<UserRecommendations> getSuccessIterator() {
+            return (this.success == null) ? null : this.success.iterator();
+        }
+
+        public void addToSuccess(UserRecommendations elem) {
+            if (this.success == null) {
+                this.success = new ArrayList<UserRecommendations>();
+            }
+            this.success.add(elem);
+        }
+
+        public List<UserRecommendations> getSuccess() {
+            return this.success;
+        }
+
+        public listItemBasedRecommendations_result setSuccess(List<UserRecommendations> success) {
+            this.success = success;
+            return this;
+        }
+
+        public void unsetSuccess() {
+            this.success = null;
+        }
+
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetSuccess() {
+            return this.success != null;
+        }
+
+        public void setSuccessIsSet(boolean value) {
+            if (!value) {
+                this.success = null;
+            }
+        }
+
+        public void setFieldValue(_Fields field, Object value) {
+            switch (field) {
+                case SUCCESS:
+                    if (value == null) {
+                        unsetSuccess();
+                    } else {
+                        setSuccess((List<UserRecommendations>) value);
+                    }
+                    break;
+
+            }
+        }
+
+        public Object getFieldValue(_Fields field) {
+            switch (field) {
+                case SUCCESS:
+                    return getSuccess();
+
+            }
+            throw new IllegalStateException();
+        }
+
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSet(_Fields field) {
+            if (field == null) {
+                throw new IllegalArgumentException();
+            }
+
+            switch (field) {
+                case SUCCESS:
+                    return isSetSuccess();
+            }
+            throw new IllegalStateException();
+        }
+
+        @Override
+        public boolean equals(Object that) {
+            if (that == null)
+                return false;
+            if (that instanceof listItemBasedRecommendations_result)
+                return this.equals((listItemBasedRecommendations_result) that);
+            return false;
+        }
+
+        public boolean equals(listItemBasedRecommendations_result that) {
+            if (that == null)
+                return false;
+
+            boolean this_present_success = true && this.isSetSuccess();
+            boolean that_present_success = true && that.isSetSuccess();
+            if (this_present_success || that_present_success) {
+                if (!(this_present_success && that_present_success))
+                    return false;
+                if (!this.success.equals(that.success))
+                    return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        public int compareTo(listItemBasedRecommendations_result other) {
+            if (!getClass().equals(other.getClass())) {
+                return getClass().getName().compareTo(other.getClass().getName());
+            }
+
+            int lastComparison = 0;
+            listItemBasedRecommendations_result typedOther = (listItemBasedRecommendations_result) other;
+
+            lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetSuccess()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, typedOther.success);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            return 0;
+        }
+
+        public _Fields fieldForId(int fieldId) {
+            return _Fields.findByThriftId(fieldId);
+        }
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+            schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+            schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder("listItemBasedRecommendations_result(");
+            boolean first = true;
+
+            sb.append("success:");
+            if (this.success == null) {
+                sb.append("null");
+            } else {
+                sb.append(this.success);
+            }
+            first = false;
+            sb.append(")");
+            return sb.toString();
+        }
+
+        public void validate() throws org.apache.thrift.TException {
+            // check for required fields
+            // check for sub-struct validity
+        }
+
+        private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+            try {
+                write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+            try {
+                read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private static class listItemBasedRecommendations_resultStandardSchemeFactory implements SchemeFactory {
+            public listItemBasedRecommendations_resultStandardScheme getScheme() {
+                return new listItemBasedRecommendations_resultStandardScheme();
+            }
+        }
+
+        private static class listItemBasedRecommendations_resultStandardScheme extends StandardScheme<listItemBasedRecommendations_result> {
+
+            public void read(org.apache.thrift.protocol.TProtocol iprot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
+                org.apache.thrift.protocol.TField schemeField;
+                iprot.readStructBegin();
+                while (true) {
+                    schemeField = iprot.readFieldBegin();
+                    if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                        break;
+                    }
+                    switch (schemeField.id) {
+                        case 0: // SUCCESS
+                            if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
+                                {
+                                    org.apache.thrift.protocol.TList _list32 = iprot.readListBegin();
+                                    struct.success = new ArrayList<UserRecommendations>(_list32.size);
+                                    for (int _i33 = 0; _i33 < _list32.size; ++_i33) {
+                                        UserRecommendations _elem34; // required
+                                        _elem34 = new UserRecommendations();
+                                        _elem34.read(iprot);
+                                        struct.success.add(_elem34);
+                                    }
+                                    iprot.readListEnd();
+                                }
+                                struct.setSuccessIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        default:
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                    }
+                    iprot.readFieldEnd();
+                }
+                iprot.readStructEnd();
+
+                // check for required fields of primitive type, which can't be checked in the validate method
+                struct.validate();
+            }
+
+            public void write(org.apache.thrift.protocol.TProtocol oprot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
+                struct.validate();
+
+                oprot.writeStructBegin(STRUCT_DESC);
+                if (struct.success != null) {
+                    oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+                    {
+                        oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.success.size()));
+                        for (UserRecommendations _iter35 : struct.success) {
+                            _iter35.write(oprot);
+                        }
+                        oprot.writeListEnd();
+                    }
+                    oprot.writeFieldEnd();
+                }
+                oprot.writeFieldStop();
+                oprot.writeStructEnd();
+            }
+
+        }
+
+        private static class listItemBasedRecommendations_resultTupleSchemeFactory implements SchemeFactory {
+            public listItemBasedRecommendations_resultTupleScheme getScheme() {
+                return new listItemBasedRecommendations_resultTupleScheme();
+            }
+        }
+
+        private static class listItemBasedRecommendations_resultTupleScheme extends TupleScheme<listItemBasedRecommendations_result> {
+
+            @Override
+            public void write(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
+                TTupleProtocol oprot = (TTupleProtocol) prot;
+                BitSet optionals = new BitSet();
+                if (struct.isSetSuccess()) {
+                    optionals.set(0);
+                }
+                oprot.writeBitSet(optionals, 1);
+                if (struct.isSetSuccess()) {
+                    {
+                        oprot.writeI32(struct.success.size());
+                        for (UserRecommendations _iter36 : struct.success) {
+                            _iter36.write(oprot);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void read(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
+                TTupleProtocol iprot = (TTupleProtocol) prot;
+                BitSet incoming = iprot.readBitSet(1);
+                if (incoming.get(0)) {
+                    {
+                        org.apache.thrift.protocol.TList _list37 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
+                        struct.success = new ArrayList<UserRecommendations>(_list37.size);
+                        for (int _i38 = 0; _i38 < _list37.size; ++_i38) {
+                            UserRecommendations _elem39; // required
+                            _elem39 = new UserRecommendations();
+                            _elem39.read(iprot);
+                            struct.success.add(_elem39);
+                        }
+                    }
+                    struct.setSuccessIsSet(true);
+                }
+            }
+        }
+
     }
 
-    public _Fields fieldForId(int fieldId) {
-      return _Fields.findByThriftId(fieldId);
-    }
+    public static class findItemBasedRecommendations_args implements org.apache.thrift.TBase<findItemBasedRecommendations_args, findItemBasedRecommendations_args._Fields>, java.io.Serializable, Cloneable {
+        private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("findItemBasedRecommendations_args");
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
-    }
+        private static final org.apache.thrift.protocol.TField USER_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("userCode", org.apache.thrift.protocol.TType.STRING, (short) 1);
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-    }
+        private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
 
-    @Override
-    public String toString() {
-      StringBuilder sb = new StringBuilder("findItemBasedRecommendations_args(");
-      boolean first = true;
+        static {
+            schemes.put(StandardScheme.class, new findItemBasedRecommendations_argsStandardSchemeFactory());
+            schemes.put(TupleScheme.class, new findItemBasedRecommendations_argsTupleSchemeFactory());
+        }
 
-      sb.append("userCode:");
-      if (this.userCode == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.userCode);
-      }
-      first = false;
-      sb.append(")");
-      return sb.toString();
-    }
+        public String userCode; // required
 
-    public void validate() throws org.apache.thrift.TException {
-      // check for required fields
-      if (userCode == null) {
-        throw new org.apache.thrift.protocol.TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
-      }
-      // check for sub-struct validity
-    }
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
+        public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+            USER_CODE((short) 1, "userCode");
 
-    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-      try {
-        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
+            private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-      try {
-        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
+            static {
+                for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                    byName.put(field.getFieldName(), field);
+                }
+            }
 
-    private static class findItemBasedRecommendations_argsStandardSchemeFactory implements SchemeFactory {
-      public findItemBasedRecommendations_argsStandardScheme getScheme() {
-        return new findItemBasedRecommendations_argsStandardScheme();
-      }
-    }
+            /**
+             * Find the _Fields constant that matches fieldId, or null if its not found.
+             */
+            public static _Fields findByThriftId(int fieldId) {
+                switch (fieldId) {
+                    case 1: // USER_CODE
+                        return USER_CODE;
+                    default:
+                        return null;
+                }
+            }
 
-    private static class findItemBasedRecommendations_argsStandardScheme extends StandardScheme<findItemBasedRecommendations_args> {
+            /**
+             * Find the _Fields constant that matches fieldId, throwing an exception
+             * if it is not found.
+             */
+            public static _Fields findByThriftIdOrThrow(int fieldId) {
+                _Fields fields = findByThriftId(fieldId);
+                if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+                return fields;
+            }
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TField schemeField;
-        iprot.readStructBegin();
-        while (true)
-        {
-          schemeField = iprot.readFieldBegin();
-          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-            break;
-          }
-          switch (schemeField.id) {
-            case 1: // USER_CODE
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+            /**
+             * Find the _Fields constant that matches name, or null if its not found.
+             */
+            public static _Fields findByName(String name) {
+                return byName.get(name);
+            }
+
+            private final short _thriftId;
+            private final String _fieldName;
+
+            _Fields(short thriftId, String fieldName) {
+                _thriftId = thriftId;
+                _fieldName = fieldName;
+            }
+
+            public short getThriftFieldId() {
+                return _thriftId;
+            }
+
+            public String getFieldName() {
+                return _fieldName;
+            }
+        }
+
+        // isset id assignments
+        public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+
+        static {
+            Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+            tmpMap.put(_Fields.USER_CODE, new org.apache.thrift.meta_data.FieldMetaData("userCode", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                    new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+            metaDataMap = Collections.unmodifiableMap(tmpMap);
+            org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(findItemBasedRecommendations_args.class, metaDataMap);
+        }
+
+        public findItemBasedRecommendations_args() {
+        }
+
+        public findItemBasedRecommendations_args(
+                String userCode) {
+            this();
+            this.userCode = userCode;
+        }
+
+        /**
+         * Performs a deep copy on <i>other</i>.
+         */
+        public findItemBasedRecommendations_args(findItemBasedRecommendations_args other) {
+            if (other.isSetUserCode()) {
+                this.userCode = other.userCode;
+            }
+        }
+
+        public findItemBasedRecommendations_args deepCopy() {
+            return new findItemBasedRecommendations_args(this);
+        }
+
+        @Override
+        public void clear() {
+            this.userCode = null;
+        }
+
+        public String getUserCode() {
+            return this.userCode;
+        }
+
+        public findItemBasedRecommendations_args setUserCode(String userCode) {
+            this.userCode = userCode;
+            return this;
+        }
+
+        public void unsetUserCode() {
+            this.userCode = null;
+        }
+
+        /**
+         * Returns true if field userCode is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetUserCode() {
+            return this.userCode != null;
+        }
+
+        public void setUserCodeIsSet(boolean value) {
+            if (!value) {
+                this.userCode = null;
+            }
+        }
+
+        public void setFieldValue(_Fields field, Object value) {
+            switch (field) {
+                case USER_CODE:
+                    if (value == null) {
+                        unsetUserCode();
+                    } else {
+                        setUserCode((String) value);
+                    }
+                    break;
+
+            }
+        }
+
+        public Object getFieldValue(_Fields field) {
+            switch (field) {
+                case USER_CODE:
+                    return getUserCode();
+
+            }
+            throw new IllegalStateException();
+        }
+
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSet(_Fields field) {
+            if (field == null) {
+                throw new IllegalArgumentException();
+            }
+
+            switch (field) {
+                case USER_CODE:
+                    return isSetUserCode();
+            }
+            throw new IllegalStateException();
+        }
+
+        @Override
+        public boolean equals(Object that) {
+            if (that == null)
+                return false;
+            if (that instanceof findItemBasedRecommendations_args)
+                return this.equals((findItemBasedRecommendations_args) that);
+            return false;
+        }
+
+        public boolean equals(findItemBasedRecommendations_args that) {
+            if (that == null)
+                return false;
+
+            boolean this_present_userCode = true && this.isSetUserCode();
+            boolean that_present_userCode = true && that.isSetUserCode();
+            if (this_present_userCode || that_present_userCode) {
+                if (!(this_present_userCode && that_present_userCode))
+                    return false;
+                if (!this.userCode.equals(that.userCode))
+                    return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        public int compareTo(findItemBasedRecommendations_args other) {
+            if (!getClass().equals(other.getClass())) {
+                return getClass().getName().compareTo(other.getClass().getName());
+            }
+
+            int lastComparison = 0;
+            findItemBasedRecommendations_args typedOther = (findItemBasedRecommendations_args) other;
+
+            lastComparison = Boolean.valueOf(isSetUserCode()).compareTo(typedOther.isSetUserCode());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetUserCode()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.userCode, typedOther.userCode);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            return 0;
+        }
+
+        public _Fields fieldForId(int fieldId) {
+            return _Fields.findByThriftId(fieldId);
+        }
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+            schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+            schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder("findItemBasedRecommendations_args(");
+            boolean first = true;
+
+            sb.append("userCode:");
+            if (this.userCode == null) {
+                sb.append("null");
+            } else {
+                sb.append(this.userCode);
+            }
+            first = false;
+            sb.append(")");
+            return sb.toString();
+        }
+
+        public void validate() throws org.apache.thrift.TException {
+            // check for required fields
+            if (userCode == null) {
+                throw new org.apache.thrift.protocol.TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
+            }
+            // check for sub-struct validity
+        }
+
+        private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+            try {
+                write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+            try {
+                read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private static class findItemBasedRecommendations_argsStandardSchemeFactory implements SchemeFactory {
+            public findItemBasedRecommendations_argsStandardScheme getScheme() {
+                return new findItemBasedRecommendations_argsStandardScheme();
+            }
+        }
+
+        private static class findItemBasedRecommendations_argsStandardScheme extends StandardScheme<findItemBasedRecommendations_args> {
+
+            public void read(org.apache.thrift.protocol.TProtocol iprot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
+                org.apache.thrift.protocol.TField schemeField;
+                iprot.readStructBegin();
+                while (true) {
+                    schemeField = iprot.readFieldBegin();
+                    if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                        break;
+                    }
+                    switch (schemeField.id) {
+                        case 1: // USER_CODE
+                            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                                struct.userCode = iprot.readString();
+                                struct.setUserCodeIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        default:
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                    }
+                    iprot.readFieldEnd();
+                }
+                iprot.readStructEnd();
+
+                // check for required fields of primitive type, which can't be checked in the validate method
+                struct.validate();
+            }
+
+            public void write(org.apache.thrift.protocol.TProtocol oprot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
+                struct.validate();
+
+                oprot.writeStructBegin(STRUCT_DESC);
+                if (struct.userCode != null) {
+                    oprot.writeFieldBegin(USER_CODE_FIELD_DESC);
+                    oprot.writeString(struct.userCode);
+                    oprot.writeFieldEnd();
+                }
+                oprot.writeFieldStop();
+                oprot.writeStructEnd();
+            }
+
+        }
+
+        private static class findItemBasedRecommendations_argsTupleSchemeFactory implements SchemeFactory {
+            public findItemBasedRecommendations_argsTupleScheme getScheme() {
+                return new findItemBasedRecommendations_argsTupleScheme();
+            }
+        }
+
+        private static class findItemBasedRecommendations_argsTupleScheme extends TupleScheme<findItemBasedRecommendations_args> {
+
+            @Override
+            public void write(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
+                TTupleProtocol oprot = (TTupleProtocol) prot;
+                oprot.writeString(struct.userCode);
+            }
+
+            @Override
+            public void read(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
+                TTupleProtocol iprot = (TTupleProtocol) prot;
                 struct.userCode = iprot.readString();
                 struct.setUserCodeIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            default:
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-          }
-          iprot.readFieldEnd();
+            }
         }
-        iprot.readStructEnd();
 
-        // check for required fields of primitive type, which can't be checked in the validate method
-        struct.validate();
-      }
+    }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
-        struct.validate();
+    public static class findItemBasedRecommendations_result implements org.apache.thrift.TBase<findItemBasedRecommendations_result, findItemBasedRecommendations_result._Fields>, java.io.Serializable, Cloneable {
+        private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("findItemBasedRecommendations_result");
 
-        oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.userCode != null) {
-          oprot.writeFieldBegin(USER_CODE_FIELD_DESC);
-          oprot.writeString(struct.userCode);
-          oprot.writeFieldEnd();
+        private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short) 0);
+
+        private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+
+        static {
+            schemes.put(StandardScheme.class, new findItemBasedRecommendations_resultStandardSchemeFactory());
+            schemes.put(TupleScheme.class, new findItemBasedRecommendations_resultTupleSchemeFactory());
         }
-        oprot.writeFieldStop();
-        oprot.writeStructEnd();
-      }
 
-    }
+        public List<Recommendation> success; // required
 
-    private static class findItemBasedRecommendations_argsTupleSchemeFactory implements SchemeFactory {
-      public findItemBasedRecommendations_argsTupleScheme getScheme() {
-        return new findItemBasedRecommendations_argsTupleScheme();
-      }
-    }
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
+        public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+            SUCCESS((short) 0, "success");
 
-    private static class findItemBasedRecommendations_argsTupleScheme extends TupleScheme<findItemBasedRecommendations_args> {
+            private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
-      @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
-        TTupleProtocol oprot = (TTupleProtocol) prot;
-        oprot.writeString(struct.userCode);
-      }
-
-      @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
-        TTupleProtocol iprot = (TTupleProtocol) prot;
-        struct.userCode = iprot.readString();
-        struct.setUserCodeIsSet(true);
-      }
-    }
-
-  }
-
-  public static class findItemBasedRecommendations_result implements org.apache.thrift.TBase<findItemBasedRecommendations_result, findItemBasedRecommendations_result._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("findItemBasedRecommendations_result");
-
-    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short)0);
-
-    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-    static {
-      schemes.put(StandardScheme.class, new findItemBasedRecommendations_resultStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new findItemBasedRecommendations_resultTupleSchemeFactory());
-    }
-
-    public List<Recommendation> success; // required
-
-    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      SUCCESS((short)0, "success");
-
-      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
-
-      static {
-        for (_Fields field : EnumSet.allOf(_Fields.class)) {
-          byName.put(field.getFieldName(), field);
-        }
-      }
-
-      /**
-       * Find the _Fields constant that matches fieldId, or null if its not found.
-       */
-      public static _Fields findByThriftId(int fieldId) {
-        switch(fieldId) {
-          case 0: // SUCCESS
-            return SUCCESS;
-          default:
-            return null;
-        }
-      }
-
-      /**
-       * Find the _Fields constant that matches fieldId, throwing an exception
-       * if it is not found.
-       */
-      public static _Fields findByThriftIdOrThrow(int fieldId) {
-        _Fields fields = findByThriftId(fieldId);
-        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-        return fields;
-      }
-
-      /**
-       * Find the _Fields constant that matches name, or null if its not found.
-       */
-      public static _Fields findByName(String name) {
-        return byName.get(name);
-      }
-
-      private final short _thriftId;
-      private final String _fieldName;
-
-      _Fields(short thriftId, String fieldName) {
-        _thriftId = thriftId;
-        _fieldName = fieldName;
-      }
-
-      public short getThriftFieldId() {
-        return _thriftId;
-      }
-
-      public String getFieldName() {
-        return _fieldName;
-      }
-    }
-
-    // isset id assignments
-    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-    static {
-      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
-              new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Recommendation.class))));
-      metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(findItemBasedRecommendations_result.class, metaDataMap);
-    }
-
-    public findItemBasedRecommendations_result() {
-    }
-
-    public findItemBasedRecommendations_result(
-      List<Recommendation> success)
-    {
-      this();
-      this.success = success;
-    }
-
-    /**
-     * Performs a deep copy on <i>other</i>.
-     */
-    public findItemBasedRecommendations_result(findItemBasedRecommendations_result other) {
-      if (other.isSetSuccess()) {
-        List<Recommendation> __this__success = new ArrayList<Recommendation>();
-        for (Recommendation other_element : other.success) {
-          __this__success.add(new Recommendation(other_element));
-        }
-        this.success = __this__success;
-      }
-    }
-
-    public findItemBasedRecommendations_result deepCopy() {
-      return new findItemBasedRecommendations_result(this);
-    }
-
-    @Override
-    public void clear() {
-      this.success = null;
-    }
-
-    public int getSuccessSize() {
-      return (this.success == null) ? 0 : this.success.size();
-    }
-
-    public java.util.Iterator<Recommendation> getSuccessIterator() {
-      return (this.success == null) ? null : this.success.iterator();
-    }
-
-    public void addToSuccess(Recommendation elem) {
-      if (this.success == null) {
-        this.success = new ArrayList<Recommendation>();
-      }
-      this.success.add(elem);
-    }
-
-    public List<Recommendation> getSuccess() {
-      return this.success;
-    }
-
-    public findItemBasedRecommendations_result setSuccess(List<Recommendation> success) {
-      this.success = success;
-      return this;
-    }
-
-    public void unsetSuccess() {
-      this.success = null;
-    }
-
-    /** Returns true if field success is set (has been assigned a value) and false otherwise */
-    public boolean isSetSuccess() {
-      return this.success != null;
-    }
-
-    public void setSuccessIsSet(boolean value) {
-      if (!value) {
-        this.success = null;
-      }
-    }
-
-    public void setFieldValue(_Fields field, Object value) {
-      switch (field) {
-      case SUCCESS:
-        if (value == null) {
-          unsetSuccess();
-        } else {
-          setSuccess((List<Recommendation>)value);
-        }
-        break;
-
-      }
-    }
-
-    public Object getFieldValue(_Fields field) {
-      switch (field) {
-      case SUCCESS:
-        return getSuccess();
-
-      }
-      throw new IllegalStateException();
-    }
-
-    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-    public boolean isSet(_Fields field) {
-      if (field == null) {
-        throw new IllegalArgumentException();
-      }
-
-      switch (field) {
-      case SUCCESS:
-        return isSetSuccess();
-      }
-      throw new IllegalStateException();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      if (that == null)
-        return false;
-      if (that instanceof findItemBasedRecommendations_result)
-        return this.equals((findItemBasedRecommendations_result)that);
-      return false;
-    }
-
-    public boolean equals(findItemBasedRecommendations_result that) {
-      if (that == null)
-        return false;
-
-      boolean this_present_success = true && this.isSetSuccess();
-      boolean that_present_success = true && that.isSetSuccess();
-      if (this_present_success || that_present_success) {
-        if (!(this_present_success && that_present_success))
-          return false;
-        if (!this.success.equals(that.success))
-          return false;
-      }
-
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      return 0;
-    }
-
-    public int compareTo(findItemBasedRecommendations_result other) {
-      if (!getClass().equals(other.getClass())) {
-        return getClass().getName().compareTo(other.getClass().getName());
-      }
-
-      int lastComparison = 0;
-      findItemBasedRecommendations_result typedOther = (findItemBasedRecommendations_result)other;
-
-      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetSuccess()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, typedOther.success);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      return 0;
-    }
-
-    public _Fields fieldForId(int fieldId) {
-      return _Fields.findByThriftId(fieldId);
-    }
-
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
-    }
-
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-      }
-
-    @Override
-    public String toString() {
-      StringBuilder sb = new StringBuilder("findItemBasedRecommendations_result(");
-      boolean first = true;
-
-      sb.append("success:");
-      if (this.success == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.success);
-      }
-      first = false;
-      sb.append(")");
-      return sb.toString();
-    }
-
-    public void validate() throws org.apache.thrift.TException {
-      // check for required fields
-      // check for sub-struct validity
-    }
-
-    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-      try {
-        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
-
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-      try {
-        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (org.apache.thrift.TException te) {
-        throw new java.io.IOException(te);
-      }
-    }
-
-    private static class findItemBasedRecommendations_resultStandardSchemeFactory implements SchemeFactory {
-      public findItemBasedRecommendations_resultStandardScheme getScheme() {
-        return new findItemBasedRecommendations_resultStandardScheme();
-      }
-    }
-
-    private static class findItemBasedRecommendations_resultStandardScheme extends StandardScheme<findItemBasedRecommendations_result> {
-
-      public void read(org.apache.thrift.protocol.TProtocol iprot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TField schemeField;
-        iprot.readStructBegin();
-        while (true)
-        {
-          schemeField = iprot.readFieldBegin();
-          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-            break;
-          }
-          switch (schemeField.id) {
-            case 0: // SUCCESS
-              if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
-                {
-                  org.apache.thrift.protocol.TList _list40 = iprot.readListBegin();
-                  struct.success = new ArrayList<Recommendation>(_list40.size);
-                  for (int _i41 = 0; _i41 < _list40.size; ++_i41)
-                  {
-                    Recommendation _elem42; // required
-                    _elem42 = new Recommendation();
-                    _elem42.read(iprot);
-                    struct.success.add(_elem42);
-                  }
-                  iprot.readListEnd();
+            static {
+                for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                    byName.put(field.getFieldName(), field);
                 }
-                struct.setSuccessIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            default:
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-          }
-          iprot.readFieldEnd();
-        }
-        iprot.readStructEnd();
-
-        // check for required fields of primitive type, which can't be checked in the validate method
-        struct.validate();
-      }
-
-      public void write(org.apache.thrift.protocol.TProtocol oprot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
-        struct.validate();
-
-        oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.success != null) {
-          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
-          {
-            oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.success.size()));
-            for (Recommendation _iter43 : struct.success)
-            {
-              _iter43.write(oprot);
             }
-            oprot.writeListEnd();
-          }
-          oprot.writeFieldEnd();
+
+            /**
+             * Find the _Fields constant that matches fieldId, or null if its not found.
+             */
+            public static _Fields findByThriftId(int fieldId) {
+                switch (fieldId) {
+                    case 0: // SUCCESS
+                        return SUCCESS;
+                    default:
+                        return null;
+                }
+            }
+
+            /**
+             * Find the _Fields constant that matches fieldId, throwing an exception
+             * if it is not found.
+             */
+            public static _Fields findByThriftIdOrThrow(int fieldId) {
+                _Fields fields = findByThriftId(fieldId);
+                if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+                return fields;
+            }
+
+            /**
+             * Find the _Fields constant that matches name, or null if its not found.
+             */
+            public static _Fields findByName(String name) {
+                return byName.get(name);
+            }
+
+            private final short _thriftId;
+            private final String _fieldName;
+
+            _Fields(short thriftId, String fieldName) {
+                _thriftId = thriftId;
+                _fieldName = fieldName;
+            }
+
+            public short getThriftFieldId() {
+                return _thriftId;
+            }
+
+            public String getFieldName() {
+                return _fieldName;
+            }
         }
-        oprot.writeFieldStop();
-        oprot.writeStructEnd();
-      }
+
+        // isset id assignments
+        public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+
+        static {
+            Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+            tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT,
+                    new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST,
+                            new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Recommendation.class))));
+            metaDataMap = Collections.unmodifiableMap(tmpMap);
+            org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(findItemBasedRecommendations_result.class, metaDataMap);
+        }
+
+        public findItemBasedRecommendations_result() {
+        }
+
+        public findItemBasedRecommendations_result(
+                List<Recommendation> success) {
+            this();
+            this.success = success;
+        }
+
+        /**
+         * Performs a deep copy on <i>other</i>.
+         */
+        public findItemBasedRecommendations_result(findItemBasedRecommendations_result other) {
+            if (other.isSetSuccess()) {
+                List<Recommendation> __this__success = new ArrayList<Recommendation>();
+                for (Recommendation other_element : other.success) {
+                    __this__success.add(new Recommendation(other_element));
+                }
+                this.success = __this__success;
+            }
+        }
+
+        public findItemBasedRecommendations_result deepCopy() {
+            return new findItemBasedRecommendations_result(this);
+        }
+
+        @Override
+        public void clear() {
+            this.success = null;
+        }
+
+        public int getSuccessSize() {
+            return (this.success == null) ? 0 : this.success.size();
+        }
+
+        public java.util.Iterator<Recommendation> getSuccessIterator() {
+            return (this.success == null) ? null : this.success.iterator();
+        }
+
+        public void addToSuccess(Recommendation elem) {
+            if (this.success == null) {
+                this.success = new ArrayList<Recommendation>();
+            }
+            this.success.add(elem);
+        }
+
+        public List<Recommendation> getSuccess() {
+            return this.success;
+        }
+
+        public findItemBasedRecommendations_result setSuccess(List<Recommendation> success) {
+            this.success = success;
+            return this;
+        }
+
+        public void unsetSuccess() {
+            this.success = null;
+        }
+
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSetSuccess() {
+            return this.success != null;
+        }
+
+        public void setSuccessIsSet(boolean value) {
+            if (!value) {
+                this.success = null;
+            }
+        }
+
+        public void setFieldValue(_Fields field, Object value) {
+            switch (field) {
+                case SUCCESS:
+                    if (value == null) {
+                        unsetSuccess();
+                    } else {
+                        setSuccess((List<Recommendation>) value);
+                    }
+                    break;
+
+            }
+        }
+
+        public Object getFieldValue(_Fields field) {
+            switch (field) {
+                case SUCCESS:
+                    return getSuccess();
+
+            }
+            throw new IllegalStateException();
+        }
+
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
+        public boolean isSet(_Fields field) {
+            if (field == null) {
+                throw new IllegalArgumentException();
+            }
+
+            switch (field) {
+                case SUCCESS:
+                    return isSetSuccess();
+            }
+            throw new IllegalStateException();
+        }
+
+        @Override
+        public boolean equals(Object that) {
+            if (that == null)
+                return false;
+            if (that instanceof findItemBasedRecommendations_result)
+                return this.equals((findItemBasedRecommendations_result) that);
+            return false;
+        }
+
+        public boolean equals(findItemBasedRecommendations_result that) {
+            if (that == null)
+                return false;
+
+            boolean this_present_success = true && this.isSetSuccess();
+            boolean that_present_success = true && that.isSetSuccess();
+            if (this_present_success || that_present_success) {
+                if (!(this_present_success && that_present_success))
+                    return false;
+                if (!this.success.equals(that.success))
+                    return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        public int compareTo(findItemBasedRecommendations_result other) {
+            if (!getClass().equals(other.getClass())) {
+                return getClass().getName().compareTo(other.getClass().getName());
+            }
+
+            int lastComparison = 0;
+            findItemBasedRecommendations_result typedOther = (findItemBasedRecommendations_result) other;
+
+            lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+            if (isSetSuccess()) {
+                lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, typedOther.success);
+                if (lastComparison != 0) {
+                    return lastComparison;
+                }
+            }
+            return 0;
+        }
+
+        public _Fields fieldForId(int fieldId) {
+            return _Fields.findByThriftId(fieldId);
+        }
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+            schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+            schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder("findItemBasedRecommendations_result(");
+            boolean first = true;
+
+            sb.append("success:");
+            if (this.success == null) {
+                sb.append("null");
+            } else {
+                sb.append(this.success);
+            }
+            first = false;
+            sb.append(")");
+            return sb.toString();
+        }
+
+        public void validate() throws org.apache.thrift.TException {
+            // check for required fields
+            // check for sub-struct validity
+        }
+
+        private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+            try {
+                write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+            try {
+                read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+            } catch (org.apache.thrift.TException te) {
+                throw new java.io.IOException(te);
+            }
+        }
+
+        private static class findItemBasedRecommendations_resultStandardSchemeFactory implements SchemeFactory {
+            public findItemBasedRecommendations_resultStandardScheme getScheme() {
+                return new findItemBasedRecommendations_resultStandardScheme();
+            }
+        }
+
+        private static class findItemBasedRecommendations_resultStandardScheme extends StandardScheme<findItemBasedRecommendations_result> {
+
+            public void read(org.apache.thrift.protocol.TProtocol iprot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
+                org.apache.thrift.protocol.TField schemeField;
+                iprot.readStructBegin();
+                while (true) {
+                    schemeField = iprot.readFieldBegin();
+                    if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                        break;
+                    }
+                    switch (schemeField.id) {
+                        case 0: // SUCCESS
+                            if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
+                                {
+                                    org.apache.thrift.protocol.TList _list40 = iprot.readListBegin();
+                                    struct.success = new ArrayList<Recommendation>(_list40.size);
+                                    for (int _i41 = 0; _i41 < _list40.size; ++_i41) {
+                                        Recommendation _elem42; // required
+                                        _elem42 = new Recommendation();
+                                        _elem42.read(iprot);
+                                        struct.success.add(_elem42);
+                                    }
+                                    iprot.readListEnd();
+                                }
+                                struct.setSuccessIsSet(true);
+                            } else {
+                                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                            }
+                            break;
+                        default:
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                    }
+                    iprot.readFieldEnd();
+                }
+                iprot.readStructEnd();
+
+                // check for required fields of primitive type, which can't be checked in the validate method
+                struct.validate();
+            }
+
+            public void write(org.apache.thrift.protocol.TProtocol oprot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
+                struct.validate();
+
+                oprot.writeStructBegin(STRUCT_DESC);
+                if (struct.success != null) {
+                    oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+                    {
+                        oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.success.size()));
+                        for (Recommendation _iter43 : struct.success) {
+                            _iter43.write(oprot);
+                        }
+                        oprot.writeListEnd();
+                    }
+                    oprot.writeFieldEnd();
+                }
+                oprot.writeFieldStop();
+                oprot.writeStructEnd();
+            }
+
+        }
+
+        private static class findItemBasedRecommendations_resultTupleSchemeFactory implements SchemeFactory {
+            public findItemBasedRecommendations_resultTupleScheme getScheme() {
+                return new findItemBasedRecommendations_resultTupleScheme();
+            }
+        }
+
+        private static class findItemBasedRecommendations_resultTupleScheme extends TupleScheme<findItemBasedRecommendations_result> {
+
+            @Override
+            public void write(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
+                TTupleProtocol oprot = (TTupleProtocol) prot;
+                BitSet optionals = new BitSet();
+                if (struct.isSetSuccess()) {
+                    optionals.set(0);
+                }
+                oprot.writeBitSet(optionals, 1);
+                if (struct.isSetSuccess()) {
+                    {
+                        oprot.writeI32(struct.success.size());
+                        for (Recommendation _iter44 : struct.success) {
+                            _iter44.write(oprot);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void read(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
+                TTupleProtocol iprot = (TTupleProtocol) prot;
+                BitSet incoming = iprot.readBitSet(1);
+                if (incoming.get(0)) {
+                    {
+                        org.apache.thrift.protocol.TList _list45 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
+                        struct.success = new ArrayList<Recommendation>(_list45.size);
+                        for (int _i46 = 0; _i46 < _list45.size; ++_i46) {
+                            Recommendation _elem47; // required
+                            _elem47 = new Recommendation();
+                            _elem47.read(iprot);
+                            struct.success.add(_elem47);
+                        }
+                    }
+                    struct.setSuccessIsSet(true);
+                }
+            }
+        }
 
     }
-
-    private static class findItemBasedRecommendations_resultTupleSchemeFactory implements SchemeFactory {
-      public findItemBasedRecommendations_resultTupleScheme getScheme() {
-        return new findItemBasedRecommendations_resultTupleScheme();
-      }
-    }
-
-    private static class findItemBasedRecommendations_resultTupleScheme extends TupleScheme<findItemBasedRecommendations_result> {
-
-      @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
-        TTupleProtocol oprot = (TTupleProtocol) prot;
-        BitSet optionals = new BitSet();
-        if (struct.isSetSuccess()) {
-          optionals.set(0);
-        }
-        oprot.writeBitSet(optionals, 1);
-        if (struct.isSetSuccess()) {
-          {
-            oprot.writeI32(struct.success.size());
-            for (Recommendation _iter44 : struct.success)
-            {
-              _iter44.write(oprot);
-            }
-          }
-        }
-      }
-
-      @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
-        TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(1);
-        if (incoming.get(0)) {
-          {
-            org.apache.thrift.protocol.TList _list45 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
-            struct.success = new ArrayList<Recommendation>(_list45.size);
-            for (int _i46 = 0; _i46 < _list45.size; ++_i46)
-            {
-              Recommendation _elem47; // required
-              _elem47 = new Recommendation();
-              _elem47.read(iprot);
-              struct.success.add(_elem47);
-            }
-          }
-          struct.setSuccessIsSet(true);
-        }
-      }
-    }
-
-  }
 
 }

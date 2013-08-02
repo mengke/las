@@ -7,42 +7,39 @@
 package org.easycloud.las.api.services.thrift;
 
 
-import java.util.Map;
-import java.util.HashMap;
-import org.apache.thrift.TEnum;
-
 public enum UserType implements org.apache.thrift.TEnum {
-  ALL(0),
-  ANONYMOUS(1),
-  LOGIN(2);
+    ALL(0),
+    ANONYMOUS(1),
+    LOGIN(2);
 
-  private final int value;
+    private final int value;
 
-  private UserType(int value) {
-    this.value = value;
-  }
-
-  /**
-   * Get the integer value of this enum value, as defined in the Thrift IDL.
-   */
-  public int getValue() {
-    return value;
-  }
-
-  /**
-   * Find a the enum type by its integer value, as defined in the Thrift IDL.
-   * @return null if the value is not found.
-   */
-  public static UserType findByValue(int value) { 
-    switch (value) {
-      case 0:
-        return ALL;
-      case 1:
-        return ANONYMOUS;
-      case 2:
-        return LOGIN;
-      default:
-        return null;
+    private UserType(int value) {
+        this.value = value;
     }
-  }
+
+    /**
+     * Get the integer value of this enum value, as defined in the Thrift IDL.
+     */
+    public int getValue() {
+        return value;
+    }
+
+    /**
+     * Find a the enum type by its integer value, as defined in the Thrift IDL.
+     *
+     * @return null if the value is not found.
+     */
+    public static UserType findByValue(int value) {
+        switch (value) {
+            case 0:
+                return ALL;
+            case 1:
+                return ANONYMOUS;
+            case 2:
+                return LOGIN;
+            default:
+                return null;
+        }
+    }
 }

@@ -6,560 +6,559 @@
  */
 package org.easycloud.las.api.services.thrift;
 
+import org.apache.thrift.EncodingUtils;
+import org.apache.thrift.protocol.TTupleProtocol;
 import org.apache.thrift.scheme.IScheme;
 import org.apache.thrift.scheme.SchemeFactory;
 import org.apache.thrift.scheme.StandardScheme;
-
 import org.apache.thrift.scheme.TupleScheme;
-import org.apache.thrift.protocol.TTupleProtocol;
-import org.apache.thrift.protocol.TProtocolException;
-import org.apache.thrift.EncodingUtils;
-import org.apache.thrift.TException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.EnumMap;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.EnumSet;
-import java.util.Collections;
-import java.util.BitSet;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.*;
+
+@Document
 public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRecord._Fields>, java.io.Serializable, Cloneable {
-  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("VisitRecord");
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("VisitRecord");
 
-  private static final org.apache.thrift.protocol.TField HOUSE_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("houseCode", org.apache.thrift.protocol.TType.STRING, (short)1);
-  private static final org.apache.thrift.protocol.TField HOUSE_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("houseType", org.apache.thrift.protocol.TType.BYTE, (short)2);
-  private static final org.apache.thrift.protocol.TField VISIT_DTTM_FIELD_DESC = new org.apache.thrift.protocol.TField("visitDttm", org.apache.thrift.protocol.TType.I64, (short)3);
+    private static final org.apache.thrift.protocol.TField HOUSE_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("houseCode", org.apache.thrift.protocol.TType.STRING, (short) 1);
+    private static final org.apache.thrift.protocol.TField HOUSE_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("houseType", org.apache.thrift.protocol.TType.BYTE, (short) 2);
+    private static final org.apache.thrift.protocol.TField VISIT_DTTM_FIELD_DESC = new org.apache.thrift.protocol.TField("visitDttm", org.apache.thrift.protocol.TType.I64, (short) 3);
 
-  private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
-  static {
-    schemes.put(StandardScheme.class, new VisitRecordStandardSchemeFactory());
-    schemes.put(TupleScheme.class, new VisitRecordTupleSchemeFactory());
-  }
-
-  public String houseCode; // required
-  public byte houseType; // required
-  public long visitDttm; // required
-
-  /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-  public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-    HOUSE_CODE((short)1, "houseCode"),
-    HOUSE_TYPE((short)2, "houseType"),
-    VISIT_DTTM((short)3, "visitDttm");
-
-    private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
 
     static {
-      for (_Fields field : EnumSet.allOf(_Fields.class)) {
-        byName.put(field.getFieldName(), field);
-      }
+        schemes.put(StandardScheme.class, new VisitRecordStandardSchemeFactory());
+        schemes.put(TupleScheme.class, new VisitRecordTupleSchemeFactory());
     }
+
+    @Field("hid")
+    public String houseCode; // required
+    public byte houseType; // required
+    public long visitDttm; // required
 
     /**
-     * Find the _Fields constant that matches fieldId, or null if its not found.
+     * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
      */
-    public static _Fields findByThriftId(int fieldId) {
-      switch(fieldId) {
-        case 1: // HOUSE_CODE
-          return HOUSE_CODE;
-        case 2: // HOUSE_TYPE
-          return HOUSE_TYPE;
-        case 3: // VISIT_DTTM
-          return VISIT_DTTM;
-        default:
-          return null;
-      }
-    }
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+        HOUSE_CODE((short) 1, "houseCode"),
+        HOUSE_TYPE((short) 2, "houseType"),
+        VISIT_DTTM((short) 3, "visitDttm");
 
-    /**
-     * Find the _Fields constant that matches fieldId, throwing an exception
-     * if it is not found.
-     */
-    public static _Fields findByThriftIdOrThrow(int fieldId) {
-      _Fields fields = findByThriftId(fieldId);
-      if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
-      return fields;
-    }
+        private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
-    /**
-     * Find the _Fields constant that matches name, or null if its not found.
-     */
-    public static _Fields findByName(String name) {
-      return byName.get(name);
-    }
-
-    private final short _thriftId;
-    private final String _fieldName;
-
-    _Fields(short thriftId, String fieldName) {
-      _thriftId = thriftId;
-      _fieldName = fieldName;
-    }
-
-    public short getThriftFieldId() {
-      return _thriftId;
-    }
-
-    public String getFieldName() {
-      return _fieldName;
-    }
-  }
-
-  // isset id assignments
-  private static final int __HOUSETYPE_ISSET_ID = 0;
-  private static final int __VISITDTTM_ISSET_ID = 1;
-  private byte __isset_bitfield = 0;
-  public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
-  static {
-    Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.HOUSE_CODE, new org.apache.thrift.meta_data.FieldMetaData("houseCode", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-    tmpMap.put(_Fields.HOUSE_TYPE, new org.apache.thrift.meta_data.FieldMetaData("houseType", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BYTE)));
-    tmpMap.put(_Fields.VISIT_DTTM, new org.apache.thrift.meta_data.FieldMetaData("visitDttm", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
-    metaDataMap = Collections.unmodifiableMap(tmpMap);
-    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(VisitRecord.class, metaDataMap);
-  }
-
-  public VisitRecord() {
-  }
-
-  public VisitRecord(
-    String houseCode,
-    byte houseType,
-    long visitDttm)
-  {
-    this();
-    this.houseCode = houseCode;
-    this.houseType = houseType;
-    setHouseTypeIsSet(true);
-    this.visitDttm = visitDttm;
-    setVisitDttmIsSet(true);
-  }
-
-  /**
-   * Performs a deep copy on <i>other</i>.
-   */
-  public VisitRecord(VisitRecord other) {
-    __isset_bitfield = other.__isset_bitfield;
-    if (other.isSetHouseCode()) {
-      this.houseCode = other.houseCode;
-    }
-    this.houseType = other.houseType;
-    this.visitDttm = other.visitDttm;
-  }
-
-  public VisitRecord deepCopy() {
-    return new VisitRecord(this);
-  }
-
-  @Override
-  public void clear() {
-    this.houseCode = null;
-    setHouseTypeIsSet(false);
-    this.houseType = 0;
-    setVisitDttmIsSet(false);
-    this.visitDttm = 0;
-  }
-
-  public String getHouseCode() {
-    return this.houseCode;
-  }
-
-  public VisitRecord setHouseCode(String houseCode) {
-    this.houseCode = houseCode;
-    return this;
-  }
-
-  public void unsetHouseCode() {
-    this.houseCode = null;
-  }
-
-  /** Returns true if field houseCode is set (has been assigned a value) and false otherwise */
-  public boolean isSetHouseCode() {
-    return this.houseCode != null;
-  }
-
-  public void setHouseCodeIsSet(boolean value) {
-    if (!value) {
-      this.houseCode = null;
-    }
-  }
-
-  public byte getHouseType() {
-    return this.houseType;
-  }
-
-  public VisitRecord setHouseType(byte houseType) {
-    this.houseType = houseType;
-    setHouseTypeIsSet(true);
-    return this;
-  }
-
-  public void unsetHouseType() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __HOUSETYPE_ISSET_ID);
-  }
-
-  /** Returns true if field houseType is set (has been assigned a value) and false otherwise */
-  public boolean isSetHouseType() {
-    return EncodingUtils.testBit(__isset_bitfield, __HOUSETYPE_ISSET_ID);
-  }
-
-  public void setHouseTypeIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __HOUSETYPE_ISSET_ID, value);
-  }
-
-  public long getVisitDttm() {
-    return this.visitDttm;
-  }
-
-  public VisitRecord setVisitDttm(long visitDttm) {
-    this.visitDttm = visitDttm;
-    setVisitDttmIsSet(true);
-    return this;
-  }
-
-  public void unsetVisitDttm() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __VISITDTTM_ISSET_ID);
-  }
-
-  /** Returns true if field visitDttm is set (has been assigned a value) and false otherwise */
-  public boolean isSetVisitDttm() {
-    return EncodingUtils.testBit(__isset_bitfield, __VISITDTTM_ISSET_ID);
-  }
-
-  public void setVisitDttmIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __VISITDTTM_ISSET_ID, value);
-  }
-
-  public void setFieldValue(_Fields field, Object value) {
-    switch (field) {
-    case HOUSE_CODE:
-      if (value == null) {
-        unsetHouseCode();
-      } else {
-        setHouseCode((String)value);
-      }
-      break;
-
-    case HOUSE_TYPE:
-      if (value == null) {
-        unsetHouseType();
-      } else {
-        setHouseType((Byte)value);
-      }
-      break;
-
-    case VISIT_DTTM:
-      if (value == null) {
-        unsetVisitDttm();
-      } else {
-        setVisitDttm((Long)value);
-      }
-      break;
-
-    }
-  }
-
-  public Object getFieldValue(_Fields field) {
-    switch (field) {
-    case HOUSE_CODE:
-      return getHouseCode();
-
-    case HOUSE_TYPE:
-      return Byte.valueOf(getHouseType());
-
-    case VISIT_DTTM:
-      return Long.valueOf(getVisitDttm());
-
-    }
-    throw new IllegalStateException();
-  }
-
-  /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
-  public boolean isSet(_Fields field) {
-    if (field == null) {
-      throw new IllegalArgumentException();
-    }
-
-    switch (field) {
-    case HOUSE_CODE:
-      return isSetHouseCode();
-    case HOUSE_TYPE:
-      return isSetHouseType();
-    case VISIT_DTTM:
-      return isSetVisitDttm();
-    }
-    throw new IllegalStateException();
-  }
-
-  @Override
-  public boolean equals(Object that) {
-    if (that == null)
-      return false;
-    if (that instanceof VisitRecord)
-      return this.equals((VisitRecord)that);
-    return false;
-  }
-
-  public boolean equals(VisitRecord that) {
-    if (that == null)
-      return false;
-
-    boolean this_present_houseCode = true && this.isSetHouseCode();
-    boolean that_present_houseCode = true && that.isSetHouseCode();
-    if (this_present_houseCode || that_present_houseCode) {
-      if (!(this_present_houseCode && that_present_houseCode))
-        return false;
-      if (!this.houseCode.equals(that.houseCode))
-        return false;
-    }
-
-    boolean this_present_houseType = true;
-    boolean that_present_houseType = true;
-    if (this_present_houseType || that_present_houseType) {
-      if (!(this_present_houseType && that_present_houseType))
-        return false;
-      if (this.houseType != that.houseType)
-        return false;
-    }
-
-    boolean this_present_visitDttm = true;
-    boolean that_present_visitDttm = true;
-    if (this_present_visitDttm || that_present_visitDttm) {
-      if (!(this_present_visitDttm && that_present_visitDttm))
-        return false;
-      if (this.visitDttm != that.visitDttm)
-        return false;
-    }
-
-    return true;
-  }
-
-  @Override
-  public int hashCode() {
-    return 0;
-  }
-
-  public int compareTo(VisitRecord other) {
-    if (!getClass().equals(other.getClass())) {
-      return getClass().getName().compareTo(other.getClass().getName());
-    }
-
-    int lastComparison = 0;
-    VisitRecord typedOther = (VisitRecord)other;
-
-    lastComparison = Boolean.valueOf(isSetHouseCode()).compareTo(typedOther.isSetHouseCode());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetHouseCode()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.houseCode, typedOther.houseCode);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    lastComparison = Boolean.valueOf(isSetHouseType()).compareTo(typedOther.isSetHouseType());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetHouseType()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.houseType, typedOther.houseType);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    lastComparison = Boolean.valueOf(isSetVisitDttm()).compareTo(typedOther.isSetVisitDttm());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetVisitDttm()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.visitDttm, typedOther.visitDttm);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    return 0;
-  }
-
-  public _Fields fieldForId(int fieldId) {
-    return _Fields.findByThriftId(fieldId);
-  }
-
-  public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
-    schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
-  }
-
-  public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
-    schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder("VisitRecord(");
-    boolean first = true;
-
-    sb.append("houseCode:");
-    if (this.houseCode == null) {
-      sb.append("null");
-    } else {
-      sb.append(this.houseCode);
-    }
-    first = false;
-    if (!first) sb.append(", ");
-    sb.append("houseType:");
-    sb.append(this.houseType);
-    first = false;
-    if (!first) sb.append(", ");
-    sb.append("visitDttm:");
-    sb.append(this.visitDttm);
-    first = false;
-    sb.append(")");
-    return sb.toString();
-  }
-
-  public void validate() throws org.apache.thrift.TException {
-    // check for required fields
-    if (houseCode == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'houseCode' was not present! Struct: " + toString());
-    }
-    // alas, we cannot check 'houseType' because it's a primitive and you chose the non-beans generator.
-    // alas, we cannot check 'visitDttm' because it's a primitive and you chose the non-beans generator.
-    // check for sub-struct validity
-  }
-
-  private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-    try {
-      write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-    } catch (org.apache.thrift.TException te) {
-      throw new java.io.IOException(te);
-    }
-  }
-
-  private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-    try {
-      // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-      __isset_bitfield = 0;
-      read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-    } catch (org.apache.thrift.TException te) {
-      throw new java.io.IOException(te);
-    }
-  }
-
-  private static class VisitRecordStandardSchemeFactory implements SchemeFactory {
-    public VisitRecordStandardScheme getScheme() {
-      return new VisitRecordStandardScheme();
-    }
-  }
-
-  private static class VisitRecordStandardScheme extends StandardScheme<VisitRecord> {
-
-    public void read(org.apache.thrift.protocol.TProtocol iprot, VisitRecord struct) throws org.apache.thrift.TException {
-      org.apache.thrift.protocol.TField schemeField;
-      iprot.readStructBegin();
-      while (true)
-      {
-        schemeField = iprot.readFieldBegin();
-        if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
-          break;
+        static {
+            for (_Fields field : EnumSet.allOf(_Fields.class)) {
+                byName.put(field.getFieldName(), field);
+            }
         }
-        switch (schemeField.id) {
-          case 1: // HOUSE_CODE
-            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.houseCode = iprot.readString();
-              struct.setHouseCodeIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+
+        /**
+         * Find the _Fields constant that matches fieldId, or null if its not found.
+         */
+        public static _Fields findByThriftId(int fieldId) {
+            switch (fieldId) {
+                case 1: // HOUSE_CODE
+                    return HOUSE_CODE;
+                case 2: // HOUSE_TYPE
+                    return HOUSE_TYPE;
+                case 3: // VISIT_DTTM
+                    return VISIT_DTTM;
+                default:
+                    return null;
             }
-            break;
-          case 2: // HOUSE_TYPE
-            if (schemeField.type == org.apache.thrift.protocol.TType.BYTE) {
-              struct.houseType = iprot.readByte();
-              struct.setHouseTypeIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-            }
-            break;
-          case 3: // VISIT_DTTM
-            if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
-              struct.visitDttm = iprot.readI64();
-              struct.setVisitDttmIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-            }
-            break;
-          default:
-            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
         }
-        iprot.readFieldEnd();
-      }
-      iprot.readStructEnd();
 
-      // check for required fields of primitive type, which can't be checked in the validate method
-      if (!struct.isSetHouseType()) {
-        throw new org.apache.thrift.protocol.TProtocolException("Required field 'houseType' was not found in serialized data! Struct: " + toString());
-      }
-      if (!struct.isSetVisitDttm()) {
-        throw new org.apache.thrift.protocol.TProtocolException("Required field 'visitDttm' was not found in serialized data! Struct: " + toString());
-      }
-      struct.validate();
+        /**
+         * Find the _Fields constant that matches fieldId, throwing an exception
+         * if it is not found.
+         */
+        public static _Fields findByThriftIdOrThrow(int fieldId) {
+            _Fields fields = findByThriftId(fieldId);
+            if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+            return fields;
+        }
+
+        /**
+         * Find the _Fields constant that matches name, or null if its not found.
+         */
+        public static _Fields findByName(String name) {
+            return byName.get(name);
+        }
+
+        private final short _thriftId;
+        private final String _fieldName;
+
+        _Fields(short thriftId, String fieldName) {
+            _thriftId = thriftId;
+            _fieldName = fieldName;
+        }
+
+        public short getThriftFieldId() {
+            return _thriftId;
+        }
+
+        public String getFieldName() {
+            return _fieldName;
+        }
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, VisitRecord struct) throws org.apache.thrift.TException {
-      struct.validate();
+    // isset id assignments
+    private static final int __HOUSETYPE_ISSET_ID = 0;
+    private static final int __VISITDTTM_ISSET_ID = 1;
+    private byte __isset_bitfield = 0;
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
 
-      oprot.writeStructBegin(STRUCT_DESC);
-      if (struct.houseCode != null) {
-        oprot.writeFieldBegin(HOUSE_CODE_FIELD_DESC);
-        oprot.writeString(struct.houseCode);
-        oprot.writeFieldEnd();
-      }
-      oprot.writeFieldBegin(HOUSE_TYPE_FIELD_DESC);
-      oprot.writeByte(struct.houseType);
-      oprot.writeFieldEnd();
-      oprot.writeFieldBegin(VISIT_DTTM_FIELD_DESC);
-      oprot.writeI64(struct.visitDttm);
-      oprot.writeFieldEnd();
-      oprot.writeFieldStop();
-      oprot.writeStructEnd();
+    static {
+        Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+        tmpMap.put(_Fields.HOUSE_CODE, new org.apache.thrift.meta_data.FieldMetaData("houseCode", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+        tmpMap.put(_Fields.HOUSE_TYPE, new org.apache.thrift.meta_data.FieldMetaData("houseType", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BYTE)));
+        tmpMap.put(_Fields.VISIT_DTTM, new org.apache.thrift.meta_data.FieldMetaData("visitDttm", org.apache.thrift.TFieldRequirementType.REQUIRED,
+                new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
+        metaDataMap = Collections.unmodifiableMap(tmpMap);
+        org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(VisitRecord.class, metaDataMap);
     }
 
-  }
-
-  private static class VisitRecordTupleSchemeFactory implements SchemeFactory {
-    public VisitRecordTupleScheme getScheme() {
-      return new VisitRecordTupleScheme();
+    public VisitRecord() {
     }
-  }
 
-  private static class VisitRecordTupleScheme extends TupleScheme<VisitRecord> {
+    public VisitRecord(
+            String houseCode,
+            byte houseType,
+            long visitDttm) {
+        this();
+        this.houseCode = houseCode;
+        this.houseType = houseType;
+        setHouseTypeIsSet(true);
+        this.visitDttm = visitDttm;
+        setVisitDttmIsSet(true);
+    }
 
-    @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, VisitRecord struct) throws org.apache.thrift.TException {
-      TTupleProtocol oprot = (TTupleProtocol) prot;
-      oprot.writeString(struct.houseCode);
-      oprot.writeByte(struct.houseType);
-      oprot.writeI64(struct.visitDttm);
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public VisitRecord(VisitRecord other) {
+        __isset_bitfield = other.__isset_bitfield;
+        if (other.isSetHouseCode()) {
+            this.houseCode = other.houseCode;
+        }
+        this.houseType = other.houseType;
+        this.visitDttm = other.visitDttm;
+    }
+
+    public VisitRecord deepCopy() {
+        return new VisitRecord(this);
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, VisitRecord struct) throws org.apache.thrift.TException {
-      TTupleProtocol iprot = (TTupleProtocol) prot;
-      struct.houseCode = iprot.readString();
-      struct.setHouseCodeIsSet(true);
-      struct.houseType = iprot.readByte();
-      struct.setHouseTypeIsSet(true);
-      struct.visitDttm = iprot.readI64();
-      struct.setVisitDttmIsSet(true);
+    public void clear() {
+        this.houseCode = null;
+        setHouseTypeIsSet(false);
+        this.houseType = 0;
+        setVisitDttmIsSet(false);
+        this.visitDttm = 0;
     }
-  }
+
+    public String getHouseCode() {
+        return this.houseCode;
+    }
+
+    public VisitRecord setHouseCode(String houseCode) {
+        this.houseCode = houseCode;
+        return this;
+    }
+
+    public void unsetHouseCode() {
+        this.houseCode = null;
+    }
+
+    /**
+     * Returns true if field houseCode is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSetHouseCode() {
+        return this.houseCode != null;
+    }
+
+    public void setHouseCodeIsSet(boolean value) {
+        if (!value) {
+            this.houseCode = null;
+        }
+    }
+
+    public byte getHouseType() {
+        return this.houseType;
+    }
+
+    public VisitRecord setHouseType(byte houseType) {
+        this.houseType = houseType;
+        setHouseTypeIsSet(true);
+        return this;
+    }
+
+    public void unsetHouseType() {
+        __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __HOUSETYPE_ISSET_ID);
+    }
+
+    /**
+     * Returns true if field houseType is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSetHouseType() {
+        return EncodingUtils.testBit(__isset_bitfield, __HOUSETYPE_ISSET_ID);
+    }
+
+    public void setHouseTypeIsSet(boolean value) {
+        __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __HOUSETYPE_ISSET_ID, value);
+    }
+
+    public long getVisitDttm() {
+        return this.visitDttm;
+    }
+
+    public VisitRecord setVisitDttm(long visitDttm) {
+        this.visitDttm = visitDttm;
+        setVisitDttmIsSet(true);
+        return this;
+    }
+
+    public void unsetVisitDttm() {
+        __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __VISITDTTM_ISSET_ID);
+    }
+
+    /**
+     * Returns true if field visitDttm is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSetVisitDttm() {
+        return EncodingUtils.testBit(__isset_bitfield, __VISITDTTM_ISSET_ID);
+    }
+
+    public void setVisitDttmIsSet(boolean value) {
+        __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __VISITDTTM_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+        switch (field) {
+            case HOUSE_CODE:
+                if (value == null) {
+                    unsetHouseCode();
+                } else {
+                    setHouseCode((String) value);
+                }
+                break;
+
+            case HOUSE_TYPE:
+                if (value == null) {
+                    unsetHouseType();
+                } else {
+                    setHouseType((Byte) value);
+                }
+                break;
+
+            case VISIT_DTTM:
+                if (value == null) {
+                    unsetVisitDttm();
+                } else {
+                    setVisitDttm((Long) value);
+                }
+                break;
+
+        }
+    }
+
+    public Object getFieldValue(_Fields field) {
+        switch (field) {
+            case HOUSE_CODE:
+                return getHouseCode();
+
+            case HOUSE_TYPE:
+                return Byte.valueOf(getHouseType());
+
+            case VISIT_DTTM:
+                return Long.valueOf(getVisitDttm());
+
+        }
+        throw new IllegalStateException();
+    }
+
+    /**
+     * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+     */
+    public boolean isSet(_Fields field) {
+        if (field == null) {
+            throw new IllegalArgumentException();
+        }
+
+        switch (field) {
+            case HOUSE_CODE:
+                return isSetHouseCode();
+            case HOUSE_TYPE:
+                return isSetHouseType();
+            case VISIT_DTTM:
+                return isSetVisitDttm();
+        }
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (that == null)
+            return false;
+        if (that instanceof VisitRecord)
+            return this.equals((VisitRecord) that);
+        return false;
+    }
+
+    public boolean equals(VisitRecord that) {
+        if (that == null)
+            return false;
+
+        boolean this_present_houseCode = true && this.isSetHouseCode();
+        boolean that_present_houseCode = true && that.isSetHouseCode();
+        if (this_present_houseCode || that_present_houseCode) {
+            if (!(this_present_houseCode && that_present_houseCode))
+                return false;
+            if (!this.houseCode.equals(that.houseCode))
+                return false;
+        }
+
+        boolean this_present_houseType = true;
+        boolean that_present_houseType = true;
+        if (this_present_houseType || that_present_houseType) {
+            if (!(this_present_houseType && that_present_houseType))
+                return false;
+            if (this.houseType != that.houseType)
+                return false;
+        }
+
+        boolean this_present_visitDttm = true;
+        boolean that_present_visitDttm = true;
+        if (this_present_visitDttm || that_present_visitDttm) {
+            if (!(this_present_visitDttm && that_present_visitDttm))
+                return false;
+            if (this.visitDttm != that.visitDttm)
+                return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+
+    public int compareTo(VisitRecord other) {
+        if (!getClass().equals(other.getClass())) {
+            return getClass().getName().compareTo(other.getClass().getName());
+        }
+
+        int lastComparison = 0;
+        VisitRecord typedOther = (VisitRecord) other;
+
+        lastComparison = Boolean.valueOf(isSetHouseCode()).compareTo(typedOther.isSetHouseCode());
+        if (lastComparison != 0) {
+            return lastComparison;
+        }
+        if (isSetHouseCode()) {
+            lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.houseCode, typedOther.houseCode);
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+        }
+        lastComparison = Boolean.valueOf(isSetHouseType()).compareTo(typedOther.isSetHouseType());
+        if (lastComparison != 0) {
+            return lastComparison;
+        }
+        if (isSetHouseType()) {
+            lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.houseType, typedOther.houseType);
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+        }
+        lastComparison = Boolean.valueOf(isSetVisitDttm()).compareTo(typedOther.isSetVisitDttm());
+        if (lastComparison != 0) {
+            return lastComparison;
+        }
+        if (isSetVisitDttm()) {
+            lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.visitDttm, typedOther.visitDttm);
+            if (lastComparison != 0) {
+                return lastComparison;
+            }
+        }
+        return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+        return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+        schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+        schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("VisitRecord(");
+        boolean first = true;
+
+        sb.append("houseCode:");
+        if (this.houseCode == null) {
+            sb.append("null");
+        } else {
+            sb.append(this.houseCode);
+        }
+        first = false;
+        if (!first) sb.append(", ");
+        sb.append("houseType:");
+        sb.append(this.houseType);
+        first = false;
+        if (!first) sb.append(", ");
+        sb.append("visitDttm:");
+        sb.append(this.visitDttm);
+        first = false;
+        sb.append(")");
+        return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+        // check for required fields
+        if (houseCode == null) {
+            throw new org.apache.thrift.protocol.TProtocolException("Required field 'houseCode' was not present! Struct: " + toString());
+        }
+        // alas, we cannot check 'houseType' because it's a primitive and you chose the non-beans generator.
+        // alas, we cannot check 'visitDttm' because it's a primitive and you chose the non-beans generator.
+        // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+        try {
+            write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+        } catch (org.apache.thrift.TException te) {
+            throw new java.io.IOException(te);
+        }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+        try {
+            // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+            __isset_bitfield = 0;
+            read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+        } catch (org.apache.thrift.TException te) {
+            throw new java.io.IOException(te);
+        }
+    }
+
+    private static class VisitRecordStandardSchemeFactory implements SchemeFactory {
+        public VisitRecordStandardScheme getScheme() {
+            return new VisitRecordStandardScheme();
+        }
+    }
+
+    private static class VisitRecordStandardScheme extends StandardScheme<VisitRecord> {
+
+        public void read(org.apache.thrift.protocol.TProtocol iprot, VisitRecord struct) throws org.apache.thrift.TException {
+            org.apache.thrift.protocol.TField schemeField;
+            iprot.readStructBegin();
+            while (true) {
+                schemeField = iprot.readFieldBegin();
+                if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+                    break;
+                }
+                switch (schemeField.id) {
+                    case 1: // HOUSE_CODE
+                        if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                            struct.houseCode = iprot.readString();
+                            struct.setHouseCodeIsSet(true);
+                        } else {
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                        }
+                        break;
+                    case 2: // HOUSE_TYPE
+                        if (schemeField.type == org.apache.thrift.protocol.TType.BYTE) {
+                            struct.houseType = iprot.readByte();
+                            struct.setHouseTypeIsSet(true);
+                        } else {
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                        }
+                        break;
+                    case 3: // VISIT_DTTM
+                        if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+                            struct.visitDttm = iprot.readI64();
+                            struct.setVisitDttmIsSet(true);
+                        } else {
+                            org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                        }
+                        break;
+                    default:
+                        org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                }
+                iprot.readFieldEnd();
+            }
+            iprot.readStructEnd();
+
+            // check for required fields of primitive type, which can't be checked in the validate method
+            if (!struct.isSetHouseType()) {
+                throw new org.apache.thrift.protocol.TProtocolException("Required field 'houseType' was not found in serialized data! Struct: " + toString());
+            }
+            if (!struct.isSetVisitDttm()) {
+                throw new org.apache.thrift.protocol.TProtocolException("Required field 'visitDttm' was not found in serialized data! Struct: " + toString());
+            }
+            struct.validate();
+        }
+
+        public void write(org.apache.thrift.protocol.TProtocol oprot, VisitRecord struct) throws org.apache.thrift.TException {
+            struct.validate();
+
+            oprot.writeStructBegin(STRUCT_DESC);
+            if (struct.houseCode != null) {
+                oprot.writeFieldBegin(HOUSE_CODE_FIELD_DESC);
+                oprot.writeString(struct.houseCode);
+                oprot.writeFieldEnd();
+            }
+            oprot.writeFieldBegin(HOUSE_TYPE_FIELD_DESC);
+            oprot.writeByte(struct.houseType);
+            oprot.writeFieldEnd();
+            oprot.writeFieldBegin(VISIT_DTTM_FIELD_DESC);
+            oprot.writeI64(struct.visitDttm);
+            oprot.writeFieldEnd();
+            oprot.writeFieldStop();
+            oprot.writeStructEnd();
+        }
+
+    }
+
+    private static class VisitRecordTupleSchemeFactory implements SchemeFactory {
+        public VisitRecordTupleScheme getScheme() {
+            return new VisitRecordTupleScheme();
+        }
+    }
+
+    private static class VisitRecordTupleScheme extends TupleScheme<VisitRecord> {
+
+        @Override
+        public void write(org.apache.thrift.protocol.TProtocol prot, VisitRecord struct) throws org.apache.thrift.TException {
+            TTupleProtocol oprot = (TTupleProtocol) prot;
+            oprot.writeString(struct.houseCode);
+            oprot.writeByte(struct.houseType);
+            oprot.writeI64(struct.visitDttm);
+        }
+
+        @Override
+        public void read(org.apache.thrift.protocol.TProtocol prot, VisitRecord struct) throws org.apache.thrift.TException {
+            TTupleProtocol iprot = (TTupleProtocol) prot;
+            struct.houseCode = iprot.readString();
+            struct.setHouseCodeIsSet(true);
+            struct.houseType = iprot.readByte();
+            struct.setHouseTypeIsSet(true);
+            struct.visitDttm = iprot.readI64();
+            struct.setVisitDttmIsSet(true);
+        }
+    }
 
 }
 
