@@ -210,6 +210,9 @@ project ("las-api") {
 configure (rootProject) {
     description = "Log Analyzing System"
 
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+
     // don't publish the default jar for the root project
     configurations.archives.artifacts.clear()
 
