@@ -10,11 +10,14 @@ LAS uses a Gradle-based build system. You can use `./gradlew` in unix or `./grad
 ### check out sources
 `git clone git://github.com/mengke/las.git`
 
+### import code to your ide
+`./gradlew eclipse` or `./gradlew idea`
+
 ### compile and test, build all jars, distribution zips
 `./gradlew build`
 
 ### build a sub-project
 `./gradlew :sub-project-name:build`
 
-... and discover more commands with `./gradlew tasks`.
+You can use `./gradlew tasks` to check more available commands.
 
