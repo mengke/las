@@ -29,12 +29,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document
 public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord, UserVisitRecord._Fields>, java.io.Serializable, Cloneable {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("UserVisitRecord");
 
@@ -48,12 +43,8 @@ public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord,
     schemes.put(TupleScheme.class, new UserVisitRecordTupleSchemeFactory());
   }
 
-    @Id
   public String userCode; // required
-
   public byte userType; // required
-    @DBRef
-    @Field("houseVisits")
   public List<VisitRecord> visitRecords; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
@@ -421,11 +412,11 @@ public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord,
     return _Fields.findByThriftId(fieldId);
   }
 
-  public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+  public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
     schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
   }
 
-  public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+  public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
     schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
   }
 
@@ -459,10 +450,10 @@ public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord,
     return sb.toString();
   }
 
-  public void validate() throws TException {
+  public void validate() throws org.apache.thrift.TException {
     // check for required fields
     if (userCode == null) {
-      throw new TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
+      throw new org.apache.thrift.protocol.TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
     }
     // alas, we cannot check 'userType' because it's a primitive and you chose the non-beans generator.
     // check for sub-struct validity
@@ -471,7 +462,7 @@ public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord,
   private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
     try {
       write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-    } catch (TException te) {
+    } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
     }
   }
@@ -481,7 +472,7 @@ public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord,
       // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
       __isset_bitfield = 0;
       read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-    } catch (TException te) {
+    } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
     }
   }
@@ -494,7 +485,7 @@ public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord,
 
   private static class UserVisitRecordStandardScheme extends StandardScheme<UserVisitRecord> {
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot, UserVisitRecord struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot, UserVisitRecord struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TField schemeField;
       iprot.readStructBegin();
       while (true)
@@ -548,12 +539,12 @@ public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord,
 
       // check for required fields of primitive type, which can't be checked in the validate method
       if (!struct.isSetUserType()) {
-        throw new TProtocolException("Required field 'userType' was not found in serialized data! Struct: " + toString());
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'userType' was not found in serialized data! Struct: " + toString());
       }
       struct.validate();
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, UserVisitRecord struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot, UserVisitRecord struct) throws org.apache.thrift.TException {
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
@@ -594,7 +585,7 @@ public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord,
   private static class UserVisitRecordTupleScheme extends TupleScheme<UserVisitRecord> {
 
     @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, UserVisitRecord struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol prot, UserVisitRecord struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       oprot.writeString(struct.userCode);
       oprot.writeByte(struct.userType);
@@ -615,7 +606,7 @@ public class UserVisitRecord implements org.apache.thrift.TBase<UserVisitRecord,
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, UserVisitRecord struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol prot, UserVisitRecord struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
       struct.userCode = iprot.readString();
       struct.setUserCodeIsSet(true);

@@ -29,14 +29,13 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
 public class Recommendation implements org.apache.thrift.TBase<Recommendation, Recommendation._Fields>, java.io.Serializable, Cloneable {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("Recommendation");
 
   private static final org.apache.thrift.protocol.TField ITEM_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("itemId", org.apache.thrift.protocol.TType.STRING, (short)1);
-  private static final org.apache.thrift.protocol.TField PREF_VALUE_FIELD_DESC = new org.apache.thrift.protocol.TField("prefValue", org.apache.thrift.protocol.TType.DOUBLE, (short)2);
+  private static final org.apache.thrift.protocol.TField ITEM_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("itemType", org.apache.thrift.protocol.TType.BYTE, (short)2);
+  private static final org.apache.thrift.protocol.TField PREF_VALUE_FIELD_DESC = new org.apache.thrift.protocol.TField("prefValue", org.apache.thrift.protocol.TType.I32, (short)3);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -45,12 +44,14 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
   }
 
   public String itemId; // required
-  public double prefValue; // required
+  public byte itemType; // required
+  public int prefValue; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
     ITEM_ID((short)1, "itemId"),
-    PREF_VALUE((short)2, "prefValue");
+    ITEM_TYPE((short)2, "itemType"),
+    PREF_VALUE((short)3, "prefValue");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -67,7 +68,9 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
       switch(fieldId) {
         case 1: // ITEM_ID
           return ITEM_ID;
-        case 2: // PREF_VALUE
+        case 2: // ITEM_TYPE
+          return ITEM_TYPE;
+        case 3: // PREF_VALUE
           return PREF_VALUE;
         default:
           return null;
@@ -109,15 +112,18 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
   }
 
   // isset id assignments
-  private static final int __PREFVALUE_ISSET_ID = 0;
+  private static final int __ITEMTYPE_ISSET_ID = 0;
+  private static final int __PREFVALUE_ISSET_ID = 1;
   private byte __isset_bitfield = 0;
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
     tmpMap.put(_Fields.ITEM_ID, new org.apache.thrift.meta_data.FieldMetaData("itemId", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.ITEM_TYPE, new org.apache.thrift.meta_data.FieldMetaData("itemType", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BYTE)));
     tmpMap.put(_Fields.PREF_VALUE, new org.apache.thrift.meta_data.FieldMetaData("prefValue", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(Recommendation.class, metaDataMap);
   }
@@ -127,10 +133,13 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
 
   public Recommendation(
     String itemId,
-    double prefValue)
+    byte itemType,
+    int prefValue)
   {
     this();
     this.itemId = itemId;
+    this.itemType = itemType;
+    setItemTypeIsSet(true);
     this.prefValue = prefValue;
     setPrefValueIsSet(true);
   }
@@ -143,6 +152,7 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
     if (other.isSetItemId()) {
       this.itemId = other.itemId;
     }
+    this.itemType = other.itemType;
     this.prefValue = other.prefValue;
   }
 
@@ -153,8 +163,10 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
   @Override
   public void clear() {
     this.itemId = null;
+    setItemTypeIsSet(false);
+    this.itemType = 0;
     setPrefValueIsSet(false);
-    this.prefValue = 0.0;
+    this.prefValue = 0;
   }
 
   public String getItemId() {
@@ -181,11 +193,34 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
     }
   }
 
-  public double getPrefValue() {
+  public byte getItemType() {
+    return this.itemType;
+  }
+
+  public Recommendation setItemType(byte itemType) {
+    this.itemType = itemType;
+    setItemTypeIsSet(true);
+    return this;
+  }
+
+  public void unsetItemType() {
+    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __ITEMTYPE_ISSET_ID);
+  }
+
+  /** Returns true if field itemType is set (has been assigned a value) and false otherwise */
+  public boolean isSetItemType() {
+    return EncodingUtils.testBit(__isset_bitfield, __ITEMTYPE_ISSET_ID);
+  }
+
+  public void setItemTypeIsSet(boolean value) {
+    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __ITEMTYPE_ISSET_ID, value);
+  }
+
+  public int getPrefValue() {
     return this.prefValue;
   }
 
-  public Recommendation setPrefValue(double prefValue) {
+  public Recommendation setPrefValue(int prefValue) {
     this.prefValue = prefValue;
     setPrefValueIsSet(true);
     return this;
@@ -214,11 +249,19 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
       }
       break;
 
+    case ITEM_TYPE:
+      if (value == null) {
+        unsetItemType();
+      } else {
+        setItemType((Byte)value);
+      }
+      break;
+
     case PREF_VALUE:
       if (value == null) {
         unsetPrefValue();
       } else {
-        setPrefValue((Double)value);
+        setPrefValue((Integer)value);
       }
       break;
 
@@ -230,8 +273,11 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
     case ITEM_ID:
       return getItemId();
 
+    case ITEM_TYPE:
+      return Byte.valueOf(getItemType());
+
     case PREF_VALUE:
-      return Double.valueOf(getPrefValue());
+      return Integer.valueOf(getPrefValue());
 
     }
     throw new IllegalStateException();
@@ -246,6 +292,8 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
     switch (field) {
     case ITEM_ID:
       return isSetItemId();
+    case ITEM_TYPE:
+      return isSetItemType();
     case PREF_VALUE:
       return isSetPrefValue();
     }
@@ -271,6 +319,15 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
       if (!(this_present_itemId && that_present_itemId))
         return false;
       if (!this.itemId.equals(that.itemId))
+        return false;
+    }
+
+    boolean this_present_itemType = true;
+    boolean that_present_itemType = true;
+    if (this_present_itemType || that_present_itemType) {
+      if (!(this_present_itemType && that_present_itemType))
+        return false;
+      if (this.itemType != that.itemType)
         return false;
     }
 
@@ -309,6 +366,16 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
         return lastComparison;
       }
     }
+    lastComparison = Boolean.valueOf(isSetItemType()).compareTo(typedOther.isSetItemType());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetItemType()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.itemType, typedOther.itemType);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
     lastComparison = Boolean.valueOf(isSetPrefValue()).compareTo(typedOther.isSetPrefValue());
     if (lastComparison != 0) {
       return lastComparison;
@@ -326,11 +393,11 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
     return _Fields.findByThriftId(fieldId);
   }
 
-  public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+  public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
     schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
   }
 
-  public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+  public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
     schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
   }
 
@@ -347,6 +414,10 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
     }
     first = false;
     if (!first) sb.append(", ");
+    sb.append("itemType:");
+    sb.append(this.itemType);
+    first = false;
+    if (!first) sb.append(", ");
     sb.append("prefValue:");
     sb.append(this.prefValue);
     first = false;
@@ -354,11 +425,12 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
     return sb.toString();
   }
 
-  public void validate() throws TException {
+  public void validate() throws org.apache.thrift.TException {
     // check for required fields
     if (itemId == null) {
-      throw new TProtocolException("Required field 'itemId' was not present! Struct: " + toString());
+      throw new org.apache.thrift.protocol.TProtocolException("Required field 'itemId' was not present! Struct: " + toString());
     }
+    // alas, we cannot check 'itemType' because it's a primitive and you chose the non-beans generator.
     // alas, we cannot check 'prefValue' because it's a primitive and you chose the non-beans generator.
     // check for sub-struct validity
   }
@@ -366,7 +438,7 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
   private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
     try {
       write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-    } catch (TException te) {
+    } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
     }
   }
@@ -376,7 +448,7 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
       // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
       __isset_bitfield = 0;
       read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-    } catch (TException te) {
+    } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
     }
   }
@@ -389,7 +461,7 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
 
   private static class RecommendationStandardScheme extends StandardScheme<Recommendation> {
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot, Recommendation struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot, Recommendation struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TField schemeField;
       iprot.readStructBegin();
       while (true)
@@ -407,9 +479,17 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 2: // PREF_VALUE
-            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
-              struct.prefValue = iprot.readDouble();
+          case 2: // ITEM_TYPE
+            if (schemeField.type == org.apache.thrift.protocol.TType.BYTE) {
+              struct.itemType = iprot.readByte();
+              struct.setItemTypeIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 3: // PREF_VALUE
+            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+              struct.prefValue = iprot.readI32();
               struct.setPrefValueIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -423,13 +503,16 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
       iprot.readStructEnd();
 
       // check for required fields of primitive type, which can't be checked in the validate method
+      if (!struct.isSetItemType()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'itemType' was not found in serialized data! Struct: " + toString());
+      }
       if (!struct.isSetPrefValue()) {
-        throw new TProtocolException("Required field 'prefValue' was not found in serialized data! Struct: " + toString());
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'prefValue' was not found in serialized data! Struct: " + toString());
       }
       struct.validate();
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, Recommendation struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot, Recommendation struct) throws org.apache.thrift.TException {
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
@@ -438,8 +521,11 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
         oprot.writeString(struct.itemId);
         oprot.writeFieldEnd();
       }
+      oprot.writeFieldBegin(ITEM_TYPE_FIELD_DESC);
+      oprot.writeByte(struct.itemType);
+      oprot.writeFieldEnd();
       oprot.writeFieldBegin(PREF_VALUE_FIELD_DESC);
-      oprot.writeDouble(struct.prefValue);
+      oprot.writeI32(struct.prefValue);
       oprot.writeFieldEnd();
       oprot.writeFieldStop();
       oprot.writeStructEnd();
@@ -456,18 +542,21 @@ public class Recommendation implements org.apache.thrift.TBase<Recommendation, R
   private static class RecommendationTupleScheme extends TupleScheme<Recommendation> {
 
     @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, Recommendation struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol prot, Recommendation struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       oprot.writeString(struct.itemId);
-      oprot.writeDouble(struct.prefValue);
+      oprot.writeByte(struct.itemType);
+      oprot.writeI32(struct.prefValue);
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, Recommendation struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol prot, Recommendation struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
       struct.itemId = iprot.readString();
       struct.setItemIdIsSet(true);
-      struct.prefValue = iprot.readDouble();
+      struct.itemType = iprot.readByte();
+      struct.setItemTypeIsSet(true);
+      struct.prefValue = iprot.readI32();
       struct.setPrefValueIsSet(true);
     }
   }

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.HashMap;
 import org.apache.thrift.TEnum;
 
-public enum UserType implements TEnum {
+public enum UserType implements org.apache.thrift.TEnum {
   ALL(0),
   ANONYMOUS(1),
   LOGIN(2);

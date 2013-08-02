@@ -29,11 +29,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
 public class UserRecommendations implements org.apache.thrift.TBase<UserRecommendations, UserRecommendations._Fields>, java.io.Serializable, Cloneable {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("UserRecommendations");
 
@@ -46,9 +42,7 @@ public class UserRecommendations implements org.apache.thrift.TBase<UserRecommen
     schemes.put(TupleScheme.class, new UserRecommendationsTupleSchemeFactory());
   }
 
-    @Id
   public String userCode; // required
-    @DBRef
   public List<Recommendation> recommendations; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
@@ -347,11 +341,11 @@ public class UserRecommendations implements org.apache.thrift.TBase<UserRecommen
     return _Fields.findByThriftId(fieldId);
   }
 
-  public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+  public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
     schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
   }
 
-  public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+  public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
     schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
   }
 
@@ -381,10 +375,10 @@ public class UserRecommendations implements org.apache.thrift.TBase<UserRecommen
     return sb.toString();
   }
 
-  public void validate() throws TException {
+  public void validate() throws org.apache.thrift.TException {
     // check for required fields
     if (userCode == null) {
-      throw new TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
+      throw new org.apache.thrift.protocol.TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
     }
     // check for sub-struct validity
   }
@@ -392,7 +386,7 @@ public class UserRecommendations implements org.apache.thrift.TBase<UserRecommen
   private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
     try {
       write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-    } catch (TException te) {
+    } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
     }
   }
@@ -400,7 +394,7 @@ public class UserRecommendations implements org.apache.thrift.TBase<UserRecommen
   private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
     try {
       read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-    } catch (TException te) {
+    } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
     }
   }
@@ -413,7 +407,7 @@ public class UserRecommendations implements org.apache.thrift.TBase<UserRecommen
 
   private static class UserRecommendationsStandardScheme extends StandardScheme<UserRecommendations> {
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot, UserRecommendations struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot, UserRecommendations struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TField schemeField;
       iprot.readStructBegin();
       while (true)
@@ -461,7 +455,7 @@ public class UserRecommendations implements org.apache.thrift.TBase<UserRecommen
       struct.validate();
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, UserRecommendations struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot, UserRecommendations struct) throws org.apache.thrift.TException {
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
@@ -499,7 +493,7 @@ public class UserRecommendations implements org.apache.thrift.TBase<UserRecommen
   private static class UserRecommendationsTupleScheme extends TupleScheme<UserRecommendations> {
 
     @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, UserRecommendations struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol prot, UserRecommendations struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       oprot.writeString(struct.userCode);
       BitSet optionals = new BitSet();
@@ -519,7 +513,7 @@ public class UserRecommendations implements org.apache.thrift.TBase<UserRecommen
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, UserRecommendations struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol prot, UserRecommendations struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
       struct.userCode = iprot.readString();
       struct.setUserCodeIsSet(true);

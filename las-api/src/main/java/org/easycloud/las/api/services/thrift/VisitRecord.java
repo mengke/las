@@ -29,10 +29,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document
 public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRecord._Fields>, java.io.Serializable, Cloneable {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("VisitRecord");
 
@@ -46,11 +43,8 @@ public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRe
     schemes.put(TupleScheme.class, new VisitRecordTupleSchemeFactory());
   }
 
-    @Field("hid")
   public String houseCode; // required
-
   public byte houseType; // required
-
   public long visitDttm; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
@@ -399,11 +393,11 @@ public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRe
     return _Fields.findByThriftId(fieldId);
   }
 
-  public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+  public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
     schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
   }
 
-  public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+  public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
     schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
   }
 
@@ -431,10 +425,10 @@ public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRe
     return sb.toString();
   }
 
-  public void validate() throws TException {
+  public void validate() throws org.apache.thrift.TException {
     // check for required fields
     if (houseCode == null) {
-      throw new TProtocolException("Required field 'houseCode' was not present! Struct: " + toString());
+      throw new org.apache.thrift.protocol.TProtocolException("Required field 'houseCode' was not present! Struct: " + toString());
     }
     // alas, we cannot check 'houseType' because it's a primitive and you chose the non-beans generator.
     // alas, we cannot check 'visitDttm' because it's a primitive and you chose the non-beans generator.
@@ -444,7 +438,7 @@ public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRe
   private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
     try {
       write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-    } catch (TException te) {
+    } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
     }
   }
@@ -454,7 +448,7 @@ public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRe
       // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
       __isset_bitfield = 0;
       read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-    } catch (TException te) {
+    } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
     }
   }
@@ -467,7 +461,7 @@ public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRe
 
   private static class VisitRecordStandardScheme extends StandardScheme<VisitRecord> {
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot, VisitRecord struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot, VisitRecord struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TField schemeField;
       iprot.readStructBegin();
       while (true)
@@ -510,15 +504,15 @@ public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRe
 
       // check for required fields of primitive type, which can't be checked in the validate method
       if (!struct.isSetHouseType()) {
-        throw new TProtocolException("Required field 'houseType' was not found in serialized data! Struct: " + toString());
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'houseType' was not found in serialized data! Struct: " + toString());
       }
       if (!struct.isSetVisitDttm()) {
-        throw new TProtocolException("Required field 'visitDttm' was not found in serialized data! Struct: " + toString());
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'visitDttm' was not found in serialized data! Struct: " + toString());
       }
       struct.validate();
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, VisitRecord struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot, VisitRecord struct) throws org.apache.thrift.TException {
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
@@ -548,7 +542,7 @@ public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRe
   private static class VisitRecordTupleScheme extends TupleScheme<VisitRecord> {
 
     @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, VisitRecord struct) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol prot, VisitRecord struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       oprot.writeString(struct.houseCode);
       oprot.writeByte(struct.houseType);
@@ -556,7 +550,7 @@ public class VisitRecord implements org.apache.thrift.TBase<VisitRecord, VisitRe
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, VisitRecord struct) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol prot, VisitRecord struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
       struct.houseCode = iprot.readString();
       struct.setHouseCodeIsSet(true);

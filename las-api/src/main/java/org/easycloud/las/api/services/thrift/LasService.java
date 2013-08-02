@@ -34,25 +34,25 @@ public class LasService {
 
   public interface Iface {
 
-    public List<UserVisitRecord> listUserVisitRecords(int start, int limit) throws TException;
+    public List<UserVisitRecord> listUserVisitRecords(int start, int limit) throws org.apache.thrift.TException;
 
-    public List<VisitRecord> findVisitRecords(String userCode, byte houseType) throws TException;
+    public List<VisitRecord> findVisitRecords(String userCode, byte houseType) throws org.apache.thrift.TException;
 
-    public List<UserRecommendations> listItemBasedRecommendations(int start, int limit) throws TException;
+    public List<UserRecommendations> listItemBasedRecommendations(int start, int limit) throws org.apache.thrift.TException;
 
-    public List<Recommendation> findItemBasedRecommendations(String userCode) throws TException;
+    public List<Recommendation> findItemBasedRecommendations(String userCode) throws org.apache.thrift.TException;
 
   }
 
   public interface AsyncIface {
 
-    public void listUserVisitRecords(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.listUserVisitRecords_call> resultHandler) throws TException;
+    public void listUserVisitRecords(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.listUserVisitRecords_call> resultHandler) throws org.apache.thrift.TException;
 
-    public void findVisitRecords(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.findVisitRecords_call> resultHandler) throws TException;
+    public void findVisitRecords(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.findVisitRecords_call> resultHandler) throws org.apache.thrift.TException;
 
-    public void listItemBasedRecommendations(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.listItemBasedRecommendations_call> resultHandler) throws TException;
+    public void listItemBasedRecommendations(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.listItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException;
 
-    public void findItemBasedRecommendations(String userCode, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.findItemBasedRecommendations_call> resultHandler) throws TException;
+    public void findItemBasedRecommendations(String userCode, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.findItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -76,13 +76,13 @@ public class LasService {
       super(iprot, oprot);
     }
 
-    public List<UserVisitRecord> listUserVisitRecords(int start, int limit) throws TException
+    public List<UserVisitRecord> listUserVisitRecords(int start, int limit) throws org.apache.thrift.TException
     {
       send_listUserVisitRecords(start, limit);
       return recv_listUserVisitRecords();
     }
 
-    public void send_listUserVisitRecords(int start, int limit) throws TException
+    public void send_listUserVisitRecords(int start, int limit) throws org.apache.thrift.TException
     {
       listUserVisitRecords_args args = new listUserVisitRecords_args();
       args.setStart(start);
@@ -90,7 +90,7 @@ public class LasService {
       sendBase("listUserVisitRecords", args);
     }
 
-    public List<UserVisitRecord> recv_listUserVisitRecords() throws TException
+    public List<UserVisitRecord> recv_listUserVisitRecords() throws org.apache.thrift.TException
     {
       listUserVisitRecords_result result = new listUserVisitRecords_result();
       receiveBase(result, "listUserVisitRecords");
@@ -100,13 +100,13 @@ public class LasService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listUserVisitRecords failed: unknown result");
     }
 
-    public List<VisitRecord> findVisitRecords(String userCode, byte houseType) throws TException
+    public List<VisitRecord> findVisitRecords(String userCode, byte houseType) throws org.apache.thrift.TException
     {
       send_findVisitRecords(userCode, houseType);
       return recv_findVisitRecords();
     }
 
-    public void send_findVisitRecords(String userCode, byte houseType) throws TException
+    public void send_findVisitRecords(String userCode, byte houseType) throws org.apache.thrift.TException
     {
       findVisitRecords_args args = new findVisitRecords_args();
       args.setUserCode(userCode);
@@ -114,7 +114,7 @@ public class LasService {
       sendBase("findVisitRecords", args);
     }
 
-    public List<VisitRecord> recv_findVisitRecords() throws TException
+    public List<VisitRecord> recv_findVisitRecords() throws org.apache.thrift.TException
     {
       findVisitRecords_result result = new findVisitRecords_result();
       receiveBase(result, "findVisitRecords");
@@ -124,13 +124,13 @@ public class LasService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "findVisitRecords failed: unknown result");
     }
 
-    public List<UserRecommendations> listItemBasedRecommendations(int start, int limit) throws TException
+    public List<UserRecommendations> listItemBasedRecommendations(int start, int limit) throws org.apache.thrift.TException
     {
       send_listItemBasedRecommendations(start, limit);
       return recv_listItemBasedRecommendations();
     }
 
-    public void send_listItemBasedRecommendations(int start, int limit) throws TException
+    public void send_listItemBasedRecommendations(int start, int limit) throws org.apache.thrift.TException
     {
       listItemBasedRecommendations_args args = new listItemBasedRecommendations_args();
       args.setStart(start);
@@ -138,7 +138,7 @@ public class LasService {
       sendBase("listItemBasedRecommendations", args);
     }
 
-    public List<UserRecommendations> recv_listItemBasedRecommendations() throws TException
+    public List<UserRecommendations> recv_listItemBasedRecommendations() throws org.apache.thrift.TException
     {
       listItemBasedRecommendations_result result = new listItemBasedRecommendations_result();
       receiveBase(result, "listItemBasedRecommendations");
@@ -148,20 +148,20 @@ public class LasService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listItemBasedRecommendations failed: unknown result");
     }
 
-    public List<Recommendation> findItemBasedRecommendations(String userCode) throws TException
+    public List<Recommendation> findItemBasedRecommendations(String userCode) throws org.apache.thrift.TException
     {
       send_findItemBasedRecommendations(userCode);
       return recv_findItemBasedRecommendations();
     }
 
-    public void send_findItemBasedRecommendations(String userCode) throws TException
+    public void send_findItemBasedRecommendations(String userCode) throws org.apache.thrift.TException
     {
       findItemBasedRecommendations_args args = new findItemBasedRecommendations_args();
       args.setUserCode(userCode);
       sendBase("findItemBasedRecommendations", args);
     }
 
-    public List<Recommendation> recv_findItemBasedRecommendations() throws TException
+    public List<Recommendation> recv_findItemBasedRecommendations() throws org.apache.thrift.TException
     {
       findItemBasedRecommendations_result result = new findItemBasedRecommendations_result();
       receiveBase(result, "findItemBasedRecommendations");
@@ -189,7 +189,7 @@ public class LasService {
       super(protocolFactory, clientManager, transport);
     }
 
-    public void listUserVisitRecords(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listUserVisitRecords_call> resultHandler) throws TException {
+    public void listUserVisitRecords(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listUserVisitRecords_call> resultHandler) throws org.apache.thrift.TException {
       checkReady();
       listUserVisitRecords_call method_call = new listUserVisitRecords_call(start, limit, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
@@ -199,13 +199,13 @@ public class LasService {
     public static class listUserVisitRecords_call extends org.apache.thrift.async.TAsyncMethodCall {
       private int start;
       private int limit;
-      public listUserVisitRecords_call(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listUserVisitRecords_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws TException {
+      public listUserVisitRecords_call(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listUserVisitRecords_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.start = start;
         this.limit = limit;
       }
 
-      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws TException {
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listUserVisitRecords", org.apache.thrift.protocol.TMessageType.CALL, 0));
         listUserVisitRecords_args args = new listUserVisitRecords_args();
         args.setStart(start);
@@ -214,8 +214,8 @@ public class LasService {
         prot.writeMessageEnd();
       }
 
-      public List<UserVisitRecord> getResult() throws TException {
-        if (getState() != State.RESPONSE_READ) {
+      public List<UserVisitRecord> getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
           throw new IllegalStateException("Method call not finished!");
         }
         org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
@@ -224,7 +224,7 @@ public class LasService {
       }
     }
 
-    public void findVisitRecords(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<findVisitRecords_call> resultHandler) throws TException {
+    public void findVisitRecords(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<findVisitRecords_call> resultHandler) throws org.apache.thrift.TException {
       checkReady();
       findVisitRecords_call method_call = new findVisitRecords_call(userCode, houseType, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
@@ -234,13 +234,13 @@ public class LasService {
     public static class findVisitRecords_call extends org.apache.thrift.async.TAsyncMethodCall {
       private String userCode;
       private byte houseType;
-      public findVisitRecords_call(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<findVisitRecords_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws TException {
+      public findVisitRecords_call(String userCode, byte houseType, org.apache.thrift.async.AsyncMethodCallback<findVisitRecords_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.userCode = userCode;
         this.houseType = houseType;
       }
 
-      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws TException {
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("findVisitRecords", org.apache.thrift.protocol.TMessageType.CALL, 0));
         findVisitRecords_args args = new findVisitRecords_args();
         args.setUserCode(userCode);
@@ -249,8 +249,8 @@ public class LasService {
         prot.writeMessageEnd();
       }
 
-      public List<VisitRecord> getResult() throws TException {
-        if (getState() != State.RESPONSE_READ) {
+      public List<VisitRecord> getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
           throw new IllegalStateException("Method call not finished!");
         }
         org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
@@ -259,7 +259,7 @@ public class LasService {
       }
     }
 
-    public void listItemBasedRecommendations(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listItemBasedRecommendations_call> resultHandler) throws TException {
+    public void listItemBasedRecommendations(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException {
       checkReady();
       listItemBasedRecommendations_call method_call = new listItemBasedRecommendations_call(start, limit, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
@@ -269,13 +269,13 @@ public class LasService {
     public static class listItemBasedRecommendations_call extends org.apache.thrift.async.TAsyncMethodCall {
       private int start;
       private int limit;
-      public listItemBasedRecommendations_call(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listItemBasedRecommendations_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws TException {
+      public listItemBasedRecommendations_call(int start, int limit, org.apache.thrift.async.AsyncMethodCallback<listItemBasedRecommendations_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.start = start;
         this.limit = limit;
       }
 
-      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws TException {
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listItemBasedRecommendations", org.apache.thrift.protocol.TMessageType.CALL, 0));
         listItemBasedRecommendations_args args = new listItemBasedRecommendations_args();
         args.setStart(start);
@@ -284,8 +284,8 @@ public class LasService {
         prot.writeMessageEnd();
       }
 
-      public List<UserRecommendations> getResult() throws TException {
-        if (getState() != State.RESPONSE_READ) {
+      public List<UserRecommendations> getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
           throw new IllegalStateException("Method call not finished!");
         }
         org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
@@ -294,7 +294,7 @@ public class LasService {
       }
     }
 
-    public void findItemBasedRecommendations(String userCode, org.apache.thrift.async.AsyncMethodCallback<findItemBasedRecommendations_call> resultHandler) throws TException {
+    public void findItemBasedRecommendations(String userCode, org.apache.thrift.async.AsyncMethodCallback<findItemBasedRecommendations_call> resultHandler) throws org.apache.thrift.TException {
       checkReady();
       findItemBasedRecommendations_call method_call = new findItemBasedRecommendations_call(userCode, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
@@ -303,12 +303,12 @@ public class LasService {
 
     public static class findItemBasedRecommendations_call extends org.apache.thrift.async.TAsyncMethodCall {
       private String userCode;
-      public findItemBasedRecommendations_call(String userCode, org.apache.thrift.async.AsyncMethodCallback<findItemBasedRecommendations_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws TException {
+      public findItemBasedRecommendations_call(String userCode, org.apache.thrift.async.AsyncMethodCallback<findItemBasedRecommendations_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.userCode = userCode;
       }
 
-      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws TException {
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("findItemBasedRecommendations", org.apache.thrift.protocol.TMessageType.CALL, 0));
         findItemBasedRecommendations_args args = new findItemBasedRecommendations_args();
         args.setUserCode(userCode);
@@ -316,8 +316,8 @@ public class LasService {
         prot.writeMessageEnd();
       }
 
-      public List<Recommendation> getResult() throws TException {
-        if (getState() != State.RESPONSE_READ) {
+      public List<Recommendation> getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
           throw new IllegalStateException("Method call not finished!");
         }
         org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
@@ -359,7 +359,7 @@ public class LasService {
         return false;
       }
 
-      public listUserVisitRecords_result getResult(I iface, listUserVisitRecords_args args) throws TException {
+      public listUserVisitRecords_result getResult(I iface, listUserVisitRecords_args args) throws org.apache.thrift.TException {
         listUserVisitRecords_result result = new listUserVisitRecords_result();
         result.success = iface.listUserVisitRecords(args.start, args.limit);
         return result;
@@ -379,7 +379,7 @@ public class LasService {
         return false;
       }
 
-      public findVisitRecords_result getResult(I iface, findVisitRecords_args args) throws TException {
+      public findVisitRecords_result getResult(I iface, findVisitRecords_args args) throws org.apache.thrift.TException {
         findVisitRecords_result result = new findVisitRecords_result();
         result.success = iface.findVisitRecords(args.userCode, args.houseType);
         return result;
@@ -399,7 +399,7 @@ public class LasService {
         return false;
       }
 
-      public listItemBasedRecommendations_result getResult(I iface, listItemBasedRecommendations_args args) throws TException {
+      public listItemBasedRecommendations_result getResult(I iface, listItemBasedRecommendations_args args) throws org.apache.thrift.TException {
         listItemBasedRecommendations_result result = new listItemBasedRecommendations_result();
         result.success = iface.listItemBasedRecommendations(args.start, args.limit);
         return result;
@@ -419,7 +419,7 @@ public class LasService {
         return false;
       }
 
-      public findItemBasedRecommendations_result getResult(I iface, findItemBasedRecommendations_args args) throws TException {
+      public findItemBasedRecommendations_result getResult(I iface, findItemBasedRecommendations_args args) throws org.apache.thrift.TException {
         findItemBasedRecommendations_result result = new findItemBasedRecommendations_result();
         result.success = iface.findItemBasedRecommendations(args.userCode);
         return result;
@@ -722,11 +722,11 @@ public class LasService {
       return _Fields.findByThriftId(fieldId);
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
       schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
       schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
     }
 
@@ -746,7 +746,7 @@ public class LasService {
       return sb.toString();
     }
 
-    public void validate() throws TException {
+    public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // alas, we cannot check 'start' because it's a primitive and you chose the non-beans generator.
       // alas, we cannot check 'limit' because it's a primitive and you chose the non-beans generator.
@@ -756,7 +756,7 @@ public class LasService {
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
       try {
         write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -766,7 +766,7 @@ public class LasService {
         // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
         __isset_bitfield = 0;
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -779,7 +779,7 @@ public class LasService {
 
     private static class listUserVisitRecords_argsStandardScheme extends StandardScheme<listUserVisitRecords_args> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, listUserVisitRecords_args struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -814,15 +814,15 @@ public class LasService {
 
         // check for required fields of primitive type, which can't be checked in the validate method
         if (!struct.isSetStart()) {
-          throw new TProtocolException("Required field 'start' was not found in serialized data! Struct: " + toString());
+          throw new org.apache.thrift.protocol.TProtocolException("Required field 'start' was not found in serialized data! Struct: " + toString());
         }
         if (!struct.isSetLimit()) {
-          throw new TProtocolException("Required field 'limit' was not found in serialized data! Struct: " + toString());
+          throw new org.apache.thrift.protocol.TProtocolException("Required field 'limit' was not found in serialized data! Struct: " + toString());
         }
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, listUserVisitRecords_args struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -847,14 +847,14 @@ public class LasService {
     private static class listUserVisitRecords_argsTupleScheme extends TupleScheme<listUserVisitRecords_args> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_args struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         oprot.writeI32(struct.start);
         oprot.writeI32(struct.limit);
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_args struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         struct.start = iprot.readI32();
         struct.setStartIsSet(true);
@@ -1108,11 +1108,11 @@ public class LasService {
       return _Fields.findByThriftId(fieldId);
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
       schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
       schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
       }
 
@@ -1132,7 +1132,7 @@ public class LasService {
       return sb.toString();
     }
 
-    public void validate() throws TException {
+    public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
     }
@@ -1140,7 +1140,7 @@ public class LasService {
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
       try {
         write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -1148,7 +1148,7 @@ public class LasService {
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
       try {
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -1161,7 +1161,7 @@ public class LasService {
 
     private static class listUserVisitRecords_resultStandardScheme extends StandardScheme<listUserVisitRecords_result> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, listUserVisitRecords_result struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -1201,7 +1201,7 @@ public class LasService {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, listUserVisitRecords_result struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -1232,7 +1232,7 @@ public class LasService {
     private static class listUserVisitRecords_resultTupleScheme extends TupleScheme<listUserVisitRecords_result> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_result struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
         if (struct.isSetSuccess()) {
@@ -1251,7 +1251,7 @@ public class LasService {
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_result struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, listUserVisitRecords_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
@@ -1567,11 +1567,11 @@ public class LasService {
       return _Fields.findByThriftId(fieldId);
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
       schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
       schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
     }
 
@@ -1595,10 +1595,10 @@ public class LasService {
       return sb.toString();
     }
 
-    public void validate() throws TException {
+    public void validate() throws org.apache.thrift.TException {
       // check for required fields
       if (userCode == null) {
-        throw new TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
       }
       // check for sub-struct validity
     }
@@ -1606,7 +1606,7 @@ public class LasService {
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
       try {
         write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -1616,7 +1616,7 @@ public class LasService {
         // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
         __isset_bitfield = 0;
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -1629,7 +1629,7 @@ public class LasService {
 
     private static class findVisitRecords_argsStandardScheme extends StandardScheme<findVisitRecords_args> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, findVisitRecords_args struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, findVisitRecords_args struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -1666,7 +1666,7 @@ public class LasService {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, findVisitRecords_args struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, findVisitRecords_args struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -1693,7 +1693,7 @@ public class LasService {
     private static class findVisitRecords_argsTupleScheme extends TupleScheme<findVisitRecords_args> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_args struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         oprot.writeString(struct.userCode);
         BitSet optionals = new BitSet();
@@ -1707,7 +1707,7 @@ public class LasService {
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_args struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         struct.userCode = iprot.readString();
         struct.setUserCodeIsSet(true);
@@ -1964,11 +1964,11 @@ public class LasService {
       return _Fields.findByThriftId(fieldId);
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
       schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
       schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
       }
 
@@ -1988,7 +1988,7 @@ public class LasService {
       return sb.toString();
     }
 
-    public void validate() throws TException {
+    public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
     }
@@ -1996,7 +1996,7 @@ public class LasService {
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
       try {
         write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -2004,7 +2004,7 @@ public class LasService {
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
       try {
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -2017,7 +2017,7 @@ public class LasService {
 
     private static class findVisitRecords_resultStandardScheme extends StandardScheme<findVisitRecords_result> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, findVisitRecords_result struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, findVisitRecords_result struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -2057,7 +2057,7 @@ public class LasService {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, findVisitRecords_result struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, findVisitRecords_result struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -2088,7 +2088,7 @@ public class LasService {
     private static class findVisitRecords_resultTupleScheme extends TupleScheme<findVisitRecords_result> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_result struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_result struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
         if (struct.isSetSuccess()) {
@@ -2107,7 +2107,7 @@ public class LasService {
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_result struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, findVisitRecords_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
@@ -2423,11 +2423,11 @@ public class LasService {
       return _Fields.findByThriftId(fieldId);
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
       schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
       schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
     }
 
@@ -2447,7 +2447,7 @@ public class LasService {
       return sb.toString();
     }
 
-    public void validate() throws TException {
+    public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // alas, we cannot check 'start' because it's a primitive and you chose the non-beans generator.
       // alas, we cannot check 'limit' because it's a primitive and you chose the non-beans generator.
@@ -2457,7 +2457,7 @@ public class LasService {
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
       try {
         write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -2467,7 +2467,7 @@ public class LasService {
         // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
         __isset_bitfield = 0;
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -2480,7 +2480,7 @@ public class LasService {
 
     private static class listItemBasedRecommendations_argsStandardScheme extends StandardScheme<listItemBasedRecommendations_args> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, listItemBasedRecommendations_args struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -2515,15 +2515,15 @@ public class LasService {
 
         // check for required fields of primitive type, which can't be checked in the validate method
         if (!struct.isSetStart()) {
-          throw new TProtocolException("Required field 'start' was not found in serialized data! Struct: " + toString());
+          throw new org.apache.thrift.protocol.TProtocolException("Required field 'start' was not found in serialized data! Struct: " + toString());
         }
         if (!struct.isSetLimit()) {
-          throw new TProtocolException("Required field 'limit' was not found in serialized data! Struct: " + toString());
+          throw new org.apache.thrift.protocol.TProtocolException("Required field 'limit' was not found in serialized data! Struct: " + toString());
         }
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, listItemBasedRecommendations_args struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -2548,14 +2548,14 @@ public class LasService {
     private static class listItemBasedRecommendations_argsTupleScheme extends TupleScheme<listItemBasedRecommendations_args> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_args struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         oprot.writeI32(struct.start);
         oprot.writeI32(struct.limit);
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_args struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         struct.start = iprot.readI32();
         struct.setStartIsSet(true);
@@ -2809,11 +2809,11 @@ public class LasService {
       return _Fields.findByThriftId(fieldId);
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
       schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
       schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
       }
 
@@ -2833,7 +2833,7 @@ public class LasService {
       return sb.toString();
     }
 
-    public void validate() throws TException {
+    public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
     }
@@ -2841,7 +2841,7 @@ public class LasService {
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
       try {
         write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -2849,7 +2849,7 @@ public class LasService {
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
       try {
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -2862,7 +2862,7 @@ public class LasService {
 
     private static class listItemBasedRecommendations_resultStandardScheme extends StandardScheme<listItemBasedRecommendations_result> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, listItemBasedRecommendations_result struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -2902,7 +2902,7 @@ public class LasService {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, listItemBasedRecommendations_result struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -2933,7 +2933,7 @@ public class LasService {
     private static class listItemBasedRecommendations_resultTupleScheme extends TupleScheme<listItemBasedRecommendations_result> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_result struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
         if (struct.isSetSuccess()) {
@@ -2952,7 +2952,7 @@ public class LasService {
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_result struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, listItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
@@ -3197,11 +3197,11 @@ public class LasService {
       return _Fields.findByThriftId(fieldId);
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
       schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
       schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
     }
 
@@ -3221,10 +3221,10 @@ public class LasService {
       return sb.toString();
     }
 
-    public void validate() throws TException {
+    public void validate() throws org.apache.thrift.TException {
       // check for required fields
       if (userCode == null) {
-        throw new TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'userCode' was not present! Struct: " + toString());
       }
       // check for sub-struct validity
     }
@@ -3232,7 +3232,7 @@ public class LasService {
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
       try {
         write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -3240,7 +3240,7 @@ public class LasService {
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
       try {
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -3253,7 +3253,7 @@ public class LasService {
 
     private static class findItemBasedRecommendations_argsStandardScheme extends StandardScheme<findItemBasedRecommendations_args> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, findItemBasedRecommendations_args struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -3282,7 +3282,7 @@ public class LasService {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, findItemBasedRecommendations_args struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -3306,13 +3306,13 @@ public class LasService {
     private static class findItemBasedRecommendations_argsTupleScheme extends TupleScheme<findItemBasedRecommendations_args> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_args struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         oprot.writeString(struct.userCode);
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_args struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         struct.userCode = iprot.readString();
         struct.setUserCodeIsSet(true);
@@ -3564,11 +3564,11 @@ public class LasService {
       return _Fields.findByThriftId(fieldId);
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
       schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
       schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
       }
 
@@ -3588,7 +3588,7 @@ public class LasService {
       return sb.toString();
     }
 
-    public void validate() throws TException {
+    public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
     }
@@ -3596,7 +3596,7 @@ public class LasService {
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
       try {
         write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -3604,7 +3604,7 @@ public class LasService {
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
       try {
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (TException te) {
+      } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
@@ -3617,7 +3617,7 @@ public class LasService {
 
     private static class findItemBasedRecommendations_resultStandardScheme extends StandardScheme<findItemBasedRecommendations_result> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, findItemBasedRecommendations_result struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -3657,7 +3657,7 @@ public class LasService {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, findItemBasedRecommendations_result struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -3688,7 +3688,7 @@ public class LasService {
     private static class findItemBasedRecommendations_resultTupleScheme extends TupleScheme<findItemBasedRecommendations_result> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_result struct) throws TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
         if (struct.isSetSuccess()) {
@@ -3707,7 +3707,7 @@ public class LasService {
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_result struct) throws TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, findItemBasedRecommendations_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {

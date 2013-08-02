@@ -5,7 +5,8 @@ const string VERSION = "1.0.0"
 
 struct Recommendation {
 	1: required string itemId,
-	2: required double prefValue,
+	2: required byte itemType,
+	3: required i32 prefValue,
 }
 
 struct UserRecommendations {

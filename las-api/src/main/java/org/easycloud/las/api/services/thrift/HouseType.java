@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.HashMap;
 import org.apache.thrift.TEnum;
 
-public enum HouseType implements TEnum {
+public enum HouseType implements org.apache.thrift.TEnum {
   ALL(0),
   SELL(1),
   RENT(2);

@@ -74,7 +74,6 @@ public class ToVectorAndPrefTests {
         prefValues.add(1);
         VectorAndPrefsWritable outputValue = new VectorAndPrefsWritable(cooccurrenceRow, userCodes, prefValues);
 
-
         reduceDriver.withOutput(new Text(house2), outputValue);
 
         reduceDriver.runTest();
