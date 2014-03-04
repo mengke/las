@@ -21,3 +21,17 @@ LAS uses a Gradle-based build system. You can use `./gradlew` in unix or `./grad
 
 You can use `./gradlew tasks` to check more available commands.
 
+### 相似度推荐相关介绍
+
+[请点击此处进入](https://github.com/mengke/las/wiki)
+
+### las-analyzer具体Map－Reduce过程
+
+* [用户房源访问记录](https://github.com/mengke/las/wiki/%E7%94%A8%E6%88%B7%E6%88%BF%E6%BA%90%E8%AE%BF%E9%97%AE%E8%AE%B0%E5%BD%95)
+
+* [访问记录转换为用户向量](https://github.com/mengke/las/wiki/%E8%AE%BF%E9%97%AE%E8%AE%B0%E5%BD%95%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%94%A8%E6%88%B7%E5%90%91%E9%87%8F)
+
+* [计算共生矩阵](https://github.com/mengke/las/wiki/%E8%AE%A1%E7%AE%97%E5%85%B1%E7%94%9F%E7%9F%A9%E9%98%B5)
+
+* [共生矩阵与用户浏览向量相乘](https://github.com/mengke/las/wiki/%E5%85%B1%E7%94%9F%E7%9F%A9%E9%98%B5%E4%B8%8E%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%90%91%E9%87%8F%E7%9B%B8%E4%B9%98)
+
